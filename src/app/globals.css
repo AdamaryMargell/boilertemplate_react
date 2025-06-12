@@ -2,8 +2,138 @@
 @tailwind components;
 @tailwind utilities;
 
-/* // En tu CSS global: */
-.error-field {
-    border-color: #f44336 !important;
-    animation: shake 0.5s;
+/* Ripple */
+.ripple-container {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    padding: 1.25rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+}
+
+/* Animación personalizada para el ripple */
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Colores específicos para cada botón */
+.ripple-orange {
+    background-color: #ff9800;
+    color: white;
+}
+
+.ripple-purple {
+    background-color: #9c27b0;
+    color: white;
+}
+
+
+/* Messages */
+/* En tu archivo global.css o en un style tag */
+.p-messagesPT .p-messagesPT-icon {
+    align-self: flex-start;
+    /* Alinea el icono con la primera línea del texto */
+    margin-top: 0.2rem;
+    /* Ajuste fino de posición vertical */
+}
+
+.p-messagesPT .p-messagesPT-summary {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.p-messagesPT .p-messagesPT-detail {
+    padding-left: 1.75rem;
+    /* Sangría para alinear con el texto del título */
+}
+
+/* MeterGroup */
+/* Contenedor principal */
+.meter-group-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Diseño horizontal */
+.meter-group-container.horizontal-layout {
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Diseño vertical */
+.meter-group-container.vertical-layout {
+    flex-direction: column;
+}
+
+/* Contenedor de cada barra */
+.meter-container {
+    position: relative;
+    height: 0.75rem;
+}
+
+/* Barra de progreso */
+.meter-bar {
+    border-radius: 0.375rem;
+}
+
+/* Lista de etiquetas */
+.label-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Posición de etiquetas (start/end) */
+.label-start {
+    order: -1;
+    margin-bottom: 0.5rem;
+}
+
+.label-end {
+    order: 1;
+    margin-top: 0.5rem;
+}
+
+/* Orientación de etiquetas */
+.label-horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.label-vertical {
+    flex-direction: column;
+}
+
+/* Ítems de la lista */
+.label-item {
+    display: flex;
+    align-items: center;
+}
+
+/* Indicador de color */
+.label-type {
+    min-width: 0.75rem;
+    min-height: 0.75rem;
+}
+
+/* Texto de la etiqueta */
+.label-text {
+    margin-right: 0.5rem;
 }

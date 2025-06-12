@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XCarouselProps extends CarouselProps {
     children?: ReactNode;
 }
-const XCarousel: React.FC<XCarouselProps> = ({ children, ...props }) => {
+const XCarousel = ({ children, ...props }: XCarouselProps) => {
     return (
         <Carousel {...props} pt={{ ...carouselPT }}>
             {children}

@@ -5,11 +5,11 @@ interface XInputProps {
     display?: ReactNode;
     content?: ReactNode;
 }
-export const XInplace: React.FC<XInputProps> = ({
+export const XInplace = ({
     display,
     content,
     ...props
-}) => {
+}: XInputProps) => {
     return (
         <Inplace {...props}>
             {display && <InplaceDisplay>{display}</InplaceDisplay>}

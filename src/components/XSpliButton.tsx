@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XSplitButtonProps extends SplitButtonProps {
     children?: ReactNode;
 }
-const XSplitButton: React.FC<XSplitButtonProps> = ({ children, ...props }) => {
+const XSplitButton = ({ children, ...props }: XSplitButtonProps) => {
     return (
         <SplitButton {...props} pt={{ ...splitButtonPT }}>
             {children}

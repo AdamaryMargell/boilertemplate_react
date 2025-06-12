@@ -8,6 +8,6 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "./primereact-tailwindcss/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/primereact-tailwindcss/**/*.js",
   ],
 }

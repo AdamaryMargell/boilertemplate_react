@@ -1,0 +1,150 @@
+/* === ESTILOS PERSONALIZADOS PARA PRIMEREACT STEPPER === */
+
+/* --- Estructura y Layout Base --- */
+
+/* Contenedor principal del Stepper */
+.p-stepper-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Cada paso individual (<li>) */
+.p-stepper-step {
+    position: relative;
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* El encabezado clickeable de cada paso */
+.p-stepper-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    /* Espacio entre el número y el título */
+    padding: 0.5rem;
+    border: 2px solid transparent;
+    /* Borde invisible para mantener layout estable en focus */
+    border-radius: 0.375rem;
+    /* 6px */
+    transition: background-color 0.2s;
+}
+
+.p-stepper-header:not([data-disabled="true"]) {
+    cursor: pointer;
+}
+
+.p-stepper-header:not([data-disabled="true"]):hover {
+    background-color: #f9fafb;
+    /* gray-50 */
+}
+
+/* --- Estilos de los Elementos del Paso (Círculo, Título, Separador) --- */
+
+/* El círculo con el número */
+.p-stepper-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    /* 40px */
+    height: 2.5rem;
+    /* 40px */
+    border-radius: 9999px;
+    /* Círculo completo */
+    border: 2px solid #d1d5db;
+    /* gray-300 */
+    background-color: #ffffff;
+    /* white */
+    color: #6b7280;
+    /* gray-500 */
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+/* El título del paso */
+.p-stepper-title {
+    font-weight: 500;
+    color: #6b7280;
+    /* gray-500 */
+    transition: color 0.3s ease-in-out;
+}
+
+/* La línea que conecta los pasos */
+.p-stepper-separator {
+    position: absolute;
+    /* Centrado verticalmente a la altura del círculo */
+    top: calc(1.25rem - 1px);
+    /* La mitad de la altura del círculo menos la mitad de su propio grosor */
+    left: calc(50% + 1rem);
+    width: calc(100% - 2rem);
+    height: 2px;
+    background-color: #d1d5db;
+    /* gray-300 */
+    transition: background-color 0.3s ease-in-out;
+    z-index: -1;
+    /* Para que quede detrás del círculo del siguiente paso */
+}
+
+/* Oculta el separador del último paso */
+.p-stepper-step:last-child .p-stepper-separator {
+    display: none;
+}
+
+
+/* --- Estilos para los Estados (Activo y Procesado) --- */
+
+/* Paso ACTIVO */
+.p-stepper-step[data-active="true"] .p-stepper-number {
+    background-color: #8b5cf6;
+    /* purple-500 */
+    border-color: #8b5cf6;
+    /* purple-500 */
+    color: #ffffff;
+    /* white */
+}
+
+.p-stepper-step[data-active="true"] .p-stepper-title {
+    color: #7c3aed;
+    /* purple-600 */
+    font-weight: 600;
+}
+
+.p-stepper-step[data-active="true"] .p-stepper-separator {
+    background-color: #8b5cf6;
+    /* purple-500 */
+}
+
+/* Paso PROCESADO (pero no activo) */
+.p-stepper-step[data-processed="true"]:not([data-active="true"]) .p-stepper-number {
+    background-color: #ede9fe;
+    /* purple-100 */
+    border-color: #a78bfa;
+    /* purple-400 */
+    color: #7c3aed;
+    /* purple-600 */
+}
+
+.p-stepper-step[data-processed="true"]:not([data-active="true"]) .p-stepper-title {
+    color: #5b21b6;
+    /* purple-700 */
+}
+
+.p-stepper-step[data-processed="true"] .p-stepper-separator {
+    background-color: #8b5cf6;
+    /* purple-500 */
+}
+
+
+/* --- Estilos del Contenido --- */
+.p-stepper-content {
+    border: 2px dashed #e5e7eb;
+    /* gray-200 */
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}

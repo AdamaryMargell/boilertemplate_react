@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { StyleClass } from 'primereact/styleclass';
 import { Ripple } from 'primereact/ripple';
@@ -15,7 +15,6 @@ import XAvatar from '@/components/XAvatar';
 import { Badge } from 'primereact/badge';
 import XAccordion from '@/components/XAccordion';
 import { AccordionTab } from 'primereact/accordion';
-import { XInputNumber } from '@/components/XInputNumber';
 import XSpeedDial from '@/components/XSeepdDial';
 import { MenuItem } from 'primereact/menuitem';
 import XSidebar from '@/components/XSidebar';
@@ -44,11 +43,59 @@ import { tooltipPT } from '@/primereact-tailwindcss/tooltip.pt';
 import XTooltip from '@/components/XTooltip';
 import XOrderList from '@/components/XOrderList';
 import { OrderListChangeEvent } from 'primereact/orderlist';
-import { orderListPT } from '@/primereact-tailwindcss/orderList.pt';
 import { XPickList } from '@/components/XPickList';
 import XDropdown from '@/components/XDropdown';
 import XInputOtp from '@/components/XInputOtp';
-
+import XProgressBar from '@/components/XProgressBar';
+import XInputTextarea from '@/components/XInputTextarea';
+import XPaginator from '@/components/XPaginator';
+import XDivider from '@/components/XDivider';
+import { Menu } from 'primereact/menu';
+import XMenu from '@/components/XMenu';
+import XInputSwitch from '@/components/XInputSwitch';
+import { TreeExpandedKeysType } from 'primereact/tree';
+import { TreeNode } from 'primereact/treenode';
+import XTree from '@/components/XTree';
+import XFieldset from '@/components/XFieldset';
+import XPanelMenu from '@/components/XPanelMenu';
+import XStyleClass from '@/components/XStyleClass';
+import XKnob from '@/components/XKnob';
+import XTimeline from '@/components/XTimeline';
+import XSplitter from '@/components/XSplitter/index';
+import XSplitterPanel from '@/components/XSplitter/Panel';
+import { XInputNumber } from '@/components/XInputNumber';
+import XBreadCrumb from '@/components/XBreadCrumb';
+import XMessage from '@/components/XMessage';
+import XChip from '@/components/XChip';
+import XContextMenu from '@/components/XContextMenu';
+import XListBox from '@/components/XListBox';
+import { classNames } from 'primereact/utils';
+import XViirtualScroller from '@/components/XViirtualScroller';
+import XStepper from '@/components/XStepper';
+import { StepperPanel } from 'primereact/stepperpanel';
+import XDock from '@/components/XDock';
+import { RadioButton } from 'primereact/radiobutton';
+import XMegaMenu from '@/components/XMegaMenu';
+import XMention from '@/components/XMention';
+import XMultiSelect from '@/components/XMultiSelect';
+import XTabView from '@/components/XTabView';
+import { TabPanel } from 'primereact/tabview';
+import { tabPanelPT } from '@/primereact-tailwindcss/tabView.pt';
+import XTabMenu from '@/components/XTabMenu';
+import XMessages from '@/components/XMessages';
+import { useMountEffect } from 'primereact/hooks';
+import { messagesPT } from '@/primereact-tailwindcss/messages.pt';
+import { Messages } from 'primereact/messages';
+import XMeterGroup from '@/components/XMeterGroup';
+import XProgressSpinner from '@/components/XProgressSpinner';
+import { IconField } from 'primereact/iconfield';
+import { InputIcon } from 'primereact/inputicon';
+import { InputText } from 'primereact/inputtext';
+import XSplitButton from '@/components/XSpliButton';
+import XToolbar from '@/components/XToolbar';
+import XTiredMenu from '@/components/XTiredMenu';
+import XScrollTop from '@/components/XScrollTop';
+import XSkeleton from '@/components/XSkeleton';
 
 //CarrouselTyped
 interface Product {
@@ -99,22 +146,251 @@ interface HSB {
     b: number;
 }
 
+
+//Tree
+const localTreeNodes: TreeNode[] = [
+    {
+        key: '0',
+        label: 'Documents',
+        data: 'Documents Folder',
+        icon: 'pi pi-fw pi-inbox',
+        children: [
+            {
+                key: '0-0',
+                label: 'Work',
+                data: 'Work Folder',
+                icon: 'pi pi-fw pi-cog',
+                children: [
+                    { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
+                    { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
+                ]
+            },
+            {
+                key: '0-1',
+                label: 'Home',
+                data: 'Home Folder',
+                icon: 'pi pi-fw pi-home',
+                children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
+            }
+        ]
+    },
+    {
+        key: '1',
+        label: 'Events',
+        data: 'Events Folder',
+        icon: 'pi pi-fw pi-calendar',
+        children: [
+            { key: '1-0', label: 'Meeting', icon: 'pi pi-fw pi-calendar-plus', data: 'Meeting' },
+            { key: '1-1', label: 'Product Launch', icon: 'pi pi-fw pi-calendar-plus', data: 'Product Launch' },
+            { key: '1-2', label: 'Report Review', icon: 'pi pi-fw pi-calendar-plus', data: 'Report Review' }
+        ]
+    },
+    {
+        key: '2',
+        label: 'Movies',
+        data: 'Movies Folder',
+        icon: 'pi pi-fw pi-star-fill',
+        children: [
+            {
+                key: '2-0',
+                icon: 'pi pi-fw pi-star-fill',
+                label: 'Al Pacino',
+                data: 'Pacino Movies',
+                children: [
+                    { key: '2-0-0', label: 'Scarface', icon: 'pi pi-fw pi-video', data: 'Scarface Movie' },
+                    { key: '2-0-1', label: 'Serpico', icon: 'pi pi-fw pi-video', data: 'Serpico Movie' }
+                ]
+            },
+            {
+                key: '2-1',
+                label: 'Robert De Niro',
+                icon: 'pi pi-fw pi-star-fill',
+                data: 'De Niro Movies',
+                children: [
+                    { key: '2-1-0', label: 'Goodfellas', icon: 'pi pi-fw pi-video', data: 'Goodfellas Movie' },
+                    { key: '2-1-1', label: 'Untouchables', icon: 'pi pi-fw pi-video', data: 'Untouchables Movie' }
+                ]
+            }
+        ]
+    }
+];
+
 export default function PageDocumentation() {
     const [visibleLeft, setVisibleLeft] = useState<boolean>(false);
-    const [activePanel, setActivePanel] = useState<any>(null);
+    const [activePanel, setActivePanel] = useState<string | null>(null);
 
-    //Sidebar
-    const btnRefForm = useRef<any>(null);
-    const btnRefButton = useRef<any>(null);
-    const btnRefData = useRef<any>(null);
-    const btnRefPanel = useRef<any>(null);
-    const btnRefOverlay = useRef<any>(null);
-    const btnRefMenu = useRef<any>(null);
-    const btnRefMessage = useRef<any>(null);
-    const btnRefMedia = useRef<any>(null);
-    const btnRefMisc = useRef<any>(null);
+    // Sidebar Documentation
+    const btnRefs = {
+        form: useRef(null),
+        button: useRef(null),
+        data: useRef(null),
+        panel: useRef(null),
+        message: useRef(null),
+        media: useRef(null),
+        overlay: useRef(null),
+        menu: useRef(null),
+        misc: useRef(null)
+    };
+    const menuItemsDoc = [
+        {
+            label: 'FORM',
+            icon: 'pi pi-chart-line',
+            id: 'form', // Usaremos este ID para referenciar el useRef
+            children: [
+                { name: 'AutoComplete', panel: 'autocomplete' },
+                { name: 'Calendar', panel: 'calendar' }, // Agregado, asumiendo que lo tenías comentado
+                { name: 'CascadeSelect', panel: 'cascadeSelect' },
+                { name: 'Checkbox', panel: 'checkbox' },
+                { name: 'Chips', panel: 'chips' },
+                { name: 'ColorPicker', panel: 'colorPicker' },
+                { name: 'Dropdown', panel: 'dropdown' },
+                { name: 'Editor', panel: 'editor' }, // Agregado
+                { name: 'FloatLabel', panel: 'floatLabel' }, // Agregado
+                { name: 'IconField', panel: 'iconField' }, // Agregado
+                { name: 'InputGroup', panel: 'inputGroup' }, // Agregado
+                { name: 'InputMask', panel: 'inputmask' },
+                { name: 'InputSwitch', panel: 'inputSwitch' },
+                { name: 'InputNumber', panel: 'inputNumber' },
+                { name: 'InputOtp', panel: 'inputOtp' },
+                { name: 'InputText', panel: 'inputText' }, // Corregido 'inpuText'
+                { name: 'InputTextarea', panel: 'inputTextarea' },
+                { name: 'KeyFilter', panel: 'keyFilter' }, // Agregado
+                { name: 'Knob', panel: 'knob' }, // Agregado
+                { name: 'ListBox', panel: 'listBox' }, // Agregado
+                { name: 'Mention', panel: 'mention' }, // Agregado
+                { name: 'MultiSelect', panel: 'multiselect' }, // Corregido
+                { name: 'MultiStateCheckbox', panel: 'multiStateCheckbox' }, // Agregado
+                { name: 'Password', panel: 'password' }, // Agregado
+                { name: 'RadioButton', panel: 'radioButton' }, // Agregado
+                { name: 'Rating', panel: 'rating' }, // Agregado
+                { name: 'SelectButton', panel: 'selectButton' }, // Agregado
+                { name: 'Slider', panel: 'slider' }, // Agregado
+                { name: 'TreeSelect', panel: 'treeSelect' }, // Agregado
+                { name: 'TriStateCheckbox', panel: 'triStateCheckbox' }, // Agregado
+                { name: 'ToggleButton', panel: 'toggleButton' }, // Agregado
+            ]
+        },
+        {
+            label: 'BUTTON',
+            icon: 'pi pi-chart-line',
+            id: 'button',
+            children: [
+                { name: 'Button', panel: 'button' },
+                { name: 'SpeedDial', panel: 'speeddial' },
+                { name: 'SplitButton', panel: 'splitbutton' }
+            ]
+        },
+        {
+            label: 'DATA',
+            icon: 'pi pi-chart-line',
+            id: 'data',
+            children: [
+                { name: 'OrderList', panel: 'orderList' },
+                { name: 'Paginator', panel: 'paginator' },
+                { name: 'PickList', panel: 'pickList' },
+                { name: 'Tree', panel: 'tree' },
+                { name: 'Timeline', panel: 'timeline' },
+                { name: 'VirtualScroller', panel: 'virtualScroller' }
+            ]
+        },
+        {
+            label: 'PANEL',
+            icon: 'pi pi-chart-line',
+            id: 'panel',
+            children: [
+                { name: 'Accordion', panel: 'accordion' },
+                { name: 'Card', panel: 'card' },
+                { name: 'Deferred', panel: 'deferred' },
+                { name: 'Divider', panel: 'divider' },
+                { name: 'Fieldset', panel: 'fieldset' },
+                { name: 'Panel', panel: 'panel' },
+                { name: 'Splitter', panel: 'splitter' },
+                { name: 'Stepper', panel: 'stepper' },
+                { name: 'TabView', panel: 'tabview' },
+                { name: 'Toolbar', panel: 'toolbar' }
+            ]
+        },
+        {
+            label: 'MENU',
+            icon: 'pi pi-chart-line',
+            id: 'menu',
+            children: [
+                { name: 'Breadcrumb', panel: 'breadcrumb' },
+                { name: 'ContextMenu', panel: 'contextmenu' },
+                { name: 'Dock', panel: 'dock' },
+                { name: 'MegaMenu', panel: 'megaMenu' },
+                { name: 'Menu', panel: 'menu' },
+                { name: 'Menubar', panel: 'menuBar' },
+                { name: 'PanelMenu', panel: 'panelMenu' },
+                { name: 'TabMenu', panel: 'tabMenu' },
+                { name: 'TieredMenu', panel: 'tieredMenu' },
+            ]
+        },
+        {
+            label: 'MESSAGES',
+            icon: 'pi pi-chart-line',
+            id: 'message',
+            children: [
+                { name: 'Message', panel: 'message' },
+                { name: 'Messages', panel: 'messages' },
+                { name: 'Toast', panel: 'toast' }
+            ]
+        },
+        {
+            label: 'MEDIA',
+            icon: 'pi pi-chart-line',
+            id: 'media',
+            children: [
+                { name: 'Carrousel', panel: 'carrousel' },
+                { name: 'Galleria', panel: 'galleria' },
+                { name: 'Image', panel: 'image' }
+            ]
+        },
+        {
+            label: 'MISC',
+            icon: 'pi pi-chart-line',
+            id: 'misc',
+            children: [
+                { name: 'Avatar', panel: 'avatar' },
+                { name: 'Badge', panel: 'badge' },
+                { name: 'Chip', panel: 'chip' },
+                { name: 'MeterGroup', panel: 'meterGroup' },
+                { name: 'ScrollTop', panel: 'scrollTop' },
+                { name: 'Skeleton', panel: 'skeleton' },
+                { name: 'ProgressBar', panel: 'progressbar' },
+                { name: 'ProgressSpinner', panel: 'progressSpinner' },
+                { name: 'StyleClass', panel: 'styleclass' },
+                { name: 'Tag', panel: 'tag' },
+            ]
+        },
+    ];
 
-    //MenuBar general
+    // Panels Documentation
+    const panelCategories: Record<string, string> = {
+        form: 'FORM',
+        button: 'BUTTON',
+        data: 'DATA',
+        panel: 'PANEL',
+        overlay: 'OVERLAY',
+        file: 'FILE',
+        menu: 'MENU',
+        message: 'MESSAGES',
+        media: 'MEDIA',
+        misc: 'MISC',
+    };
+    const getPanelCategory = (panelKey: string | null) => {
+        if (!panelKey) return null;
+        for (const category of menuItemsDoc) {
+            if (category.children.some(child => child.panel === panelKey)) {
+                return category.id;
+            }
+        }
+        return null;
+    };
+    const currentCategory = getPanelCategory(activePanel);
+    const categoryTitle = currentCategory ? panelCategories[currentCategory] : null;
+
+    //MenuBarDocumentation
     const items = [
         {
             label: 'Menu',
@@ -136,8 +412,8 @@ export default function PageDocumentation() {
             label: 'Features',
         },
     ];
-    const navigateToPanel = (panel: any) => {
-        setActivePanel(panel);
+    const navigateToPanel = (panelKey: string) => {
+        setActivePanel(panelKey);
         setVisibleLeft(false);
     };
 
@@ -419,7 +695,7 @@ export default function PageDocumentation() {
     const [visibleSidebar, setVisibleSidebar] = useState(false);
 
     //MenuBar
-    const itemsMenu = [
+    const itemsMenuBar = [
         {
             label: 'Home',
             icon: 'pi pi-home'
@@ -467,7 +743,6 @@ export default function PageDocumentation() {
     ];
 
     //CascadeSelect
-    const [selectedCity, setSelectedCity] = useState<City | null>(null);
     const countriesCascade: Country[] = [
         {
             name: 'Australia',
@@ -614,7 +889,7 @@ export default function PageDocumentation() {
     //PickList
     const [source, setSource] = useState(products);
     const [target, setTarget] = useState([]);
-    const onChangePickList = (event) => {
+    const onChangePickList = (event: any) => {
         setSource(event.source);
         setTarget(event.target);
     };
@@ -628,479 +903,541 @@ export default function PageDocumentation() {
         { name: 'Paris', code: 'PRS' }
     ];
 
+    //Paginator
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(10);
+    const onPageChange = (event: any) => {
+        setFirst(event.first);
+        setRows(event.rows);
+    };
+
+    //Menu
+    const menuLeft = useRef<Menu>(null);
+    const menuRight = useRef<Menu>(null);
+    const toast = useRef<Toast>(null);
+    const itemsMenu: MenuItem[] = [
+        {
+            label: 'Options',
+            items: [
+                {
+                    label: 'Refresh',
+                    icon: 'pi pi-refresh'
+                },
+                {
+                    label: 'Export',
+                    icon: 'pi pi-upload'
+                }
+            ]
+        }
+    ];
+
+    //Tree
+    const [nodes, setNodes] = useState<TreeNode[]>(localTreeNodes);
+    const [expandedKeys, setExpandedKeys] = useState<TreeExpandedKeysType>({ '0': true, '0-0': true });
+    const expandAll = () => {
+        let _expandedKeys: TreeExpandedKeysType = {};
+        const expandNode = (node: TreeNode) => {
+            if (node.children && node.children.length) {
+                _expandedKeys[node.key as string] = true;
+                node.children.forEach(expandNode);
+            }
+        };
+        nodes.forEach(expandNode);
+        setExpandedKeys(_expandedKeys);
+    };
+    const collapseAll = () => {
+        setExpandedKeys({});
+    };
+
+    //Fieldset
+    const legendTemplate = (
+        <div className="flex align-items-center gap-2 px-2">
+            <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+            <span className="font-bold">Amy Elsner</span>
+        </div>
+    );
+
+    //PanelMenu
+    const itemRenderer = (item: any, options: any) => (
+        <a className="flex align-items-center px-3 py-2 cursor-pointer" onClick={options.onClick}>
+            <span className={`${item.icon} text-primary`} />
+            <span className={`mx-2 ${item.items && 'font-semibold'}`}>{item.label}</span>
+            {item.badge && <XBadge className="ml-auto" value={item.badge} />}
+            {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
+        </a>
+    );
+    const itemsPanelMenu = [
+        {
+            label: 'Mail',
+            icon: 'pi pi-envelope',
+            badge: 5,
+            template: itemRenderer,
+            items: [
+                {
+                    label: 'Compose',
+                    icon: 'pi pi-file-edit',
+                    template: itemRenderer
+                },
+                {
+                    label: 'Inbox',
+                    icon: 'pi pi-inbox',
+                    badge: 5,
+                    template: itemRenderer
+                },
+                {
+                    label: 'Sent',
+                    icon: 'pi pi-send',
+                    template: itemRenderer
+                },
+                {
+                    label: 'Trash',
+                    icon: 'pi pi-trash',
+                    template: itemRenderer
+                }
+            ]
+        },
+        {
+            label: 'Reports',
+            icon: 'pi pi-chart-bar',
+            template: itemRenderer,
+            items: [
+                {
+                    label: 'Sales',
+                    icon: 'pi pi-chart-line',
+                    badge: 3,
+                    template: itemRenderer
+                },
+                {
+                    label: 'Products',
+                    icon: 'pi pi-list',
+                    badge: 6,
+                    template: itemRenderer
+                }
+            ]
+        },
+        {
+            label: 'Profile',
+            icon: 'pi pi-user',
+            template: itemRenderer,
+            items: [
+                {
+                    label: 'Settings',
+                    icon: 'pi pi-cog',
+                    template: itemRenderer
+                },
+                {
+                    label: 'Privacy',
+                    icon: 'pi pi-shield',
+                    template: itemRenderer
+                }
+            ]
+        }
+    ];
+
+    //StyleClass
+    const openBtnRef = useRef(null);
+    const closeBtnRef = useRef(null);
+
+    //Timeline
+    const events = [
+        { status: 'Ordered', date: '15/10/2020 10:30', color: 'bg-red-500', image: 'game-controller.jpg' },
+        { status: 'Processing', date: '15/10/2020 14:00', color: 'bg-purple-500' },
+        { status: 'Shipped', date: '15/10/2020 16:15', color: 'bg-orange-500' },
+        { status: 'Delivered', date: '16/10/2020 10:00', color: 'bg-cyan-500' }
+    ];
+    const customizedMarker = (item: any) => {
+        return (
+            <span className={`flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1 ${item.color}`}>
+            </span>
+
+        );
+    };
+    const customizedContent = (item: any) => {
+        return (
+            <XCard title={item.status} subTitle={item.date}>
+                {item.image && <img src={`https://primefaces.org/cdn/primereact/images/product/${item.image}`} alt={item.image} width={200} className="shadow-1" />}
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt</p>
+                <XButton label="Read more" className="p-button-text"></XButton>
+            </XCard>
+        );
+    };
+
+    //BreadCrumb
+    const itemsBreadCrumb: MenuItem[] = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
+    const home: MenuItem = { icon: 'pi pi-home', url: 'https://primereact.org' }
+
+    //ContextMenu
+    const itemsContextMenu = [
+        { label: 'Copy', },
+        {
+            label: 'Rename',
+            items: [
+                {
+                    label: 'Start',
+                },
+                {
+                    label: 'Stop',
+                }
+            ]
+        }
+    ];
+
+    //ListBox
+    const countriesListBox = [
+        { name: 'United States', code: 'US' },
+        { name: 'Canada', code: 'CA' },
+        { name: 'Mexico', code: 'MX' },
+    ];
+
+    //VirtualScroll
+    const [itemsVirtual] = useState(Array.from({ length: 100000 }).map((_, i) => `Item #${i}`));
+    const itemTemplateVirtual = (item, options) => {
+        const className = classNames('flex align-items-center p-2', {
+            'surface-hover': options.odd
+        });
+        return (
+            <div className={className} style={{ width: options.props.itemSize + 'px', writingMode: 'vertical-lr' }}>
+                {item}
+            </div>
+        );
+    };
+
+    //Stepper
+    const stepperRef = useRef(null);
+
+    //Dock
+    const [position, setPosition] = useState<string>('bottom');
+    const itemsDock: MenuItem[] = [
+        {
+            label: 'Finder',
+            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/finder.svg" width="100%" />,
+        },
+        {
+            label: 'App Store',
+            icon: () => <img alt="App Store" src="https://primefaces.org/cdn/primereact/images/dock/appstore.svg" width="100%" />,
+        },
+        {
+            label: 'Photos',
+            icon: () => <img alt="Photos" src="https://primefaces.org/cdn/primereact/images/dock/photos.svg" width="100%" />,
+        },
+        {
+            label: 'Trash',
+            icon: () => <img alt="trash" src="https://primefaces.org/cdn/primereact/images/dock/trash.png" width="100%" />,
+        }
+    ];
+    const positions: Array<{ label: string, value: string }> = [
+        {
+            label: 'Bottom',
+            value: 'bottom'
+        },
+        {
+            label: 'Top',
+            value: 'top'
+        },
+        {
+            label: 'Left',
+            value: 'left'
+        },
+        {
+            label: 'Right',
+            value: 'right'
+        }
+    ];
+
+    //Mention
+    const [customers, setCustomers] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
+    const mockCustomers = [
+        {
+            id: 1,
+            name: 'Ana Gómez',
+            representative: { image: 'amyelsner.png' }
+        },
+        {
+            id: 2,
+            name: 'Luis Paredes',
+            representative: { image: 'asiyajavayant.png' }
+        },
+        {
+            id: 3,
+            name: 'María López',
+            representative: { image: 'onyamalimba.png' }
+        },
+        {
+            id: 4,
+            name: 'Carlos Ramos',
+            representative: { image: 'xuxuefeng.png' }
+        },
+        {
+            id: 5,
+            name: 'Pedro Sánchez',
+            representative: { image: 'ivanmagalhaes.png' }
+        }
+    ];
+    useEffect(() => {
+        const enriched = mockCustomers.map((d) => ({
+            ...d,
+            nickname: `${d.name.replace(/\s+/g, '').toLowerCase()}_${d.id}`
+        }));
+        setCustomers(enriched);
+    }, []);
+    const onSearch = (event) => {
+        setTimeout(() => {
+            const query = event.query;
+            let filtered;
+
+            if (!query.trim().length) {
+                filtered = [...customers];
+            } else {
+                filtered = customers.filter((customer) =>
+                    customer.nickname.toLowerCase().startsWith(query.toLowerCase())
+                );
+            }
+
+            setSuggestions(filtered);
+        }, 250);
+    };
+    const itemTemplateMention = (suggestion) => {
+        const src =
+            'https://primefaces.org/cdn/primereact/images/avatar/' +
+            suggestion.representative.image;
+
+        return (
+            <div className="flex items-center">
+                <img alt={suggestion.name} src={src} width="32" />
+                <div className="ml-2">
+                    <div>{suggestion.name}</div>
+                    <small className="text-gray-400 text-xs">@{suggestion.nickname}</small>
+                </div>
+            </div>
+        );
+    };
+
+    //TabMenu
+    const itemsTabMenu = [
+        {
+            label: 'Dashboard',
+            command: () => {
+                toast.current.show({ severity: 'success', summary: 'Selected', detail: 'Dashboard', life: 3000 });
+            }
+        },
+        {
+            label: 'Transactions',
+            command: () => {
+                toast.current.show({ severity: 'info', summary: 'Selected', detail: 'Transactions', life: 3000 });
+            }
+        },
+        {
+            label: 'Products',
+            command: () => {
+                toast.current.show({ severity: 'warn', summary: 'Selected', detail: 'Products', life: 3000 });
+            }
+        },
+        {
+            label: 'Messages',
+            command: () => {
+                toast.current.show({ severity: 'error', summary: 'Selected', detail: 'Messages', life: 3000 });
+            }
+        }
+    ];
+
+    //Messages
+    const msgs = useRef<Messages>(null);
+
+    useMountEffect(() => {
+        msgs.current?.clear();
+        msgs.current?.show([
+            {
+                sticky: true,
+                severity: 'info',
+                summary: 'Información importante',
+                detail: 'Este es un mensaje informativo para el usuario.'
+            },
+            {
+                sticky: true,
+                severity: 'success',
+                summary: 'Operación exitosa',
+                detail: 'Los cambios se han guardado correctamente en el sistema.'
+            },
+            {
+                sticky: true,
+                severity: 'warn',
+                summary: 'Advertencia',
+                detail: 'Esta acción puede tener consecuencias importantes.'
+            },
+            {
+                sticky: true,
+                severity: 'error',
+                summary: 'Error crítico',
+                detail: 'No se pudo completar la operación. Por favor intente nuevamente.'
+            },
+            {
+                sticky: true,
+                severity: 'secondary',
+                summary: 'Nota secundaria',
+                detail: 'Información adicional relevante para el proceso.'
+            },
+            {
+                sticky: true,
+                severity: 'contrast',
+                summary: 'Mensaje neutro',
+                detail: 'Este es un mensaje estándar sin énfasis particular.'
+            }
+        ]);
+    });
+
+    //MeterGroup
+    const valuesMeterGroup = [
+        { label: 'Apps', color: '#34d399', value: 16 },
+        { label: 'Messages', color: '#fbbf24', value: 8 },
+        { label: 'Media', color: '#60a5fa', value: 24 },
+        { label: 'System', color: '#c084fc', value: 10 }
+    ];
+
+    //Toolbar
+    const startContent = (
+        <React.Fragment>
+            <XButton icon="pi pi-plus" className="mr-2" />
+            <XButton icon="pi pi-print" className="mr-2" />
+            <XButton icon="pi pi-upload" />
+        </React.Fragment>
+    );
+    const centerContent = (
+        <IconField iconPosition="left">
+            <InputIcon className="pi pi-search" />
+            <InputText name='hola' placeholder="Search" />
+        </IconField>
+    );
+    const endContent = (
+        <React.Fragment>
+            <XSplitButton label="Save" model={itemsSpeedDial} icon="pi pi-check"></XSplitButton>
+        </React.Fragment>
+    );
+
+    //TieredMenu
+    const itemsTieredMenu = [
+        {
+            label: 'Profile',
+            icon: 'pi pi-user',
+            items: [
+                {
+                    label: 'Settings',
+                    icon: 'pi pi-cog',
+                },
+                {
+                    label: 'Privacy',
+                    icon: 'pi pi-shield',
+                    items: [
+                        {
+                            label: 'New',
+                            icon: 'pi pi-plus',
+                            items: [
+                                {
+                                    label: 'Document',
+                                    icon: 'pi pi-file'
+                                },
+                                {
+                                    label: 'Image',
+                                    icon: 'pi pi-image'
+                                },
+                                {
+                                    label: 'Video',
+                                    icon: 'pi pi-video'
+                                }
+                            ]
+                        },
+                        {
+                            label: 'Open',
+                            icon: 'pi pi-folder-open'
+                        },
+                        {
+                            label: 'Print',
+                            icon: 'pi pi-print'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
     return (
         <>
             <div className="card w-full">
                 <div className="flex gap-2 justify-content-center ">
                     <XMenuBar model={items} className='w-full' />
                 </div>
-
-                <XSidebar visible={visibleLeft} position="left" onHide={() => setVisibleLeft(false)}
-                    content={({ closeIconRef, hide }) => (
-                        <div>
+                <XSidebar
+                    visible={visibleLeft}
+                    position="left"
+                    onHide={() => setVisibleLeft(false)}
+                    className="w-20rem md:w-25rem"
+                    dismissable
+                >
+                    <div className="h-full flex flex-column">
+                        <div className="flex justify-content-between align-items-center p-3 border-bottom-1 surface-border">
+                            <Button
+                                onClick={() => setVisibleLeft(false)}
+                                className="p-button p-button-text p-button-rounded"
+                                aria-label="Close"
+                            >
+                            </Button>
+                        </div>
+                        <div className=" flex-grow-1">
                             <ul className="list-none p-0 m-0">
-                                <li>
-                                    <StyleClass nodeRef={btnRefForm} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefForm} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">FORM</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        {/* AutoComplete */}
-                                        <li>
+                                {menuItemsDoc.map((item) => (
+                                    <li key={item.id}>
+                                        <StyleClass
+                                            nodeRef={btnRefs[item.id]}
+                                            selector="@next"
+                                            enterFromClassName="hidden"
+                                            enterActiveClassName="slidedown"
+                                            leaveToClassName="hidden"
+                                            leaveActiveClassName="slideup"
+                                        >
                                             <a
-                                                onClick={() => navigateToPanel('autocomplete')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">AutoComplete</span>
+                                                ref={btnRefs[item.id]}
+                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                            >
+                                                <i className={`${item.icon} mr-2`}></i>
+                                                <span className="font-medium">{item.label}</span>
+                                                <i className="pi pi-chevron-down ml-auto mr-1"></i>
                                                 <Ripple />
                                             </a>
-                                        </li>
-                                        {/* Calendar */}
-                                        {/* CascadeSelect */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('cascadeSelect')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">CascadeSelect</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* CheckBox */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('checkbox')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Checkbox</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* Chips */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('chips')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Chips</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* ColroPicker */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('colorPicker')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">ColorPicker</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* Dropdown */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('dropdown')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Dropdown</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* Editor */}
-                                        {/* FloatLabel */}
-                                        {/* IconField */}
-                                        {/* InputGroup */}
-                                        {/* InputMask */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('inputmask')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">InputMask</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* InputSwitch */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('inputNumber')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">InputNumber</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* InputOTP */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('inputOtp')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">InputOtp</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* InputText */}
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('inpuText')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">InputText</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        {/* InputTextArea */}
-                                        {/* KeyFilter */}
-                                        {/* Knob */}
-                                        {/* ListBox */}
-                                        {/* Mention */}
-                                        {/* Multiselect */}
-                                        {/* MultiStateCheckbox */}
-                                        {/* Password */}
-                                        {/* RadioButton */}
-                                        {/* Rating */}
-                                        {/* SelectButton */}
-                                        {/* Slider */}
-                                        {/* TreeSelect */}
-                                        {/* TriStateCheckbox */}
-                                        {/* ToggleButton */}
-                                    </ul>
-                                </li>
-                                {/* Panel de Button */}
-                                <li>
-                                    <StyleClass nodeRef={btnRefButton} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefButton} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">BUTTON</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('button')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Button</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('speeddial')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">SpeedDial</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">SplitButton</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Panel de Data */}
-                                <li>
-                                    <StyleClass nodeRef={btnRefData} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefData} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">DATA</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('orderList')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">OrderList</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('pickList')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">PickList</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Panel de Panel */}
-                                <li>
-                                    <StyleClass nodeRef={btnRefPanel} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefPanel} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">PANEL</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('accordion')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Accordion</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('card')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Card</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('deferred')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Deferred</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('panel')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Panel</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Panel de Messages */}
-                                <li>
-                                    <StyleClass nodeRef={btnRefMessage} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefMessage} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">MESSAGES</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('message')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Message</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('messages')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Messages</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('toast')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Toast</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Panel de Media */}
-                                <li>
-                                    <StyleClass nodeRef={btnRefMedia} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefMedia} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">MEDIA</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('carrousel')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Carrousel</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('galleria')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Galleria</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('image')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Image</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Panel de Overlay */}
-                                <li>
-                                    <StyleClass nodeRef={btnRefOverlay} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefOverlay} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">OVERLAY</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('dialog')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Dialog</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('overlaypanel')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">OverlayPanel</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('sidebar')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Sidebar</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('tooltip')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Tooltip</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Panel de Menu */}
-                                <li>
-                                    <StyleClass nodeRef={btnRefMenu} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefMenu} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">MENU</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('menubar')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Menubar</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Panel de Misc */}
-                                <li>
-                                    <StyleClass nodeRef={btnRefMisc} selector="@next" enterFromClassName="hidden" enterActiveClassName="slidedown" leaveToClassName="hidden" leaveActiveClassName="slideup">
-                                        <a ref={btnRefMisc} className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-chart-line mr-2"></i>
-                                            <span className="font-medium">MISC</span>
-                                            <i className="pi pi-chevron-down ml-auto mr-1"></i>
-                                            <Ripple />
-                                        </a>
-                                    </StyleClass>
-                                    <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('avatar')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Avatar</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('badge')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Badge</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                onClick={() => navigateToPanel('tag')}
-                                                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                <i className="pi pi-users mr-2"></i>
-                                                <span className="font-medium">Tag</span>
-                                                <Ripple />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                        </StyleClass>
+                                        {item.children && (
+                                            <ul className="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                                                {item.children.map((child) => (
+                                                    <li key={child.panel}>
+                                                        <a
+                                                            onClick={() => navigateToPanel(child.panel)}
+                                                            className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                        >
+                                                            <i className="pi pi-users mr-2"></i>
+                                                            <span className="font-medium">{child.name}</span>
+                                                            <Ripple />
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </li>
+                                ))}
                             </ul>
                         </div>
-                    )}
-                >
+                    </div>
                 </XSidebar>
+
             </div>
             <div className="w-full h-screen mt-10">
                 <div className="grid grid-cols-12">
                     <div className="col-start-2 col-span-10">
-                        <div className="font-bold text-center">
-                            <h1 className="text-[8rem]">FORM</h1>
-                        </div>
-                        {/* Panel de FORM */}
-                        {/* Panel de AutoComplete */}
+
+                        {categoryTitle && (
+                            <div className="font-bold text-center">
+                                <h1 className="text-[5rem] md:text-[8rem]">{categoryTitle}</h1>
+                            </div>
+                        )}
+
                         {activePanel === 'autocomplete' && (
                             <XPanel
                                 header="Autocomplete"
@@ -1292,6 +1629,29 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de InputSwitch */}
+                        {activePanel === 'inputSwitch' && (
+                            <XPanel
+                                header="InputSwitch"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
+                                        <XInputSwitch
+                                            name="emailNotifications"
+                                            label="Recibir notificaciones por correo"
+                                            description="Recibirás alertas importantes en tu email"
+                                            rules={{ required: 'Debes seleccionar una opción' }}
+                                        />
+                                        <XInputSwitch
+                                            name="darkMode"
+                                            label="Modo oscuro"
+                                        />
+                                        <XButton type="submit" className="px-3 py-2 bg-slate-100 border border-slate-400 rounded mt-7">Enviar</XButton>
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de InputNumber */}
                         {activePanel === 'inputNumber' && (
                             <XPanel
@@ -1386,6 +1746,153 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de InputTextArea */}
+                        {activePanel === 'inputTextarea' && (
+                            <XPanel
+                                header="InputTextarea"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XInputTextarea
+                                            name='textarea'
+                                            label='Dirección'
+                                            labelRequired
+                                            rows={5} cols={30}
+                                            rules={{
+                                                required: 'El campo es requerido',
+                                                maxLength: {
+                                                    value: 500,
+                                                    message: 'Máximo 20 caracteres'
+                                                }
+                                            }}
+                                            validation={(val: string) => {
+                                                if (typeof val === 'string') {
+                                                    const lowerVal = val.toLowerCase();
+                                                    if (lowerVal.includes('spam') || lowerVal.includes('comment')) {
+                                                        return '';
+                                                    }
+                                                }
+                                                return val;
+                                            }}
+                                            placeholder="Escribe tu comentario aquí"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm >
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de Knob */}
+                        {activePanel === 'knob' && (
+                            <XPanel
+                                header="Knob"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XKnob
+                                            name="volume"
+                                            label="Control de volumen"
+                                            labelRequired
+                                            step={5}
+                                            size={150}
+                                            defaultValue={50}
+                                            rules={{
+                                                renquired: 'El volumen es requerido',
+                                                min: { value: 10, message: 'Debe ser mayor a 10' },
+                                                max: { value: 95, message: 'Debe ser menor de 95' }
+                                            }}
+                                            strokeWidth={10}
+                                            rangeColor={"var(--primary-500)"}
+                                            valueColor="var(--surface-900)"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de ListBox */}
+                        {activePanel === 'listBox' && (
+                            <XPanel
+                                header="ListtBox"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XListBox
+                                            name="country"
+                                            label="Select your country"
+                                            labelRequired
+                                            options={countriesListBox}
+                                            optionLabel="name"
+                                            rules={{ required: 'Campo requerido' }}
+                                            filter
+                                            className="border-2"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Mention */}
+                        {activePanel === 'mention' && (
+                            <XPanel
+                                header="Mention"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XMention
+                                            name="comment"
+                                            label="Menciona a alguien"
+                                            labelRequired
+                                            rules={{ required: 'Campo requerido' }}
+                                            suggestions={suggestions}
+                                            onSearch={onSearch}
+                                            field="nickname"
+                                            placeholder="Escribe @ para mencionar"
+                                            rows={5}
+                                            cols={40}
+                                            itemTemplate={itemTemplateMention}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de multiselect */}
+                        {activePanel === 'multiselect' && (
+                            <XPanel
+                                header="MultiSelect"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XMultiSelect
+                                            name='ejemplo'
+                                            label="Seleccione una cidad"
+                                            labelRequired
+                                            options={cities}
+                                            optionLabel="name"
+                                            optionValue="code"
+                                            placeholder="Select Cities"
+                                            maxSelectedLabels={3}
+                                            rules={{
+                                                required: 'Debes seleccionar al menos un rol',
+                                            }}
+                                            validation={(selected) => {
+                                                console.log(selected);
+                                                if (selected.includes('NY') || selected.includes('RM')) {
+                                                    console.log(selected);
+                                                    return 'Las ciudaes NY o RM no son compatibles';
+                                                }
+                                                return true;
+                                            }}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de BUTTON */}
                         {/* Panel de Button */}
                         {activePanel === 'button' && (
@@ -1440,7 +1947,22 @@ export default function PageDocumentation() {
                                         onChange={(e: OrderListChangeEvent) => setProductsOrder(e.value as Product[])}
                                         itemTemplate={itemTemplateOrderList}
                                         header="Products"
-                                        pt={{ ...orderListPT }}
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {activePanel === 'paginator' && (
+                            <XPanel
+                                header="Paginator"
+                            >
+                                <div className="card flex justify-center">
+                                    <XPaginator
+                                        first={first}
+                                        rows={rows}
+                                        totalRecords={120}
+                                        rowsPerPageOptions={[10, 20, 30]}
+                                        onPageChange={onPageChange}
                                     />
                                 </div>
                             </XPanel>
@@ -1450,7 +1972,7 @@ export default function PageDocumentation() {
                             <XPanel
                                 header="PickList"
                             >
-                                <div className="flex justify-center pb-4">
+                                <div className="card flex justify-center">
                                     <XPickList
                                         dataKey="id"
                                         source={source}
@@ -1468,16 +1990,77 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {activePanel === 'tree' && (
+                            <XPanel
+                                header="Tree"
+                            >
+                                <div className="card justify-content-center">
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        <XButton type="button" icon="pi pi-plus" label="Expand All" onClick={expandAll} />
+                                        <XButton type="button" icon="pi pi-minus" label="Collapse All" onClick={collapseAll} />
+                                    </div>
+
+                                    <XTree
+                                        value={nodes}
+                                        expandedKeys={expandedKeys}
+                                        onToggle={(e) => setExpandedKeys(e.value)}
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {activePanel === 'timeline' && (
+                            <XPanel
+                                header="Timeline"
+                            >
+                                <div className="card flex justify-center">
+                                    <XTimeline value={events} align="alternate" className="customized-timeline" marker={customizedMarker} content={customizedContent} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {activePanel === 'virtualScroller' && (
+                            <XPanel
+                                header="virtualScroller"
+                            >
+                                <div className="card flex justify-center">
+                                    <XViirtualScroller items={itemsVirtual} itemSize={50} itemTemplate={itemTemplateVirtual} orientation="horizontal" className="border-1 surface-border border-round" style={{ width: '200px', height: '200px' }} />                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de MESSAGES */}
                         {/* Panel de Toast */}
+                        {activePanel === 'message' && (
+                            <XPanel
+                                header="Message"
+                            >
+                                <div className="flex justify-center gap-3">
+                                    <XMessage severity="success" text="Success Message" />
+                                    <XMessage severity="info" text="Info Message" />
+                                    <XMessage severity="warn" text="Warning Message" />
+                                    <XMessage severity="error" text="Error Message" />
+                                    <XMessage severity="secondary" text="Secondary Message" />
+                                    <XMessage severity="contrast" text="Contrast Message" />
+                                </div>
+                            </XPanel>
+                        )}
+                        {activePanel === 'messages' && (
+                            <XPanel
+                                header="Messages"
+                            >
+                                <div className="card max-w-2xl mx-auto">
+                                    <XMessages
+                                        ref={msgs}
+                                        pt={messagesPT}
+                                        className="w-full p-messagesPT"
+                                    />
+                                    aqui
+                                </div>
+                            </XPanel>
+                        )}
                         {activePanel === 'toast' && (
                             <XPanel
                                 header="Toast"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="flex justify-center pb-4">
                                     <XToast ref={toastTopLeft} position="top-left" />
@@ -1631,11 +2214,6 @@ export default function PageDocumentation() {
                         {activePanel === 'avatar' && (
                             <XPanel
                                 header="Avatar"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card">
                                     <div className="flex flex-wrap gap-5">
@@ -1667,14 +2245,10 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Badge */}
                         {activePanel === 'badge' && (
                             <XPanel
                                 header="Badge"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card justify-center flex flex-wrap  gap-2">
                                     <XBadge value="2"></XBadge>
@@ -1684,6 +2258,134 @@ export default function PageDocumentation() {
                                     <XBadge value="3" severity="danger"></XBadge>
                                     <XBadge value="7" severity="secondary"></XBadge>
                                     <XBadge value="5" severity="contrast"></XBadge>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Chip */}
+                        {activePanel === 'chip' && (
+                            <XPanel
+                                header="Chip"
+                            >
+                                <div className="card justify-center flex flex-wrap  gap-2">
+                                    <XChip label="Action" />
+                                    <XChip label="Comedy" />
+                                    <XChip label="Mystery" />
+                                    <XChip label="Thriller" removable />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de MeterGroup */}
+                        {activePanel === 'meterGroup' && (
+                            <XPanel
+                                header="MeterGroup"
+                            >
+                                <div className="card justify-center flex">
+                                    <XMeterGroup
+                                        values={valuesMeterGroup}
+                                        orientation="vertical"
+                                        labelPosition="start"
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de ScrollTop */}
+                        {activePanel === 'scrollTop' && (
+                            <XPanel
+                                header="ScrollTop"
+                            >
+                                <div className="card justify-center flex">
+                                    <div style={{ width: '250px', height: '200px', 'overflow': 'auto' }}>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
+                                            adipiscing elit ut. Nam libero justo laoreet sit amet. Pharetra massa massa ultricies mi quis hendrerit dolor magna. Est ultricies integer quis auctor elit sed vulputate. Consequat ac felis donec et. Tellus orci ac auctor
+                                            augue mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tincidunt arcu non sodales neque sodales. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Sodales ut etiam sit amet
+                                            nisl purus. Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus
+                                            viverra accumsan in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
+                                        </p>
+                                        <XScrollTop target="parent" threshold={100} className="relative m-4 w-2rem h-2rem border-round bg-primary" icon="pi pi-arrow-up text-base" />
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Skeleton */}
+                        {activePanel === 'skeleton' && (
+                            <XPanel
+                                header="Skeleton"
+                            >
+                                <div className="card justify-center">
+                                    <div className="border-round border-1 surface-border p-4 surface-card">
+                                        <div className="flex mb-3">
+                                            <XSkeleton shape="circle" size="4rem" className="mr-2"></XSkeleton>
+                                            <div>
+                                                <XSkeleton width="10rem" className="mb-2"></XSkeleton>
+                                                <XSkeleton width="5rem" className="mb-2"></XSkeleton>
+                                                <XSkeleton height=".5rem"></XSkeleton>
+                                            </div>
+                                        </div>
+                                        <XSkeleton width="100%" height="150px"></XSkeleton>
+                                        <div className="flex justify-content-between mt-3">
+                                            <XSkeleton width="4rem" height="2rem"></XSkeleton>
+                                            <XSkeleton width="4rem" height="2rem"></XSkeleton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+
+                        {/* Panel de ProgressBar */}
+                        {activePanel === 'progressbar' && (
+                            <XPanel
+                                header="ProgressBar"
+                            >
+                                <div className="card flex justify-center">
+                                    <XProgressBar value={50} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de ProgressSpinner */}
+                        {activePanel === 'progressSpinner' && (
+                            <XPanel
+                                header="ProgressSpinner"
+                            >
+                                <div className="card flex justify-content-center">
+                                    <XProgressSpinner />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de StyleClass */}
+                        {activePanel === 'styleclass' && (
+                            <XPanel
+                                header="StyleClass"
+                            >
+                                <div className="card flex flex-col items-center space-y-4">
+                                    <div className="flex space-x-2">
+                                        <XStyleClass
+                                            nodeRef={openBtnRef}
+                                            selector=".box"
+                                            toggleClassName="hidden"
+                                        >
+                                            <XButton ref={openBtnRef} label="Show" />
+                                        </XStyleClass>
+                                        <XStyleClass
+                                            nodeRef={closeBtnRef}
+                                            selector=".box"
+                                            toggleClassName="hidden"
+                                        >
+                                            <XButton ref={closeBtnRef} severity="secondary" label="Hide" />
+                                        </XStyleClass>
+                                    </div>
+                                    <div className="box hidden transition-opacity duration-500 ease-in-out opacity-0 [&:not(.hidden)]:opacity-100">
+                                        <div className="bg-green-500 text-white flex items-center justify-center py-3 rounded-md font-bold shadow-md w-32 h-32">
+                                            Content
+                                        </div>
+                                    </div>
                                 </div>
                             </XPanel>
                         )}
@@ -1710,21 +2412,131 @@ export default function PageDocumentation() {
                         )}
 
                         {/* Panel de Menu */}
-                        {/* Panel de Menubar */}
-                        {activePanel === 'menubar' && (
+                        {/* Panel de Menu */}
+                        {activePanel === 'breadcrumb' && (
                             <XPanel
-                                header="MenuBar"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
+                                header="Breadcrumb"
                             >
-                                <div className="card">
-                                    <XMenuBar model={itemsMenu} />
+                                <div className="card flex justify-center">
+                                    <XBreadCrumb model={itemsBreadCrumb} home={home} />
                                 </div>
                             </XPanel>
                         )}
+
+                        {activePanel === 'contextmenu' && (
+                            <XPanel
+                                header="ContextMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XContextMenu global model={itemsContextMenu} breakpoint="767px" />
+                                    <p className="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {activePanel === 'dock' && (
+                            <XPanel
+                                header="Dock"
+                            >
+                                <div className="card dock-demo">
+                                    <div className="flex flex-wrap gap-3 mb-5 justify-center">
+                                        <div className="flex-wrap gap-3 mb-5">
+                                            {positions.map((option) => {
+                                                const { value, label } = option;
+
+                                                return (
+                                                    <div className="flex align-items-center" key={label}>
+                                                        <RadioButton value={label} onChange={() => setPosition(option.value)} checked={position === value} />
+                                                        <label htmlFor={label} className="ml-2">
+                                                            {label}
+                                                        </label>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        <div
+                                            className="dock-window"
+                                            style={{
+                                                backgroundImage: 'url(https://primefaces.org/cdn/primereact/images/dock/window.jpg)',
+                                                width: '1000px',
+                                                height: '500px',
+                                                position: 'relative',
+                                                overflow: 'hidden'
+                                            }}
+                                        >
+                                            <XDock model={itemsDock} position={position} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {activePanel === 'megaMenu' && (
+                            <XPanel
+                                header="MegaMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XMegaMenu model={itemsMenuBar} breakpoint="960px" />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de panelMenu */}
+                        {activePanel === 'panelMenu' && (
+                            <XPanel
+                                header="PanelMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XPanelMenu model={itemsPanelMenu} className="w-full md:w-20rem" />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de menubar */}
+                        {activePanel === 'menuBar' && (
+                            <XPanel
+                                header="MenuBar"
+                            >
+                                <div className="card flex justify-center">
+                                    <XMenuBar model={itemsMenuBar} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de PanelMenu */}
+                        {activePanel === 'panelMenu' && (
+                            <XPanel
+                                header="PanelMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XPanelMenu model={itemsPanelMenu} className="w-full md:w-20rem" />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TabMenu */}
+                        {activePanel === 'tabMenu' && (
+                            <XPanel
+                                header="TabMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XToast ref={toast} />
+                                    <XTabMenu model={itemsTabMenu} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TieredMenu */}
+                        {activePanel === 'tieredMenu' && (
+                            <XPanel
+                                header="TieredMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XTiredMenu model={itemsTieredMenu} breakpoint="767px" />
+                                </div>
+                            </XPanel>
+                        )}
+
 
                         {/* Panel de PANEL */}
                         {/* Panel de Accordion */}
@@ -1792,6 +2604,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Card */}
                         {activePanel === 'card' && (
                             <XPanel
                                 header="Card"
@@ -1842,6 +2655,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Defered */}
                         {activePanel === 'deferred' && (
                             <XPanel
                                 header="Deferred"
@@ -1861,6 +2675,49 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Divider */}
+                        {activePanel === 'divider' && (
+                            <XPanel
+                                header="Divider"
+                            >
+                                <div className="card flex justify-content-center">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    </p>
+                                    <XDivider layout="vertical" />
+                                    <p>
+                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                                        ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                    </p>
+                                    <XDivider layout="vertical" />
+                                    <p>
+                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
+                                        officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                    </p>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Fieldset */}
+                        {activePanel === 'fieldset' && (
+                            <XPanel
+                                header="Fieldset"
+                            >
+                                <div className="card flex justify-content-center">
+                                    <XFieldset legend={legendTemplate}>
+                                        <p className="m-0">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </p>
+                                    </XFieldset>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Panel */}
                         {activePanel === 'panel' && (
                             <XPanel
                                 header="Panel"
@@ -1872,6 +2729,123 @@ export default function PageDocumentation() {
                             >
                                 <div className="card justify-center">
 
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Splitter */}
+                        {activePanel === 'splitter' && (
+                            <XPanel
+                                header="Splitter"
+                                pt={{
+                                    root: { className: 'shadow-xl mb-12 border-none' },
+                                    header: { className: 'bg-gray-800 text-white' },
+                                    content: { className: 'mt-4' }
+                                }}
+                            >
+                                <div className="card p-4 h-[300px]">
+                                    <XSplitter
+                                        layout="horizontal"
+                                        stateKey="splitterState"
+                                        className="border rounded-lg"
+                                    >
+                                        <XSplitterPanel size={30} minSize={20}>
+                                            Panel Izquierdo - Contenido del panel izquierdo
+                                        </XSplitterPanel>
+
+                                        <XSplitterPanel size={70} minSize={30}>
+                                            Panel Derecho - Contenido del panel derecho
+                                        </XSplitterPanel>
+                                    </XSplitter>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Stepper */}
+                        {activePanel === 'stepper' && (
+                            <XPanel
+                                header="Stepper"
+                                pt={{
+                                    root: { className: 'shadow-xl mb-12 border-none' },
+                                    header: { className: 'bg-gray-800 text-white' },
+                                    content: { className: 'mt-4' }
+                                }}
+                            >
+                                <div className="card flex justify-center">
+                                    <XStepper ref={stepperRef} style={{ flexBasis: '50rem' }}>
+                                        <StepperPanel header="Header I">
+                                            <div className="flex flex-column h-48">
+                                                <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
+                                            </div>
+                                            <div className="flex pt-4 justify-content-end">
+                                                <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                                            </div>
+                                        </StepperPanel>
+                                        <StepperPanel header="Header II">
+                                            <div className="flex flex-column h-48">
+                                                <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
+                                            </div>
+                                            <div className="flex pt-4 justify-content-between">
+                                                <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
+                                                <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                                            </div>
+                                        </StepperPanel>
+                                        <StepperPanel header="Header III">
+                                            <div className="flex flex-column h-48">
+                                                <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
+                                            </div>
+                                            <div className="flex pt-4 justify-content-start">
+                                                <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
+                                            </div>
+                                        </StepperPanel>
+                                    </XStepper>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TabView */}
+                        {activePanel === 'tabview' && (
+                            <XPanel
+                                header="TabView"
+                            >
+                                <div className="card flex justify-center">
+                                    <XTabView>
+                                        <TabPanel pt={tabPanelPT} header="Header I">
+                                            <p className="m-0">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </TabPanel>
+                                        <TabPanel pt={tabPanelPT} header="Header II">
+                                            <p className="m-0">
+                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                                                eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                                                enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+                                                ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                            </p>
+                                        </TabPanel>
+                                        <TabPanel pt={tabPanelPT} header="Header III">
+                                            <p className="m-0">
+                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                                                quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
+                                                culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                                                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                            </p>
+                                        </TabPanel>
+                                    </XTabView>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Toolbar */}
+                        {activePanel === 'toolbar' && (
+                            <XPanel
+                                header="Toolbar"
+                            >
+                                <div className="card  justify-center">
+                                    <XToolbar start={startContent} center={centerContent} end={endContent} />
                                 </div>
                             </XPanel>
                         )}
@@ -1895,7 +2869,5 @@ export default function PageDocumentation() {
                 </div >
             </div >
         </>
-
-
     )
-}
+} 3

@@ -2,10 +2,10 @@ import { menubarPT } from '@/primereact-tailwindcss/menubar.pt';
 import { Menubar, MenubarProps } from 'primereact/menubar';
 import React, { ReactNode } from 'react'
 
-interface XMenuBar extends MenubarProps {
+interface XMenuBarProps extends MenubarProps {
     children?: ReactNode;
 }
-const XMenuBar: React.FC<XMenuBar> = ({ children, ...props }) => {
+const XMenuBar = ({ children, ...props }: XMenuBarProps) => {
     return (
         <Menubar {...props} pt={{ ...menubarPT }}>
             {children}

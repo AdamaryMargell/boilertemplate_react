@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XSidebarProps extends SidebarProps {
     children?: ReactNode;
 }
-const XSidebar: React.FC<XSidebarProps> = ({ children, ...props }) => {
+const XSidebar = ({ children, ...props }: XSidebarProps) => {
     return (
         <Sidebar {...props} pt={{ ...sidebarPT }}>
             {children}

@@ -58,7 +58,7 @@ const XInputOtp = ({
                 onChange={handleChange}
                 className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
-                pt={{ ...inputOtpPT }}
+                pt={inputOtpPT(!!error)}
             />
             {error?.message && (
                 <small id={`${name}-error`} className="text-xs text-red-500">

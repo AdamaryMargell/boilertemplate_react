@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XSpeedialProps extends SpeedDialProps {
     children?: ReactNode;
 }
-const XSpeedDial: React.FC<XSpeedialProps> = ({ children, ...props }) => {
+const XSpeedDial = ({ children, ...props }: XSpeedialProps) => {
     return (
         <SpeedDial {...props} pt={{ ...speedDialPT }}>
             {children}

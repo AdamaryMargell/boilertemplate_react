@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XColorPickerProps extends ColorPickerProps {
     children?: ReactNode;
 }
-const XColorPicker: React.FC<XColorPickerProps> = ({ children, ...props }) => {
+const XColorPicker = ({ children, ...props }: XColorPickerProps) => {
     return (
         <ColorPicker {...props} pt={{
             ...colorPickerPT,

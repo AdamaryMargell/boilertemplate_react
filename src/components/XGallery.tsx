@@ -5,7 +5,7 @@ import React, { ReactNode, useEffect, useState } from 'react'
 interface XGalleriaProps extends GalleriaState {
     children?: ReactNode;
 }
-const XGalleria: React.FC<XGalleriaProps> = ({ children, ...props }) => {
+const XGalleria = ({ children, ...props }: XGalleriaProps) => {
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {

@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XCardProps extends CardProps {
     children?: ReactNode;
 }
-const XCard: React.FC<XCardProps> = ({ children, ...props }) => {
+const XCard = ({ children, ...props }: XCardProps) => {
     return (
         <Card {...props} pt={{ ...cardPT }}>
             {children}

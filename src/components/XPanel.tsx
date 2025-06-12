@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XPanelProps extends PanelProps {
     children?: ReactNode;
 }
-const XPanel: React.FC<XPanelProps> = ({ children, ...props }) => {
+const XPanel = ({ children, ...props }: XPanelProps) => {
     return (
         <Panel {...props} pt={{ ...panelPT }}>
             {children}

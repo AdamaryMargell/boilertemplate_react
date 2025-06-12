@@ -3,7 +3,7 @@ import { ButtonGroup } from 'primereact/buttongroup';
 
 interface XButtonGroupProps {
     children?: ReactNode;
-    [key: string]: any; // Para permitir otras props
+    [key: string]: any;
 }
 
 const XButtonGroup = ({ children, ...props }: XButtonGroupProps) => {

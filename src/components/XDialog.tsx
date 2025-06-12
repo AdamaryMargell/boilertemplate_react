@@ -8,14 +8,14 @@ interface XDialogProps extends Omit<DialogProps, 'visible' | 'onHide'> {
     footer?: React.ReactNode;
 }
 
-export const XDialog: React.FC<XDialogProps> = ({
+export const XDialog = ({
     visible,
     onHide,
     header,
     footer,
     children,
     ...props
-}) => {
+}: DialogProps) => {
     return (
         <Dialog
             visible={visible}

@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XBadgeProps extends BadgeProps {
     children?: ReactNode;
 }
-const XBadge: React.FC<XBadgeProps> = ({ children, ...props }) => {
+const XBadge = ({ children, ...props }: XBadgeProps) => {
     return (
         <Badge {...props} pt={{ ...badgePT }}>
             {children}

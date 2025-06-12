@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 interface XTagProps extends TagProps {
     children?: ReactNode;
 }
-const XTag: React.FC<XTagProps> = ({ children, ...props }) => {
+const XTag = ({ children, ...props }: XTagProps) => {
     return (
         <Tag {...props} pt={{ ...tagPT }}>
             {children}

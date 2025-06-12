@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react'
 interface XDeferredContentProps extends DeferredContentProps {
     children?: ReactNode;
 }
-const XDeferredContent: React.FC<XDeferredContentProps> = ({ children, ...props }) => {
+const XDeferredContent = ({ children, ...props }: XDeferredContentProps) => {
     return (
         <DeferredContent {...props}>
             {children}
