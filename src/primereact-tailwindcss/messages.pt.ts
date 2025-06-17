@@ -3,41 +3,38 @@ import { classNames } from "primereact/utils";
 export const messagesPT = {
     root: ({ state, index }) => {
         return {
-            className: classNames('my-3 rounded-md shadow-sm', {
-                ' border-2 border-blue-500': state.messages[index]?.message.severity === 'info',
-                ' border-2 border-green-500': state.messages[index]?.message.severity === 'success',
-                ' border-2 border-orange-500': state.messages[index]?.message.severity === 'warn',
-                ' border-2 border-red-500': state.messages[index]?.message.severity === 'error',
-                ' border-2 border-purple-500': state.messages[index]?.message.severity === 'secondary',
-                ' border-2 border-gray-500': state.messages[index]?.message.severity === 'contrast'
+            className: classNames('my-3 rounded-lg border bg-white shadow-sm relative ml-6', {
+                'border-blue-400 bg-blue-50/30': state.messages[index]?.message.severity === 'info',
+                'border-green-400 bg-green-50/30': state.messages[index]?.message.severity === 'success',
+                'border-orange-400 bg-orange-50/30': state.messages[index]?.message.severity === 'warn',
+                'border-red-400 bg-red-50/30': state.messages[index]?.message.severity === 'error',
+                'border-purple-400 bg-purple-50/30': state.messages[index]?.message.severity === 'secondary',
+                'border-gray-400 bg-gray-50/30': state.messages[index]?.message.severity === 'contrast'
             })
         };
     },
     wrapper: 'flex flex-col p-4 gap-1',
     icon: ({ state, index }) => {
         return {
-            className: classNames('w-6 h-6 flex-shrink-0', {
-                'bg-blue-50/80  text-blue-500 ': state.messages[index]?.message.severity === 'info',
-                'bg-blue-50/80 text-green-500': state.messages[index]?.message.severity === 'success',
-                'bg-blue-50/80 text-orange-500': state.messages[index]?.message.severity === 'warn',
-                'bg-blue-50/80 text-red-500': state.messages[index]?.message.severity === 'error',
-                'bg-blue-50/80 text-purple-500': state.messages[index]?.message.severity === 'secondary',
-                'bg-blue-50/80 text-gray-500': state.messages[index]?.message.severity === 'contrast'
-            }),
-            style: {
-                marginTop: '0.125rem' // Ajuste fino de alineación
-            }
+            className: classNames('w-6 h-6 flex-shrink-0 rounded-full flex items-center justify-center absolute -left-3 top-[2.5rem] border-2 border-white', {
+                'bg-blue-500 text-white': state.messages[index]?.message.severity === 'info',
+                'bg-green-500 text-white': state.messages[index]?.message.severity === 'success',
+                'bg-orange-500 text-white': state.messages[index]?.message.severity === 'warn',
+                'bg-red-500 text-white': state.messages[index]?.message.severity === 'error',
+                'bg-purple-500 text-white': state.messages[index]?.message.severity === 'secondary',
+                'bg-gray-500 text-white': state.messages[index]?.message.severity === 'contrast'
+            })
         }
     },
     contentWrapper: 'flex items-start', // Contenedor flex para icono y texto
     textContainer: 'flex-1', // Contenedor de texto que ocupa el espacio restante
     summary: {
-        className: 'text-sm font-semibold flex items-start gap-3', // Contenedor flex para alinear icono y título
+        className: 'text-sm font-semibold flex items-start gap-3 pl-2', // Contenedor flex para alinear icono y título
         style: {
             lineHeight: '1.25rem' // Ajuste de interlineado para mejor alineación
         }
     },
-    detail: 'text-sm text-gray-600 mt-1 pl-8', // Sangría para alinear con el título
+    detail: 'text-sm text-gray-600 mt-1 pl-2', 
     button: ({ state, index }) => {
         return {
             className: classNames(

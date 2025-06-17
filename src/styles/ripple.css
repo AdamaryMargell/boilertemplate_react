@@ -1,0 +1,75 @@
+/* ripple-colors.css */
+
+/* Ripple Verde */
+.ripple-green .p-ink {
+    background: rgba(14, 255, 26, 0.5) !important;
+}
+
+/* Ripple Naranja */
+.ripple-orange .p-ink {
+    background: rgba(254, 80, 0, 0.5) !important;
+}
+
+/* Ripple Púrpura */
+.ripple-purple .p-ink {
+    background: rgba(217, 0, 255, 0.3) !important;
+}
+
+/* Mejorar la animación del ripple */
+.p-ink {
+    border-radius: 50% !important;
+    transform: scale(0) !important;
+    animation: ripple-animation 0.6s linear !important;
+}
+
+.p-ink-active {
+    transform: scale(2) !important;
+    opacity: 0 !important;
+}
+
+@keyframes ripple-animation {
+    0% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Estilos opcionales para las tarjetas */
+.ripple-card {
+    position: relative;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: white;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.ripple-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ripple-green:hover {
+    border-color: rgba(75, 175, 80, 0.3) !important;
+    border-width: 2.5px;
+}
+
+.ripple-orange:hover {
+    border-color: rgba(255, 193, 6, 0.3) !important;
+    border-width: 2.5px;
+}
+
+.ripple-purple:hover {
+    border-color: rgba(156, 39, 176, 0.3) !important;
+    border-width: 2.5px;
+}

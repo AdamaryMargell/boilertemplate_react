@@ -1,18 +1,17 @@
-import { InputSwitch, InputSwitchChangeEvent, InputSwitchProps } from 'primereact/inputswitch';
+import { selectButtonPT } from "@/primereact-tailwindcss/selectButton.pt";
+import { SelectButton, SelectButtonChangeEvent, SelectButtonProps } from "primereact/selectbutton";
 import { useController, useFormContext } from 'react-hook-form';
-import React from 'react'
-import { inputSwitchPT } from '@/primereact-tailwindcss/inputSwitch.pt';
 
-type XInputSwitchProps = {
+type XSelectButtonProps = {
     name: string;
     label?: string;
     labelRequired?: boolean;
     description?: string;
     rules?: any;
-    validation?: (val: boolean) => boolean;
-} & Omit<InputSwitchProps, 'name' | 'checked' | 'value' | 'onChange'>;
+    validation?: (val: any) => any;
+} & Omit<SelectButtonProps, 'name' | 'value' | 'onChange'>;
 
-const XInputSwitch = ({
+const XSelectButton = ({
     name,
     label,
     labelRequired,
@@ -20,9 +19,9 @@ const XInputSwitch = ({
     rules,
     validation,
     ...props
-}: XInputSwitchProps) => {
-
+}: XSelectButtonProps) => {
     const { control } = useFormContext();
+
     const {
         field: { value, onChange, ref, ...fieldProps },
         fieldState: { error }
@@ -30,46 +29,56 @@ const XInputSwitch = ({
         name,
         control,
         rules,
-        defaultValue: false
+        defaultValue: props.multiple ? [] : undefined
     });
 
-    const handleChange = (event: InputSwitchChangeEvent) => {
-        const switchValue = event.value !== undefined ? event.value : event.checked;
-        const newValue = validation ? validation(switchValue) : switchValue;
+    const handleChange = (event: SelectButtonChangeEvent) => {
+        let newValue = event.value;
+
+        if (validation) {
+            newValue = validation(newValue);
+        }
+
         onChange(newValue);
     };
+
     return (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
+            {/* Label del campo */}
             {label && (
-                <label htmlFor={name} className={`font-medium ${error ? 'text-red-500' : ''}`}>
+                <label
+                    htmlFor={name}
+                    className={`font-medium ${error ? 'text-red-500' : ''}`}
+                >
                     {label}
                     {labelRequired && <span className="text-red-500"> *</span>}
                 </label>
             )}
-            <InputSwitch
+            {/* SelectButton */}
+            <SelectButton
                 {...fieldProps}
                 {...props}
                 id={name}
                 name={name}
                 ref={ref}
-                checked={Boolean(value)}
+                value={value}
                 onChange={handleChange}
                 className={`${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
-                pt={inputSwitchPT(!!error)}
+                pt={selectButtonPT(!!error)}
             />
-            {description && !error?.message && (
-                <small id={name} className="text-xs text-gray-500">
-                    {description}
-                </small>
-            )}
+
+            {/* Mensaje de error */}
             {error?.message && (
-                <small id={`${name}-error`} className="text-xs text-red-500">
+                <small
+                    id={`${name}-error`}
+                    className="text-xs text-red-500"
+                >
                     {error.message.toString()}
                 </small>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default XInputSwitch
+export default XSelectButton;

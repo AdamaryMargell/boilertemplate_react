@@ -1,5 +1,6 @@
 import { Ripple, RippleProps } from 'primereact/ripple';
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from 'react';
+import '../styles/ripple.css';
 
 interface XRippleProps extends RippleProps {
     children?: ReactNode;

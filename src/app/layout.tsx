@@ -1,10 +1,7 @@
 'use client';
 import "./globals.css";
 import { PrimeReactProvider } from 'primereact/api';
-import { TailwindPascalTriangle } from "@/primereact-tailwindcss";
-import { classNames } from "primereact/utils";
-
-import Tailwind from 'primereact/passthrough/tailwind';
+import 'primereact/resources/primereact.min.css';
 export default function RootLayout({
   children,
 }: Readonly<{

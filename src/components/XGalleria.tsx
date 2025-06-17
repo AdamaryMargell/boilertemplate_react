@@ -1,8 +1,8 @@
 import { galleriaPT } from '@/primereact-tailwindcss/galleria.pt';
-import { Galleria, GalleriaState } from 'primereact/galleria';
+import { Galleria, GalleriaProps, GalleriaState } from 'primereact/galleria';
 import React, { ReactNode, useEffect, useState } from 'react'
 
-interface XGalleriaProps extends GalleriaState {
+interface XGalleriaProps extends GalleriaProps {
     children?: ReactNode;
 }
 const XGalleria = ({ children, ...props }: XGalleriaProps) => {

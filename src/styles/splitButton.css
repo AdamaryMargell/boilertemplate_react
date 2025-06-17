@@ -1,0 +1,241 @@
+/* ===== SPLITBUTTON CSS COMPLETO ===== */
+
+/* Contenedor principal del SplitButton */
+.p-splitbutton {
+    display: inline-flex !important;
+    position: relative !important;
+    border-radius: 6px !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Botón principal (Save) */
+.p-splitbutton .p-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: white !important;
+    background-color: #b20879 !important;
+    border: 1px solid #0891b2 !important;
+    border-radius: 6px 0 0 6px !important;
+    border-right: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+}
+
+.p-splitbutton .p-button:hover {
+    background-color: #0e7490 !important;
+    border-color: #0e7490 !important;
+}
+
+.p-splitbutton .p-button:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.5) !important;
+    z-index: 10 !important;
+}
+
+/* Icono del botón principal */
+.p-splitbutton .p-button .p-button-icon {
+    margin-right: 8px !important;
+    color: white !important;
+}
+
+/* Botón del menú desplegable */
+.p-splitbutton .p-splitbutton-menubutton {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 12px !important;
+    background-color: #0891b2 !important;
+    border: 1px solid #0891b2 !important;
+    border-radius: 0 6px 6px 0 !important;
+    border-left: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    min-width: 40px !important;
+}
+
+.p-splitbutton .p-splitbutton-menubutton:hover {
+    background-color: #0e7490 !important;
+    border-color: #0e7490 !important;
+}
+
+.p-splitbutton .p-splitbutton-menubutton:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.5) !important;
+    z-index: 10 !important;
+}
+
+/* Icono de flecha del menú */
+.p-splitbutton .p-splitbutton-menubutton .p-button-icon {
+    color: white !important;
+    font-size: 12px !important;
+}
+
+/* Contenedor del menú desplegable */
+.p-splitbutton .p-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    margin-top: 4px !important;
+    min-width: 160px !important;
+    background-color: white !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 6px !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    padding: 4px 0 !important;
+    transform-origin: top right !important;
+}
+
+/* Lista del menú */
+.p-splitbutton .p-menu .p-menu-list {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+/* Items del menú */
+.p-splitbutton .p-menu .p-menuitem {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
+/* Enlaces/botones de los items */
+.p-splitbutton .p-menu .p-menuitem-link,
+.p-splitbutton .p-menu .p-menuitem .p-menuitem-link {
+    display: block !important;
+    width: 100% !important;
+    padding: 8px 16px !important;
+    color: #374151 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    border: none !important;
+    background: transparent !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    border-radius: 0 !important;
+    outline: none !important;
+}
+
+.p-splitbutton .p-menu .p-menuitem-link:hover,
+.p-splitbutton .p-menu .p-menuitem .p-menuitem-link:hover {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+}
+
+.p-splitbutton .p-menu .p-menuitem-link:focus,
+.p-splitbutton .p-menu .p-menuitem .p-menuitem-link:focus {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+    outline: none !important;
+}
+
+.p-splitbutton .p-menu .p-menuitem-link:active,
+.p-splitbutton .p-menu .p-menuitem .p-menuitem-link:active {
+    background-color: #e5e7eb !important;
+}
+
+/* Texto de los items */
+.p-splitbutton .p-menu .p-menuitem-text {
+    color: inherit !important;
+    font-weight: 400 !important;
+}
+
+/* Iconos en los items del menú */
+.p-splitbutton .p-menu .p-menuitem-icon {
+    margin-right: 8px !important;
+    color: #6b7280 !important;
+    font-size: 14px !important;
+}
+
+/* Separadores en el menú */
+.p-splitbutton .p-menu .p-menu-separator {
+    height: 1px !important;
+    background-color: #e5e7eb !important;
+    margin: 4px 0 !important;
+    border: none !important;
+}
+
+/* Estados especiales */
+.p-splitbutton .p-menu .p-menuitem.p-disabled .p-menuitem-link {
+    color: #9ca3af !important;
+    cursor: not-allowed !important;
+    opacity: 0.6 !important;
+}
+
+.p-splitbutton .p-menu .p-menuitem.p-disabled .p-menuitem-link:hover {
+    background-color: transparent !important;
+}
+
+/* Animación de entrada del menú */
+.p-splitbutton .p-menu {
+    opacity: 0 !important;
+    transform: scale(0.95) !important;
+    animation: menuFadeIn 0.1s ease-out forwards !important;
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .p-splitbutton .p-menu {
+        min-width: 140px !important;
+        right: auto !important;
+        left: 0 !important;
+    }
+
+    .p-splitbutton .p-button,
+    .p-splitbutton .p-splitbutton-menubutton {
+        padding: 6px 12px !important;
+        font-size: 13px !important;
+    }
+}
+
+/* Variantes de color (opcional) */
+.p-splitbutton.success .p-button,
+.p-splitbutton.success .p-splitbutton-menubutton {
+    background-color: #059669 !important;
+    border-color: #059669 !important;
+}
+
+.p-splitbutton.success .p-button:hover,
+.p-splitbutton.success .p-splitbutton-menubutton:hover {
+    background-color: #047857 !important;
+    border-color: #047857 !important;
+}
+
+.p-splitbutton.danger .p-button,
+.p-splitbutton.danger .p-splitbutton-menubutton {
+    background-color: #dc2626 !important;
+    border-color: #dc2626 !important;
+}
+
+.p-splitbutton.danger .p-button:hover,
+.p-splitbutton.danger .p-splitbutton-menubutton:hover {
+    background-color: #b91c1c !important;
+    border-color: #b91c1c !important;
+}
+
+/* Fix para overlay z-index conflicts */
+.p-component-overlay {
+    z-index: 999 !important;
+}
+
+.p-splitbutton .p-menu.p-component-overlay {
+    z-index: 1000 !important;
+}

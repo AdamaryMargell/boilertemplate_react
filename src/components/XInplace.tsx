@@ -1,19 +1,30 @@
-import { Inplace, InplaceContent, InplaceDisplay } from "primereact/inplace";
-import { ReactNode } from "react"
+// import { Inplace } from "primereact/inplace";
+// import { ReactNode } from "react"
 
-interface XInputProps {
-    display?: ReactNode;
-    content?: ReactNode;
-}
-export const XInplace = ({
-    display,
-    content,
-    ...props
-}: XInputProps) => {
+// interface XInplaceProps {
+//     children?: ReactNode;
+// }
+// export const XInplace = ({ children, ...props }: XInplaceProps) => {
+//     return (
+//         <Inplace {...props}>
+//             {children}
+//         </Inplace>
+//     )
+// }
+
+'use client';
+import { inplacePT } from '@/primereact-tailwindcss/inplace.pt';
+import { Inplace, InplaceProps } from 'primereact/inplace';
+import { ReactNode } from 'react';
+
+interface XInplaceProps extends InplaceProps {
+    children?: ReactNode;
+};
+
+export const XInplace = ({ children, ...props }: XInplaceProps) => {
     return (
-        <Inplace {...props}>
-            {display && <InplaceDisplay>{display}</InplaceDisplay>}
-            {content && <InplaceContent>{content}</InplaceContent>}
+        <Inplace {...props} pt={inplacePT}>
+            {children}
         </Inplace>
-    )
-}
+    );
+};

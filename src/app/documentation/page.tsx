@@ -25,7 +25,7 @@ import { CarouselResponsiveOption } from 'primereact/carousel';
 import XTag from '@/components/XTag';
 import XCarousel from '@/components/XCarousel';
 import { XDialog } from '@/components/XDialog';
-import XGalleria from '@/components/XGallery';
+import XGalleria from '@/components/XGalleria';
 import XImage from '@/components/XImage';
 import XCascadeSelect from '@/components/XCascadeSelect';
 import XCard from '@/components/XCard';
@@ -96,6 +96,26 @@ import XToolbar from '@/components/XToolbar';
 import XTiredMenu from '@/components/XTiredMenu';
 import XScrollTop from '@/components/XScrollTop';
 import XSkeleton from '@/components/XSkeleton';
+import XMultiStateCheckbox from '@/components/XMultiStateCheckbox';
+import XPassword from '@/components/XPassword';
+import XRipple from '@/components/XRipple';
+import XFileUpload from '@/components/XFileUpload';
+import XDataScroller from '@/components/XDataScroller';
+import { Rating, RatingChangeEvent } from 'primereact/rating';
+import XScrollPanel from '@/components/XScrollPanel';
+import XBlockUI from '@/components/XBlockUI';
+import XRating from '@/components/XRating';
+import XOrganizationChart from '@/components/XOrganizationChart';
+import { TerminalService } from 'primereact/terminalservice';
+import XRadioButton from '@/components/XRadioButton';
+import XTerminal from '@/components/XTerminal';
+import XSelectButton from '@/components/XSelectButton';
+import { XInplace } from '@/components/XInplace';
+import { InplaceContent, InplaceDisplay } from 'primereact/inplace';
+import XSlider from '@/components/XSlider';
+import XSteps from '@/components/XSteps';
+import { confirmDialog } from 'primereact/confirmdialog';
+import XConfirmDialog from '@/components/XConfirmDialog';
 
 //CarrouselTyped
 interface Product {
@@ -228,6 +248,7 @@ export default function PageDocumentation() {
         message: useRef(null),
         media: useRef(null),
         overlay: useRef(null),
+        file: useRef(null),
         menu: useRef(null),
         misc: useRef(null)
     };
@@ -285,7 +306,9 @@ export default function PageDocumentation() {
             icon: 'pi pi-chart-line',
             id: 'data',
             children: [
+                { name: 'DataScroller', panel: 'dataScroller' },
                 { name: 'OrderList', panel: 'orderList' },
+                { name: 'Organization Chart', panel: 'organizationChart' },
                 { name: 'Paginator', panel: 'paginator' },
                 { name: 'PickList', panel: 'pickList' },
                 { name: 'Tree', panel: 'tree' },
@@ -304,10 +327,31 @@ export default function PageDocumentation() {
                 { name: 'Divider', panel: 'divider' },
                 { name: 'Fieldset', panel: 'fieldset' },
                 { name: 'Panel', panel: 'panel' },
+                { name: 'ScrollPanel', panel: 'scrollPanel' },
                 { name: 'Splitter', panel: 'splitter' },
                 { name: 'Stepper', panel: 'stepper' },
                 { name: 'TabView', panel: 'tabview' },
                 { name: 'Toolbar', panel: 'toolbar' }
+            ]
+        },
+        {
+            label: 'OVERLAY',
+            icon: 'pi pi-chart-line',
+            id: 'overlay',
+            children: [
+                { name: 'ConfirmDialog', panel: 'confirmDialog' },
+                { name: 'Dialog', panel: 'dialog' },
+                { name: 'OverlayPanel', panel: 'overlayPanel' },
+                { name: 'Sidebar', panel: 'sidebar' },
+                { name: 'Tooltip', panel: 'tooltip' },
+            ]
+        },
+        {
+            label: 'FILE',
+            icon: 'pi pi-chart-line',
+            id: 'file',
+            children: [
+                { name: 'FileUpload', panel: 'upload' }
             ]
         },
         {
@@ -322,6 +366,7 @@ export default function PageDocumentation() {
                 { name: 'Menu', panel: 'menu' },
                 { name: 'Menubar', panel: 'menuBar' },
                 { name: 'PanelMenu', panel: 'panelMenu' },
+                { name: 'Steps', panel: 'steps' },
                 { name: 'TabMenu', panel: 'tabMenu' },
                 { name: 'TieredMenu', panel: 'tieredMenu' },
             ]
@@ -353,14 +398,18 @@ export default function PageDocumentation() {
             children: [
                 { name: 'Avatar', panel: 'avatar' },
                 { name: 'Badge', panel: 'badge' },
+                { name: 'BlockUI', panel: 'blockUI' },
                 { name: 'Chip', panel: 'chip' },
+                { name: 'Inplace', panel: 'inplace' },
                 { name: 'MeterGroup', panel: 'meterGroup' },
                 { name: 'ScrollTop', panel: 'scrollTop' },
                 { name: 'Skeleton', panel: 'skeleton' },
                 { name: 'ProgressBar', panel: 'progressbar' },
                 { name: 'ProgressSpinner', panel: 'progressSpinner' },
                 { name: 'StyleClass', panel: 'styleclass' },
+                { name: 'Ripple', panel: 'ripple' },
                 { name: 'Tag', panel: 'tag' },
+                { name: 'Terminal', panel: 'terminal' },
             ]
         },
     ];
@@ -1181,7 +1230,7 @@ export default function PageDocumentation() {
         }));
         setCustomers(enriched);
     }, []);
-    const onSearch = (event) => {
+    const onSearch = (event: any) => {
         setTimeout(() => {
             const query = event.query;
             let filtered;
@@ -1197,7 +1246,7 @@ export default function PageDocumentation() {
             setSuggestions(filtered);
         }, 250);
     };
-    const itemTemplateMention = (suggestion) => {
+    const itemTemplateMention = (suggestion: any) => {
         const src =
             'https://primefaces.org/cdn/primereact/images/avatar/' +
             suggestion.representative.image;
@@ -1244,7 +1293,7 @@ export default function PageDocumentation() {
     //Messages
     const msgs = useRef<Messages>(null);
 
-    useMountEffect(() => {
+    const addMessages = () => {
         msgs.current?.clear();
         msgs.current?.show([
             {
@@ -1284,15 +1333,19 @@ export default function PageDocumentation() {
                 detail: 'Este es un mensaje estándar sin énfasis particular.'
             }
         ]);
-    });
+    };
+
+    const clearMessages = () => {
+        msgs.current?.clear();
+    };
 
     //MeterGroup
-    const valuesMeterGroup = [
-        { label: 'Apps', color: '#34d399', value: 16 },
-        { label: 'Messages', color: '#fbbf24', value: 8 },
-        { label: 'Media', color: '#60a5fa', value: 24 },
-        { label: 'System', color: '#c084fc', value: 10 }
-    ];
+    const [data] = useState([
+        { label: 'Completado', value: 60, color: '#10b981' },
+        { label: 'En progreso', value: 30, color: '#f59e0b' },
+        { label: 'Pendiente', value: 25, color: '#ef4444' },
+        { label: 'Revisión', value: 15, color: '#8b5cf6' }
+    ]);
 
     //Toolbar
     const startContent = (
@@ -1359,6 +1412,221 @@ export default function PageDocumentation() {
             ]
         }
     ];
+
+    //MultiStateCheckbox
+    const notificationOptions = [
+        { value: 'public', icon: 'pi pi-globe' },
+        { value: 'protected', icon: 'pi pi-lock-open' },
+        { value: 'private', icon: 'pi pi-lock' }
+    ];
+
+    //Password
+    const validatePassword = (value: string) => {
+        if (!value) return 'El campo es requerido';
+        if (value.length < 8) return 'La contraseña debe tener al menos 8 caracteres';
+        if (!/[a-z]/.test(value)) return 'Debe contener al menos una letra minúscula';
+        if (!/[A-Z]/.test(value)) return 'Debe contener al menos una letra mayúscula';
+        if (!/\d/.test(value)) return 'Debe contener al menos un número';
+        if (!/[@$!%*?&]/.test(value)) return 'Debe contener al menos un carácter especial (@$!%*?&)';
+        if (/[^A-Za-z\d@$!%*?&]/.test(value)) return 'Contiene caracteres no permitidos';
+        return true;
+    };
+
+    //RadioButton
+    const paymentOptions = [
+        { label: 'Tarjeta de crédito', value: 'creditCard' },
+        { label: 'Transferencia bancaria', value: 'bankTransfer' },
+        { label: 'Efectivo', value: 'cash' }
+    ];
+
+    //DataScroller
+    const ds = useRef<null>(null);
+    const itemTemplateDataScroller = (data: Product) => {
+        return (
+            <div className="col-12">
+                <div className="flex flex-col xl:flex-row xl:align-items-start p-4 gap-4">
+                    <img
+                        className="w-[8rem] h-[8rem] sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+                        src={`https://primefaces.org/cdn/primereact/images/product/${data.image}`}
+                        alt={data.name}
+                    />
+                    <div className="flex flex-col lg:flex-row justify-content-between align-items-center xl:align-items-start lg:flex-1 gap-4">
+                        <div className="flex flex-col align-items-center lg:align-items-start gap-3">
+                            <div className="flex flex-col gap-1">
+                                <div className="text-xl text-800">{data.name}</div>
+                                <div className="text-700">{data.description}</div>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <Rating value={data.rating} readOnly cancel={false}></Rating>
+                                <span className="flex align-items-center gap-2">
+                                    <i className="pi pi-tag"></i>
+                                    <span className="font-semibold">{data.category}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="flex flex-row lg:flex-col align-items-center lg:align-items-end gap-4 lg:gap-2">
+                            <span className="text-xl font-semibold">${data.price}</span>
+                            <XButton
+                                icon="pi pi-shopping-cart"
+                                label="Add to Cart"
+                                disabled={data.inventoryStatus === 'OUTOFSTOCK'}
+                            ></XButton>
+                            <XTag
+                                value={data.inventoryStatus}
+                                severity={getSeverity(data)}
+                            ></XTag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+    const footerScroller = <XButton icon="pi pi-plus" label="Load" onClick={() => ds.current?.load()} />;
+
+    //BlockUI
+    const [blocked, setBlocked] = useState(true);
+    const buttonText = blocked ? 'Subscribe' : 'Unsubscribe';
+
+    //Rating
+    const [valueRating, setValueRating] = useState<number>(null);
+
+    //Organization Chart
+    const [dataChart] = useState([
+        {
+            expanded: true,
+            type: 'person',
+            data: {
+                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
+                name: 'Amy Elsner',
+                title: 'CEO'
+            },
+            children: [
+                {
+                    expanded: true,
+                    type: 'person',
+                    data: {
+                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
+                        name: 'Anna Fali',
+                        title: 'CMO'
+                    },
+                    children: [
+                        {
+                            label: 'Sales'
+                        },
+                        {
+                            label: 'Marketing'
+                        }
+                    ]
+                },
+                {
+                    expanded: true,
+                    type: 'person',
+                    data: {
+                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
+                        name: 'Stephen Shaw',
+                        title: 'CTO'
+                    },
+                    children: [
+                        {
+                            label: 'Development'
+                        },
+                        {
+                            label: 'UI/UX Design'
+                        }
+                    ]
+                }
+            ]
+        }
+    ]);
+    const nodeTemplateOrg = (node: any) => {
+        if (node.type === 'person') {
+            return (
+                <div className="flex flex-col items-center p-2">
+                    <img
+                        alt={node.data.name}
+                        src={node.data.image}
+                        className="mb-2 w-8 h-8 rounded-full"
+                    />
+                    <span className="font-bold mb-1">{node.data.name}</span>
+                    <span className="text-sm">{node.data.title}</span>
+                </div>
+            );
+        }
+        return node.label;
+    };
+
+    //Terminal
+    const commandHandler = (text: string) => {
+        let response: string;
+        let argsIndex: number = text.indexOf(' ');
+        let command: string = argsIndex !== -1 ? text.substring(0, argsIndex) : text;
+
+        switch (command) {
+            case 'date':
+                response = 'Today is ' + new Date().toDateString();
+                break;
+
+            case 'greet':
+                response = 'Hola ' + text.substring(argsIndex + 1) + '!';
+                break;
+
+            case 'random':
+                response = Math.floor(Math.random() * 100);
+                break;
+
+            case 'clear':
+                response = null;
+                break;
+
+            default:
+                response = 'Unknown command: ' + command;
+                break;
+        }
+
+        if (response)
+            TerminalService.emit('response', response);
+        else
+            TerminalService.emit('clear');
+    };
+    useEffect(() => {
+        TerminalService.on('command', commandHandler);
+
+        return () => {
+            TerminalService.off('command', commandHandler);
+        };
+    }, []);
+
+    //Steps
+    const [activeIndexSteps, setActiveIndexSteps] = useState(1);
+
+    // ConfirmDialog
+    const accept = () => {
+        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+    }
+    const reject = () => {
+        toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+    }
+    const confirm1 = () => {
+        confirmDialog({
+            message: 'Are you sure you want to proceed?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            defaultFocus: 'accept',
+            accept,
+            reject
+        });
+    };
+    const confirm2 = () => {
+        confirmDialog({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            defaultFocus: 'reject',
+            acceptClassName: 'p-button-danger',
+            accept,
+            reject
+        });
+    };
 
     return (
         <>
@@ -1893,6 +2161,170 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de MultiStateCheckbox */}
+                        {activePanel === 'multiStateCheckbox' && (
+                            <XPanel
+                                header="MultiStateCheckbox"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XMultiStateCheckbox
+                                            name="notificationPref"
+                                            label="Preferencia de notificaciones"
+                                            labelRequired
+                                            options={notificationOptions}
+                                            rules={{ required: 'Debes seleccionar una opción' }}
+                                            unselectable='on'
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Password */}
+                        {activePanel === 'password' && (
+                            <XPanel
+                                header="Password"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XPassword
+                                            name="password"
+                                            label="Contraseña"
+                                            labelRequired
+                                            rules={{
+                                                required: 'El campo es requerido',
+                                                minLength: {
+                                                    value: 8,
+                                                    message: 'La contraseña debe tener al menos 8 caracteres'
+                                                },
+                                            }}
+                                            validation={validatePassword}
+                                            placeholder="Ingresa tu contraseña"
+                                            toggleMask
+                                            feedback={false}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de RadioButton */}
+                        {activePanel === 'radioButton' && (
+                            <XPanel
+                                header="RadioButton"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XRadioButton
+                                            name="paymentMethod"
+                                            label="Método de pago"
+                                            labelRequired={true}
+                                            options={paymentOptions}
+                                            rules={{ required: 'Selecciona un método de pago' }}
+                                            className="mb-6"
+                                        />
+                                        <XRadioButton
+                                            name="priority"
+                                            label="Prioridad"
+                                            options={[
+                                                { label: 'Alta', value: 'high' },
+                                                { label: 'Media', value: 'medium' },
+                                                { label: 'Baja', value: 'low' }
+                                            ]}
+                                            layout="horizontal"
+                                            rules={{ required: 'Selecciona una prioridad' }}
+                                            className="mb-6"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Rating */}
+                        {activePanel === 'rating' && (
+                            <XPanel
+                                header="Rating"
+                            >
+                                <div className="card justify-center flex flex-wrap gap-2">
+                                    <XRating value={valueRating} onChange={(e: RatingChangeEvent) => setValueRating(e.value)}
+                                        cancelIcon={<img src="https://primefaces.org/cdn/primereact/images/rating/cancel.png" alt="custom-cancel-image" width="25px" height="25px" />}
+                                        onIcon={<img src="https://primefaces.org/cdn/primereact/images/rating/custom-icon-active.png" alt="custom-image-active" width="25px" height="25px" />}
+                                        offIcon={<img src="https://primefaces.org/cdn/primereact/images/rating/custom-icon.png" alt="custom-image" width="25px" height="25px" />}
+                                    />
+                                    <XRating value={valueRating} onChange={(e) => setValueRating(e.value)} cancel={false} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de SelectButton */}
+                        {activePanel === 'selectButton' && (
+                            <XPanel
+                                header="SelectButton"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XSelectButton
+                                            name="multipleOptions"
+                                            label="Selecciona múltiples opciones"
+                                            labelRequired
+                                            options={paymentOptions}
+                                            optionLabel="label"
+                                            multiple
+                                            rules={{
+                                                validate: (val: any) => val.length >= 2 || 'Selecciona al menos 2 opciones'
+                                            }}
+                                        />
+
+                                        <XSelectButton
+                                            name="priority"
+                                            label="Prioridad"
+                                            options={['Baja', 'Media', 'Alta']}
+                                            validation={(value) => {
+                                                console.log('Prioridad seleccionada:', value);
+                                                return value;
+                                            }}
+                                            rules={{ required: 'Selecciona una prioridad' }}
+                                            className="mb-6"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Slider */}
+                        {activePanel === 'slider' && (
+                            <XPanel
+                                header="Slider"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XSlider
+                                            name="discount"
+                                            label="Descuento aplicado"
+                                            labelRequired
+                                            min={0}
+                                            max={50}
+                                            step={5}
+                                            showValue
+                                            validation={(value: number | number[]) =>
+                                                Number(value) <= 30 || 'Los descuentos mayores a 30% requieren aprobación'
+                                            }
+                                            rules={{
+                                                required: 'Se requiere un descuento',
+                                                min: { value: 10, message: 'El descuento mínimo es 10%' }
+                                            }}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de BUTTON */}
                         {/* Panel de Button */}
                         {activePanel === 'button' && (
@@ -1921,6 +2353,21 @@ export default function PageDocumentation() {
                                 </div>
                             </XPanel>
                         )}
+                        {/* Panel de SplitButton */}
+                        {activePanel === 'splitbutton' && (
+                            <XPanel
+                                header="SplitButton"
+                            >
+                                <div className="card flex justify-center">
+                                    <XSplitButton
+                                        label="Split Action"
+                                        model={items}
+                                        icon="pi pi-save"
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de SpeedDial */}
                         {activePanel === 'speeddial' && (
                             <XPanel
@@ -1935,6 +2382,16 @@ export default function PageDocumentation() {
                         )}
 
                         {/* Panel de DATA */}
+                        {/* Panel de DataScroller */}
+                        {activePanel === 'dataScroller' && (
+                            <XPanel
+                                header="DataScroller"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XDataScroller ref={ds} value={products} itemTemplate={itemTemplateDataScroller} rows={2} loader footer={footerScroller} header="Click Load Button at Footer to Load More" />
+                                </div>
+                            </XPanel>
+                        )}
                         {/* Panel de OrderList */}
                         {activePanel === 'orderList' && (
                             <XPanel
@@ -1948,6 +2405,17 @@ export default function PageDocumentation() {
                                         itemTemplate={itemTemplateOrderList}
                                         header="Products"
                                     />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Organization Chart */}
+                        {activePanel === 'organizationChart' && (
+                            <XPanel
+                                header="OrganizationChart"
+                            >
+                                <div className="flex justify-center">
+                                    <XOrganizationChart value={dataChart} selectionMode="multiple" nodeTemplate={nodeTemplateOrg} />
                                 </div>
                             </XPanel>
                         )}
@@ -2048,13 +2516,11 @@ export default function PageDocumentation() {
                             <XPanel
                                 header="Messages"
                             >
-                                <div className="card max-w-2xl mx-auto">
-                                    <XMessages
-                                        ref={msgs}
-                                        pt={messagesPT}
-                                        className="w-full p-messagesPT"
-                                    />
-                                    aqui
+                                <div className="card justify-content-center">
+                                    <XButton type="button" onClick={addMessages} label="Show" className="mr-2" />
+                                    <XButton type="button" onClick={clearMessages} label="Clear" className="p-button-secondary" />
+
+                                    <XMessages ref={msgs} />
                                 </div>
                             </XPanel>
                         )}
@@ -2126,6 +2592,26 @@ export default function PageDocumentation() {
                         )}
 
                         {/* Panel de OVERLAY */}
+                        {/* Panel de ConfirmDialog */}
+                        {activePanel === 'confirmDialog' && (
+                            <XPanel
+                                header="ConfirmDialog"
+                                pt={{
+                                    root: { className: 'shadow-xl mb-12 border-none' },
+                                    header: { className: 'bg-gray-800 text-white' },
+                                    content: { className: 'mt-4' }
+                                }}
+                            >
+                                <div className="card justify-center flex">
+                                    <XToast ref={toast} />
+                                    <XConfirmDialog />
+                                    <div className="card flex flex-wrap gap-2 justify-content-center">
+                                        <XButton onClick={confirm1} icon="pi pi-check" label="Confirm" className="mr-2"></XButton>
+                                        <XButton onClick={confirm2} icon="pi pi-times" label="Delete"></XButton>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
                         {/* Panel de Dialog */}
                         {activePanel === 'dialog' && (
                             <XPanel
@@ -2148,7 +2634,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
                         {/* Panel de OverlayPanel */}
-                        {activePanel === 'overlaypanel' && (
+                        {activePanel === 'overlayPanel' && (
                             <XPanel
                                 header="OverlayPanel"
                                 pt={{
@@ -2208,6 +2694,18 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de FILE */}
+                        {/* Panel de FileUpload */}
+                        {activePanel === 'upload' && (
+                            <XPanel
+                                header="FileUpload"
+                            >
+                                <div className="card justify-center flex">
+                                    <XFileUpload name="demo[]" url={'/api/upload'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
+                                </div>
+                            </XPanel>
+                        )}
+
 
                         {/* Panel de MISC */}
                         {/* Panel de Avatar */}
@@ -2262,6 +2760,29 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de BlockUI */}
+                        {activePanel === 'blockUI' && (
+                            <XPanel
+                                header="blockUI"
+                            >
+                                <div className="card justify-center flex flex-wrap">
+                                    <XBlockUI blocked={blocked} template={<i className="pi pi-lock" style={{ fontSize: '3rem' }}></i>}>
+                                        <XPanel header="Prime React News">
+                                            <p className="m-0">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                                                laborum.
+                                            </p>
+                                        </XPanel>
+                                    </XBlockUI>
+                                    <div className="mt-3 flex flex-column align-items-center">
+                                        <h3>Continue reading?</h3>
+                                        <XButton label={buttonText} onClick={() => setBlocked((oldState) => !oldState)}></XButton>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de Chip */}
                         {activePanel === 'chip' && (
                             <XPanel
@@ -2276,6 +2797,27 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Inplace */}
+                        {activePanel === 'inplace' && (
+                            <XPanel
+                                header="Inplace"
+                            >
+                                <div className="card justify-center flex flex-wrap  gap-2">
+                                    <XInplace  >
+                                        <InplaceDisplay>View Content2</InplaceDisplay>
+                                        <InplaceContent>
+                                            <p className="m-0">
+                                                Lorem ipsum dolor sit ametwwwwwwww, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </InplaceContent>
+                                    </XInplace>
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de MeterGroup */}
                         {activePanel === 'meterGroup' && (
                             <XPanel
@@ -2283,9 +2825,11 @@ export default function PageDocumentation() {
                             >
                                 <div className="card justify-center flex">
                                     <XMeterGroup
-                                        values={valuesMeterGroup}
+                                        value={data}
                                         orientation="vertical"
-                                        labelPosition="start"
+                                        labelPosition="end"
+                                        labelOrientation="horizontal"
+                                        height="h-3"
                                     />
                                 </div>
                             </XPanel>
@@ -2336,7 +2880,6 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
-
                         {/* Panel de ProgressBar */}
                         {activePanel === 'progressbar' && (
                             <XPanel
@@ -2355,6 +2898,28 @@ export default function PageDocumentation() {
                             >
                                 <div className="card flex justify-content-center">
                                     <XProgressSpinner />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Ripple */}
+                        {activePanel === 'ripple' && (
+                            <XPanel
+                                header="Ripple"
+                            >
+                                <div className="card flex justify-center gap-2">
+                                    <div className="p-ripple ripple-card ripple-green">
+                                        Green
+                                        <XRipple />
+                                    </div>
+                                    <div className="p-ripple ripple-card ripple-orange">
+                                        Orange
+                                        <XRipple />
+                                    </div>
+                                    <div className="p-ripple ripple-card ripple-purple">
+                                        Purple
+                                        <XRipple />
+                                    </div>
                                 </div>
                             </XPanel>
                         )}
@@ -2390,6 +2955,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Tag */}
                         {activePanel === 'tag' && (
                             <XPanel
                                 header="Tag"
@@ -2411,8 +2977,23 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Terminal */}
+                        {activePanel === 'terminal' && (
+                            <XPanel
+                                header="Terminal"
+                            >
+                                <p>
+                                    Enter "<strong>date</strong>" to display the current date, "<strong>greet {'{0}'}</strong>" for a message, "<strong>random</strong>" to get a random number and "<strong>clear</strong>" to clear all commands.
+                                </p>
+                                <XTerminal
+                                    welcomeMessage="Welcome to PrimeReact"
+                                    prompt="primereact $"
+                                />
+                            </XPanel>
+                        )}
+
                         {/* Panel de Menu */}
-                        {/* Panel de Menu */}
+                        {/* Panel de breadcrumb */}
                         {activePanel === 'breadcrumb' && (
                             <XPanel
                                 header="Breadcrumb"
@@ -2423,6 +3004,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de contextMenu */}
                         {activePanel === 'contextmenu' && (
                             <XPanel
                                 header="ContextMenu"
@@ -2434,6 +3016,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Dock */}
                         {activePanel === 'dock' && (
                             <XPanel
                                 header="Dock"
@@ -2471,6 +3054,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de MegaMenu */}
                         {activePanel === 'megaMenu' && (
                             <XPanel
                                 header="MegaMenu"
@@ -2482,12 +3066,16 @@ export default function PageDocumentation() {
                         )}
 
                         {/* Panel de panelMenu */}
-                        {activePanel === 'panelMenu' && (
+                        {activePanel === 'menu' && (
                             <XPanel
-                                header="PanelMenu"
+                                header="Menu"
                             >
                                 <div className="card flex justify-center">
-                                    <XPanelMenu model={itemsPanelMenu} className="w-full md:w-20rem" />
+                                    <Toast ref={toast}></Toast>
+                                    <XMenu model={itemsMenu} popup ref={menuLeft} id="popup_menu_left" />
+                                    <XButton label="Show Left" icon="pi pi-align-left" className="mr-2" onClick={(event) => menuLeft.current?.toggle(event)} aria-controls="popup_menu_left" aria-haspopup />
+                                    <XMenu model={itemsMenu} popup ref={menuRight} id="popup_menu_right" popupAlignment="right" />
+                                    <XButton label="Show Right" icon="pi pi-align-right" className="mr-2" onClick={(event) => menuRight.current?.toggle(event)} aria-controls="popup_menu_right" aria-haspopup />
                                 </div>
                             </XPanel>
                         )}
@@ -2522,6 +3110,18 @@ export default function PageDocumentation() {
                                 <div className="card flex justify-center">
                                     <XToast ref={toast} />
                                     <XTabMenu model={itemsTabMenu} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Steps */}
+                        {activePanel === 'steps' && (
+                            <XPanel
+                                header="steps"
+                            >
+                                <div className="card">
+                                    <XToast ref={toast} />
+                                    <XSteps model={itemsTabMenu} activeIndex={activeIndexSteps} onSelect={(e) => setActiveIndexSteps(e.index)} readOnly={false} />
                                 </div>
                             </XPanel>
                         )}
@@ -2733,30 +3333,102 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
-                        {/* Panel de Splitter */}
-                        {activePanel === 'splitter' && (
+                        {/* Panel de ScrollPanel */}
+                        {activePanel === 'scrollPanel' && (
                             <XPanel
-                                header="Splitter"
+                                header="ScrollPanel"
                                 pt={{
                                     root: { className: 'shadow-xl mb-12 border-none' },
                                     header: { className: 'bg-gray-800 text-white' },
                                     content: { className: 'mt-4' }
                                 }}
                             >
-                                <div className="card p-4 h-[300px]">
-                                    <XSplitter
-                                        layout="horizontal"
-                                        stateKey="splitterState"
-                                        className="border rounded-lg"
-                                    >
-                                        <XSplitterPanel size={30} minSize={20}>
-                                            Panel Izquierdo - Contenido del panel izquierdo
-                                        </XSplitterPanel>
+                                <div className="card scrollpanel-demo">
+                                    <div className="flex flex-column md:flex-row gap-5">
+                                        <div className="flex-auto">
+                                            <XScrollPanel style={{ width: '100%', height: '200px' }} className="custombar1">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                </p>
+                                                <p>
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                                                    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                                                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+                                                    ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                                </p>
+                                                <p>
+                                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                                                    quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
+                                                    culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                                                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                                </p>
+                                            </XScrollPanel>
+                                        </div>
+                                        <div className="flex-auto">
+                                            <XScrollPanel style={{ width: '100%', height: '200px' }} className="custombar2">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                </p>
+                                                <p>
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                                                    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                                                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+                                                    ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                                </p>
+                                                <p>
+                                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                                                    quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
+                                                    culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                                                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                                </p>
+                                            </XScrollPanel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
 
-                                        <XSplitterPanel size={70} minSize={30}>
-                                            Panel Derecho - Contenido del panel derecho
-                                        </XSplitterPanel>
-                                    </XSplitter>
+                        {/* Panel de Splitter */}
+                        {activePanel === 'splitter' && (
+                            <XPanel
+                                header="Splitter"
+                            >
+                                <div className="mb-8">
+                                    <h3 className="text-xl font-bold mb-4">Splitter Horizontal</h3>
+                                    <div className="h-[300px] border rounded-lg">
+                                        <XSplitter
+                                            layout="horizontal"
+                                            style={{ height: '100%' }}
+                                        >
+                                            <XSplitterPanel size={30} minSize={20} className="overflow-auto">
+                                                Panel Izquierdo - Contenido del panel izquierdo
+                                            </XSplitterPanel>
+                                            <XSplitterPanel size={70} minSize={30} className="overflow-auto">
+                                                Panel Derecho - Contenido del panel derecho
+                                            </XSplitterPanel>
+                                        </XSplitter>
+                                    </div>
+
+                                    <h3 className="text-xl font-bold mb-4">Splitter Vertical</h3>
+                                    <div className="h-[300px] border rounded-lg">
+                                        <XSplitter
+                                            layout="vertical"
+                                            style={{ height: '100%' }}
+                                        >
+                                            <XSplitterPanel size={30} minSize={20} className="overflow-auto">
+                                                Panel Izquierdo - Contenido del panel izquierdo
+                                            </XSplitterPanel>
+                                            <XSplitterPanel size={70} minSize={30} className="overflow-auto">
+                                                Panel Derecho - Contenido del panel derecho
+                                            </XSplitterPanel>
+                                        </XSplitter>
+                                    </div>
                                 </div>
                             </XPanel>
                         )}
@@ -2778,7 +3450,7 @@ export default function PageDocumentation() {
                                                 <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
                                             </div>
                                             <div className="flex pt-4 justify-content-end">
-                                                <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                                                <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current?.nextCallback()} />
                                             </div>
                                         </StepperPanel>
                                         <StepperPanel header="Header II">
@@ -2786,8 +3458,8 @@ export default function PageDocumentation() {
                                                 <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
                                             </div>
                                             <div className="flex pt-4 justify-content-between">
-                                                <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
-                                                <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current.nextCallback()} />
+                                                <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
+                                                <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current?.nextCallback()} />
                                             </div>
                                         </StepperPanel>
                                         <StepperPanel header="Header III">
@@ -2795,7 +3467,7 @@ export default function PageDocumentation() {
                                                 <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
                                             </div>
                                             <div className="flex pt-4 justify-content-start">
-                                                <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current.prevCallback()} />
+                                                <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
                                             </div>
                                         </StepperPanel>
                                     </XStepper>

@@ -1,11 +1,15 @@
 import { classNames } from 'primereact/utils';
 
 export const splitterPT = {
-    root: {
+    root: ({ props }) => ({
         className: classNames(
-            'flex w-full h-full bg-white border border-solid border-gray-200 rounded-lg'
+            'flex bg-white border-0',
+            {
+                'flex-row': props.layout === 'horizontal',
+                'flex-col': props.layout === 'vertical'
+            }
         )
-    },
+    }),
     gutter: ({ props }) => ({
         className: classNames(
             'flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-colors duration-200',
@@ -29,7 +33,7 @@ export const splitterPT = {
 export const splitterPanelPT = {
     root: {
         className: classNames(
-            'flex overflow-auto p-4' // Añadido padding para mejor visualización
+            'flex overflow-auto p-4'
         )
     }
 };

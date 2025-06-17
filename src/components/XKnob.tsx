@@ -10,10 +10,10 @@ type XKnobProps = {
     labelRequired?: boolean;
     rules?: any;
     validation?: (val: number) => number;
+    target?: (value: number) => void; // Nueva prop para onChange inmediato
 } & Omit<KnobProps, 'name' | 'value' | 'onChange' | 'valueTemplate'> & {
     valueTemplate?: (value: string) => React.ReactNode;
 };
-
 
 const XKnob = ({
     name,
@@ -22,11 +22,13 @@ const XKnob = ({
     rules,
     validation,
     valueTemplate,
+    target,
     ...props
 }: XKnobProps) => {
-    const { control } = useFormContext();
+    const { control, trigger } = useFormContext();
     const knobRef = useRef<any>(null);
     const [isMounted, setIsMounted] = useState(false);
+    const [localValue, setLocalValue] = useState<number>(0);
 
     const {
         field: { value, onChange },
@@ -37,8 +39,15 @@ const XKnob = ({
         rules,
         defaultValue: props.defaultValue ?? props.min ?? 0
     });
+    useEffect(() => {
+        setLocalValue(value);
+    }, [value]);
+    useEffect(() => {
+        if (target && isMounted) {
+            target(localValue);
+        }
+    }, [localValue, target, isMounted]);
 
-    // Añadir focus method para react-hook-form
     useEffect(() => {
         setIsMounted(true);
 
@@ -56,11 +65,15 @@ const XKnob = ({
         return () => setIsMounted(false);
     }, [name]);
 
-
     if (!isMounted) return null;
 
-    const handleChange = (e: { value: number }) => {
-        onChange(validation ? validation(e.value) : e.value);
+    const handleChange = async (e: { value: number }) => {
+        const newValue = validation ? validation(e.value) : e.value;
+        setLocalValue(newValue);
+        onChange(newValue);
+        if (rules) {
+            await trigger(name);
+        }
     };
 
     return (
@@ -76,7 +89,7 @@ const XKnob = ({
                 {...props}
                 ref={knobRef}
                 id={name}
-                value={value}
+                value={localValue}
                 onChange={handleChange}
                 className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 pt={{ ...knobPT }}

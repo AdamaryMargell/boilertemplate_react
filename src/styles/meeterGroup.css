@@ -1,0 +1,41 @@
+/* Añade este CSS a tu archivo de estilos globales */
+
+/* Asegurar que los colores se apliquen correctamente */
+.p-metergroup .p-metergroup-meter {
+    background-color: var(--meter-color) !important;
+}
+
+.p-metergroup .p-metergroup-label-type {
+    background-color: var(--meter-color) !important;
+}
+
+/* Estilos adicionales para mejor visualización */
+.p-metergroup-meter-container {
+    background-color: #e5e7eb !important;
+    border-radius: 9999px !important;
+    height: 1.5rem !important;
+    overflow: hidden !important;
+}
+
+.p-metergroup-meter {
+    height: 100% !important;
+    transition: all 0.5s ease-out !important;
+}
+
+.p-metergroup-label-list {
+    margin-top: 0.75rem !important;
+}
+
+.p-metergroup-label-list-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.p-metergroup-label-type {
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+}
