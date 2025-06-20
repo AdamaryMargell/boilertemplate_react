@@ -11,7 +11,7 @@ type XPasswordProps = {
     rules?: any;
     validation?: (val: string) => string | boolean;
     feedback?: boolean;
-    validateOnChange?: boolean; // Nuevo prop para control específico
+
 } & Omit<PasswordProps, 'name' | 'value' | 'onChange' | 'feedback'>;
 
 const XPassword = ({
@@ -21,7 +21,6 @@ const XPassword = ({
     rules,
     validation,
     feedback = true,
-    validateOnChange = true,
     ...props
 }: XPasswordProps) => {
     const { control, trigger } = useFormContext();
@@ -49,9 +48,7 @@ const XPassword = ({
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // const newValue = validation ? validation(e.target.value) : e.target.value;
         onChange(e.target.value);
-        if (validateOnChange) {
-            trigger(name);
-        }
+        trigger(name);
     };
 
     return (

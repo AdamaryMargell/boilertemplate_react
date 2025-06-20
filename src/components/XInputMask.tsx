@@ -1,5 +1,6 @@
 'use client';
 
+import { inputMaskPT } from '@/primereact-tailwindcss/inputMask.pt';
 import { InputMask, InputMaskChangeEvent, InputMaskProps } from 'primereact/inputmask';
 import { useController, useFormContext } from 'react-hook-form';
 
@@ -54,6 +55,7 @@ export const XInputMask = ({
                 onChange={handleChange}
                 className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
+                pt={inputMaskPT(!!error)}
             />
             {error?.message && (
                 <small id={`${name}-error`} className="text-xs text-red-500">

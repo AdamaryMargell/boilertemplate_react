@@ -116,6 +116,20 @@ import XSlider from '@/components/XSlider';
 import XSteps from '@/components/XSteps';
 import { confirmDialog } from 'primereact/confirmdialog';
 import XConfirmDialog from '@/components/XConfirmDialog';
+import { Dropdown } from 'primereact/dropdown';
+import XDataView from '@/components/XDataView';
+import { XTreeSelect } from '@/components/XTreeSelect';
+import XTriStateCheckbox from '@/components/XTriStateCheckbox';
+import XConfirmPopup from '@/components/XConfirmPopup';
+import { confirmPopup } from 'primereact/confirmpopup';
+import XDataTable from '@/components/XDataTable';
+import { Column } from 'primereact/column';
+import XTreeTable from '@/components/XTreeTable';
+import XToggleButton from '@/components/XToggleButton';
+import XCalendar from '@/components/XCalendar';
+import XFloatLabel from '@/components/XFloatLabel';
+import XIconField from '@/components/XIconField';
+import XInputIcon from '@/components/XInputIcon';
 
 //CarrouselTyped
 interface Product {
@@ -265,7 +279,6 @@ export default function PageDocumentation() {
                 { name: 'Chips', panel: 'chips' },
                 { name: 'ColorPicker', panel: 'colorPicker' },
                 { name: 'Dropdown', panel: 'dropdown' },
-                { name: 'Editor', panel: 'editor' }, // Agregado
                 { name: 'FloatLabel', panel: 'floatLabel' }, // Agregado
                 { name: 'IconField', panel: 'iconField' }, // Agregado
                 { name: 'InputGroup', panel: 'inputGroup' }, // Agregado
@@ -273,13 +286,12 @@ export default function PageDocumentation() {
                 { name: 'InputSwitch', panel: 'inputSwitch' },
                 { name: 'InputNumber', panel: 'inputNumber' },
                 { name: 'InputOtp', panel: 'inputOtp' },
-                { name: 'InputText', panel: 'inputText' }, // Corregido 'inpuText'
+                { name: 'InputText', panel: 'inputText' },
                 { name: 'InputTextarea', panel: 'inputTextarea' },
-                { name: 'KeyFilter', panel: 'keyFilter' }, // Agregado
                 { name: 'Knob', panel: 'knob' }, // Agregado
                 { name: 'ListBox', panel: 'listBox' }, // Agregado
                 { name: 'Mention', panel: 'mention' }, // Agregado
-                { name: 'MultiSelect', panel: 'multiselect' }, // Corregido
+                { name: 'MultiSelect', panel: 'multiselect' },
                 { name: 'MultiStateCheckbox', panel: 'multiStateCheckbox' }, // Agregado
                 { name: 'Password', panel: 'password' }, // Agregado
                 { name: 'RadioButton', panel: 'radioButton' }, // Agregado
@@ -289,6 +301,7 @@ export default function PageDocumentation() {
                 { name: 'TreeSelect', panel: 'treeSelect' }, // Agregado
                 { name: 'TriStateCheckbox', panel: 'triStateCheckbox' }, // Agregado
                 { name: 'ToggleButton', panel: 'toggleButton' }, // Agregado
+
             ]
         },
         {
@@ -306,12 +319,15 @@ export default function PageDocumentation() {
             icon: 'pi pi-chart-line',
             id: 'data',
             children: [
+                { name: 'DataTable', panel: 'dataTable' },
+                { name: 'DataView', panel: 'dataView' },
                 { name: 'DataScroller', panel: 'dataScroller' },
                 { name: 'OrderList', panel: 'orderList' },
                 { name: 'Organization Chart', panel: 'organizationChart' },
                 { name: 'Paginator', panel: 'paginator' },
                 { name: 'PickList', panel: 'pickList' },
                 { name: 'Tree', panel: 'tree' },
+                { name: 'TreeTable', panel: 'treeTable' },
                 { name: 'Timeline', panel: 'timeline' },
                 { name: 'VirtualScroller', panel: 'virtualScroller' }
             ]
@@ -340,6 +356,7 @@ export default function PageDocumentation() {
             id: 'overlay',
             children: [
                 { name: 'ConfirmDialog', panel: 'confirmDialog' },
+                { name: 'ConfirmPopup', panel: 'confirmPopup' },
                 { name: 'Dialog', panel: 'dialog' },
                 { name: 'OverlayPanel', panel: 'overlayPanel' },
                 { name: 'Sidebar', panel: 'sidebar' },
@@ -1441,7 +1458,7 @@ export default function PageDocumentation() {
 
     //DataScroller
     const ds = useRef<null>(null);
-    const itemTemplateDataScroller = (data: Product) => {
+    const itemTemplateDataScroller = (data: Product, key) => {
         return (
             <div className="col-12">
                 <div className="flex flex-col xl:flex-row xl:align-items-start p-4 gap-4">
@@ -1628,6 +1645,131 @@ export default function PageDocumentation() {
         });
     };
 
+    //DataView
+    const [sortKey, setSortKey] = useState('');
+    const [sortOrder, setSortOrder] = useState(0);
+    const [sortField, setSortField] = useState('');
+    const sortOptions = [
+        { label: 'Price High to Low', value: '!price' },
+        { label: 'Price Low to High', value: 'price' }
+    ];
+    const onSortChange = (event) => {
+        const value = event.value;
+
+        if (value.indexOf('!') === 0) {
+            setSortOrder(-1);
+            setSortField(value.substring(1, value.length));
+            setSortKey(value);
+        } else {
+            setSortOrder(1);
+            setSortField(value);
+            setSortKey(value);
+        }
+    };
+    const headerDataView = () => {
+        return <Dropdown options={sortOptions} value={sortKey} optionLabel="label" placeholder="Sort By Price" onChange={onSortChange} className="w-full sm:w-14rem" />;
+    };
+    const listTemplateDataView = (items) => {
+        if (!items || items.length === 0) return null;
+
+        let list = items.map((product, index) => {
+            return itemTemplateDataScroller(product, index);
+        });
+
+        return <div className="grid grid-nogutter">{list}</div>;
+    };
+
+
+    //TreeSelect
+    const categoryTree = [
+        {
+            key: 'electronics',
+            label: 'Electrónicos',
+            children: [
+                { key: 'laptops', label: 'Laptops' },
+                { key: 'phones', label: 'Teléfonos' },
+                { key: 'tvs', label: 'Televisores' }
+            ]
+        },
+        {
+            key: 'furniture',
+            label: 'Muebles',
+            children: [
+                { key: 'chairs', label: 'Sillas' },
+                { key: 'tables', label: 'Mesas' }
+            ]
+        }
+    ];
+
+    //TriStateCheckBox
+    const [value, setValue] = useState(null);
+
+    //ConfirmPopup
+    const confirmPop = (event) => {
+        confirmPopup({
+            target: event.currentTarget,
+            message: 'Are you sure you want to proceed?',
+            icon: 'pi pi-exclamation-triangle',
+            defaultFocus: 'accept',
+            accept,
+            reject
+        });
+    };
+
+    const confirmPop2 = (event) => {
+        confirmPopup({
+            target: event.currentTarget,
+            message: 'Do you want to delete this record?',
+            icon: 'pi pi-info-circle',
+            defaultFocus: 'reject',
+            acceptClassName: 'p-button-danger',
+            accept,
+            reject
+        });
+    };
+
+    // TreeTable   
+    const dataNode = [
+        {
+            key: '0',
+            data: {
+                name: 'Documents',
+                size: '500kb',
+                type: 'Folder'
+            },
+            children: [
+                {
+                    key: '0-0',
+                    data: {
+                        name: 'Work',
+                        size: '200kb',
+                        type: 'Folder'
+                    },
+                    children: [
+                        {
+                            key: '0-0-0',
+                            data: {
+                                name: 'Expenses.doc',
+                                size: '50kb',
+                                type: 'Document'
+                            }
+                        },
+                        {
+                            key: '0-0-1',
+                            data: {
+                                name: 'Resume.doc',
+                                size: '150kb',
+                                type: 'Document'
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
+
+
     return (
         <>
             <div className="card w-full">
@@ -1706,6 +1848,7 @@ export default function PageDocumentation() {
                             </div>
                         )}
 
+                        {/* Panel de AutoComplete */}
                         {activePanel === 'autocomplete' && (
                             <XPanel
                                 header="Autocomplete"
@@ -1719,7 +1862,31 @@ export default function PageDocumentation() {
                                             suggestions={countries}
                                             rules={{ required: 'Seleccione un país' }}
                                         />
-                                        <br></br>
+                                        <Button type="submit" className="px-3 py-2 bg-slate-100 border border-slate-400 rounded mt-7">Enviar</Button>
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Calendar */}
+                        {activePanel === 'calendar' && (
+                            <XPanel
+                                header="Calendar"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XCalendar
+                                            name="eventDate"
+                                            label="Fecha del evento"
+                                            labelRequired
+                                            rules={{ required: 'La fecha es requerida' }}
+                                            dateFormat="dd/mm/yy"
+                                            validation={{
+                                                required: true,
+                                                minDate: new Date(),
+                                                maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+                                            }}
+                                        />
                                         <Button type="submit" className="px-3 py-2 bg-slate-100 border border-slate-400 rounded mt-7">Enviar</Button>
                                     </XForm>
                                 </div>
@@ -1871,6 +2038,87 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de FloatLabel */}
+                        {activePanel === 'floatLabel' && (
+                            <XPanel
+                                header="FloatLabel"
+                            >
+                                <div className="card flex justify-center p-4">
+                                    <XFloatLabel>
+                                        <InputText id="username" value={value} onChange={(e) => setValue(e.target.value)} />
+                                        <label htmlFor="username">Username</label>
+                                    </XFloatLabel>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de IconField */}
+                        {activePanel === 'iconField' && (
+                            <XPanel
+                                header="IconField"
+                            >
+                                <div className="card flex justify-center p-4">
+                                    <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
+                                        <XIconField iconPosition="left" >
+                                            <XInputIcon>
+                                                <svg
+                                                    className="w-3.5 h-3.5 text-gray-500" // Cambiado a text-gray-500 como color por defecto
+                                                    viewBox="0 0 35 35"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <g className="[mask-type:alpha]" mask="url(#mask0_2642_713)">
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            clipRule="evenodd"
+                                                            d="..."
+                                                            className="fill-current"
+                                                        />
+                                                    </g>
+                                                    <path d="..." className="fill-current" />
+                                                    <path d="..." className="fill-current" />
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        clipRule="evenodd"
+                                                        d="..."
+                                                        className="fill-current"
+                                                    />
+                                                    <path d="..." className="fill-current" />
+                                                    <path d="..." className="fill-current" />
+                                                    <path fillRule="evenodd" clipRule="evenodd" d="..." className="fill-current" />
+                                                    <path d="..." className="fill-current" />
+                                                    <path d="..." className="fill-current" />
+                                                    <path d="..." className="fill-current" />
+                                                    <path d="..." className="fill-current" />
+                                                </svg>
+                                            </XInputIcon>
+                                            <XInputText name='hola' placeholder="Search" />
+                                        </XIconField>
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de InputGroup */}
+                        {activePanel === 'inputGroup' && (
+                            <XPanel
+                                header="inputGroup"
+                            >
+                                <div className="card flex justify-center p-4">
+                                    <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
+                                        <div className="flex items-stretch w-full">
+                                            <XButton label="Search" className="rounded-r-none" />
+                                            <XInputText
+                                                name='keyword'
+                                                placeholder="Keyword"
+                                                className="rounded-l-none border-l-0"
+                                            />
+                                        </div>
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de InpuMask */}
                         {activePanel === 'inputmask' && (
                             <XPanel
@@ -1980,7 +2228,7 @@ export default function PageDocumentation() {
                         )}
 
                         {/* Panel de InputText */}
-                        {activePanel === 'inpuText' && (
+                        {activePanel === 'inputText' && (
                             <XPanel
                                 header="InputText"
                             >
@@ -2325,16 +2573,82 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de TreeSelect */}
+                        {activePanel === 'treeSelect' && (
+                            <XPanel
+                                header="TreeSelect"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XTreeSelect
+                                            name="etiquetas"
+                                            label="Etiquetas"
+                                            multiple
+                                            options={categoryTree}
+                                            rules={{
+                                                required: "Debe seleccionar al menos una etiqueta"
+                                            }}
+                                            validation={(val) => {
+                                                const seleccionados = val && typeof val === 'object' ? Object.keys(val) : [];
+
+                                                if (seleccionados.length < 2) {
+                                                    return "Debe seleccionar al menos 2 etiquetas";
+                                                }
+
+                                                if (seleccionados.length > 5) {
+                                                    return "No puede seleccionar más de 5 etiquetas";
+                                                }
+
+                                                return true;
+                                            }}
+                                            placeholder="Selecciona etiquetas"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TriStateCheckbox */}
+                        {activePanel === 'triStateCheckbox' && (
+                            <XPanel
+                                header="TriStateCheckbox"
+                            >
+                                <div className="card flex justify-center">
+                                    <XTriStateCheckbox
+                                        value={value}
+                                        onChange={(e) => setValue(e.value)}
+                                    />
+                                    <label>{String(value)}</label>
+                                </div>
+                            </XPanel>
+                        )}
+
+
+                        {/* Panel de ToggleButton */}
+                        {activePanel === 'toggleButton' && (
+                            <XPanel
+                                header="ToggleButton"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XToggleButton
+                                            name="emailNotifications"
+                                            label="Recibir notificaciones por email"
+                                            description="Recibirás alertas importantes por correo electrónico"
+                                            rules={{ required: 'Este campo es requerido' }}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de BUTTON */}
                         {/* Panel de Button */}
                         {activePanel === 'button' && (
                             <XPanel
                                 header="Button"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="flex justify-center pb-4">
                                     <XButtonGroup>
@@ -2382,6 +2696,33 @@ export default function PageDocumentation() {
                         )}
 
                         {/* Panel de DATA */}
+                        {/* Panel de DataTable */}
+                        {activePanel === 'dataTable' && (
+                            <XPanel
+                                header="DataTable"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XDataTable<Product> value={products} stripedRows paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} >
+                                        <Column field="code" header="Code"></Column>
+                                        <Column field="name" header="Name"></Column>
+                                        <Column field="category" header="Category"></Column>
+                                        <Column field="quantity" header="Quantity"></Column>
+                                    </XDataTable>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de DataView */}
+                        {activePanel === 'dataView' && (
+                            <XPanel
+                                header="dataView"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XDataView value={products} listTemplate={listTemplateDataView} header={headerDataView()} sortField={sortField} sortOrder={sortOrder} />
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de DataScroller */}
                         {activePanel === 'dataScroller' && (
                             <XPanel
@@ -2392,6 +2733,7 @@ export default function PageDocumentation() {
                                 </div>
                             </XPanel>
                         )}
+
                         {/* Panel de OrderList */}
                         {activePanel === 'orderList' && (
                             <XPanel
@@ -2420,6 +2762,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Paginator */}
                         {activePanel === 'paginator' && (
                             <XPanel
                                 header="Paginator"
@@ -2436,6 +2779,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Picklist*/}
                         {activePanel === 'pickList' && (
                             <XPanel
                                 header="PickList"
@@ -2458,6 +2802,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de Tree*/}
                         {activePanel === 'tree' && (
                             <XPanel
                                 header="Tree"
@@ -2467,7 +2812,6 @@ export default function PageDocumentation() {
                                         <XButton type="button" icon="pi pi-plus" label="Expand All" onClick={expandAll} />
                                         <XButton type="button" icon="pi pi-minus" label="Collapse All" onClick={collapseAll} />
                                     </div>
-
                                     <XTree
                                         value={nodes}
                                         expandedKeys={expandedKeys}
@@ -2477,6 +2821,22 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de TreeTable*/}
+                        {activePanel === 'treeTable' && (
+                            <XPanel
+                                header="TreeTable"
+                            >
+                                <div className="card justify-content-center">
+                                    <XTreeTable value={dataNode} tableStyle={{ minWidth: '50rem' }} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}>
+                                        <Column field="name" header="Name" expander></Column>
+                                        <Column field="size" header="Size"></Column>
+                                        <Column field="type" header="Type"></Column>
+                                    </XTreeTable>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de timeline*/}
                         {activePanel === 'timeline' && (
                             <XPanel
                                 header="Timeline"
@@ -2487,6 +2847,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
+                        {/* Panel de VirtualScroller*/}
                         {activePanel === 'virtualScroller' && (
                             <XPanel
                                 header="virtualScroller"
@@ -2596,13 +2957,8 @@ export default function PageDocumentation() {
                         {activePanel === 'confirmDialog' && (
                             <XPanel
                                 header="ConfirmDialog"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
-                                <div className="card justify-center flex">
+                                <div className="card relative">
                                     <XToast ref={toast} />
                                     <XConfirmDialog />
                                     <div className="card flex flex-wrap gap-2 justify-content-center">
@@ -2612,15 +2968,27 @@ export default function PageDocumentation() {
                                 </div>
                             </XPanel>
                         )}
+
+                        {/* Panel de ConfirmPopup */}
+                        {activePanel === 'confirmPopup' && (
+                            <XPanel
+                                header="ConfirmPopup"
+                            >
+                                <div className="card justify-center flex">
+                                    <XToast ref={toast} />
+                                    <XConfirmPopup />
+                                    <div className="card flex flex-wrap gap-2 justify-content-center">
+                                        <XButton onClick={confirmPop} icon="pi pi-check" label="Confirm"></XButton>
+                                        <XButton onClick={confirmPop2} icon="pi pi-times" label="Delete" className="p-button-danger"></XButton>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
                         {/* Panel de Dialog */}
                         {activePanel === 'dialog' && (
                             <XPanel
                                 header="Dialog"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card justify-center flex">
                                     <XButton label="Show" icon="pi pi-external-link" onClick={() => setVisibleDialog(true)} />
@@ -2637,11 +3005,6 @@ export default function PageDocumentation() {
                         {activePanel === 'overlayPanel' && (
                             <XPanel
                                 header="OverlayPanel"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card justify-center flex">
                                     <XButton type="button" label="Image" onClick={(e) => op.current?.toggle(e)} />
@@ -2655,11 +3018,6 @@ export default function PageDocumentation() {
                         {activePanel === 'sidebar' && (
                             <XPanel
                                 header="Sidebar"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card justify-center flex">
                                     <XSidebar visible={visibleSidebar} position="right" onHide={() => setVisibleSidebar(false)}>
@@ -2959,11 +3317,6 @@ export default function PageDocumentation() {
                         {activePanel === 'tag' && (
                             <XPanel
                                 header="Tag"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card justify-center flex flex-wrap  gap-2">
                                     <XTag value="Primary"></XTag>
@@ -3143,11 +3496,6 @@ export default function PageDocumentation() {
                         {activePanel === 'accordion' && (
                             <XPanel
                                 header="Accordion"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card justify-center">
                                     <XAccordion activeIndex={0}>
@@ -3208,11 +3556,6 @@ export default function PageDocumentation() {
                         {activePanel === 'card' && (
                             <XPanel
                                 header="Card"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card flex justify-center gap-4">
                                     <XCard
@@ -3259,11 +3602,6 @@ export default function PageDocumentation() {
                         {activePanel === 'deferred' && (
                             <XPanel
                                 header="Deferred"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card flex justify-center">
                                     <p style={{ marginBottom: '70rem', textAlign: 'center' }}>Scroll down to lazy load an image.</p>
@@ -3321,11 +3659,6 @@ export default function PageDocumentation() {
                         {activePanel === 'panel' && (
                             <XPanel
                                 header="Panel"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card justify-center">
 
@@ -3337,11 +3670,6 @@ export default function PageDocumentation() {
                         {activePanel === 'scrollPanel' && (
                             <XPanel
                                 header="ScrollPanel"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card scrollpanel-demo">
                                     <div className="flex flex-column md:flex-row gap-5">
@@ -3437,11 +3765,6 @@ export default function PageDocumentation() {
                         {activePanel === 'stepper' && (
                             <XPanel
                                 header="Stepper"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card flex justify-center">
                                     <XStepper ref={stepperRef} style={{ flexBasis: '50rem' }}>
@@ -3526,11 +3849,6 @@ export default function PageDocumentation() {
                         {!activePanel && (
                             <XPanel
                                 header="Seleccione un componente"
-                                pt={{
-                                    root: { className: 'shadow-xl mb-12 border-none' },
-                                    header: { className: 'bg-gray-800 text-white' },
-                                    content: { className: 'mt-4' }
-                                }}
                             >
                                 <div className="card flex justify-center">
                                     Por favor seleccione un componente del menú lateral

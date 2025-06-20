@@ -1,4 +1,5 @@
 'use client';
+import { inputTextPT } from '@/primereact-tailwindcss/inputText.pt';
 import { InputText, InputTextProps } from 'primereact/inputtext';
 import { useController, useFormContext } from 'react-hook-form';
 
@@ -52,6 +53,7 @@ export const XInputText = ({
                 onChange={handleChange}
                 className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
+                pt={inputTextPT(!!error)}
             />
             {error?.message && (
                 <small id={`${name}-error`} className="text-xs text-red-500">

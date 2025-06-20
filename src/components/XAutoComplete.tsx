@@ -1,4 +1,5 @@
 'use client';
+import { autoCompletePT } from "@/primereact-tailwindcss/autoComplete.pt";
 import { AutoComplete, AutoCompleteProps } from "primereact/autocomplete";
 import { useRef, useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
@@ -79,6 +80,7 @@ export const XAutoComplete = ({
                 onChange={handleChange}
                 className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
+                pt={autoCompletePT(!!error)}
             />
 
             {error?.message && (

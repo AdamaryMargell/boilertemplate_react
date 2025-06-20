@@ -1,26 +1,3 @@
-// import { dialogPT } from "@/primereact-tailwindcss/dialog.pt";
-// import { Dialog, DialogProps } from "primereact/dialog";
-// import { ReactNode } from "react";
-
-// interface XDialogProps extends Omit<DialogProps, 'visible' | 'onHide'> {
-//     children: ReactNode;
-// }
-
-// export const XDialog = ({
-
-//     children,
-//     ...props
-// }: XDialogProps) => {
-//     return (
-//         <Dialog
-//             {...props}
-//             pt={{ ...dialogPT }}
-//         >
-//             {children}
-//         </Dialog >
-//     );
-// };
-
 'use client';
 import { dialogPT } from "@/primereact-tailwindcss/dialog.pt";
 import { Dialog, DialogProps } from "primereact/dialog";

@@ -3,7 +3,8 @@ import { classNames } from "primereact/utils";
 export const inputSwitchPT = (hasError = false) => ({
     root: ({ props }) => ({
         className: classNames('inline-block relative', 'w-12 h-7', {
-            'opacity-60 select-none pointer-events-none cursor-default': props.disabled
+            'opacity-60 select-none pointer-events-none cursor-default': props.disabled,
+
         })
     }),
     input: {
@@ -11,7 +12,7 @@ export const inputSwitchPT = (hasError = false) => ({
     },
     slider: ({ props }) => {
         const baseClasses = [
-            'absolute cursor-pointer top-0 left-0 right-0 bottom-0 border border-transparent',
+            `absolute cursor-pointer top-0 left-0 right-0 bottom-0 border ${hasError ? 'border-red-500' : 'border-transparent'}`,
             'transition-colors duration-200 rounded-2xl',
             'focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]',
             "before:absolute before:content-'' before:top-1/2 before:bg-white before:w-5 before:h-5 before:left-1 before:-mt-2.5 before:rounded-full before:transition-duration-200"
@@ -21,10 +22,8 @@ export const inputSwitchPT = (hasError = false) => ({
             ? 'bg-blue-500 before:transform before:translate-x-5'
             : 'bg-gray-200 hover:bg-gray-300';
 
-        const errorClasses = hasError ? '!border-red-500 animate-shake hover:border-red-500' : '';
-
         return {
-            className: classNames(...baseClasses, stateClasses, errorClasses)
+            className: classNames(...baseClasses, stateClasses)
         };
     }
 });

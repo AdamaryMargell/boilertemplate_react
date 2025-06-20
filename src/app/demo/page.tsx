@@ -1,29 +1,40 @@
 'use client';
-import React, { useRef, useState } from 'react';
-import { Toast } from 'primereact/toast';
-import { Steps } from 'primereact/steps';
-import XSteps from '@/components/XSteps';
-import XToast from '@/components/XToast';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import XButton from '@/components/XButton';
-import { confirmDialogPT } from '@/primereact-tailwindcss/confirmDialog.pt';
-import XConfirmDialog from '@/components/XConfirmDialog';
-import { XDialog } from '@/components/XDialog';
+import XCalendar from '@/components/XCalendar';
+import { XForm } from '@/components/XForm';
+import XIconField from '@/components/XIconField';
+import XInputIcon from '@/components/XInputIcon';
+import { XInputNumber } from '@/components/XInputNumber';
+import { XInputText } from '@/components/XInputText';
+import XToggleButton from '@/components/XToggleButton';
+import { calendarPT } from '@/primereact-tailwindcss/calendar.pt';
+import { floatLabelPT } from '@/primereact-tailwindcss/floatLabel.pt';
+import { iconFieldPT, inputIconPT } from '@/primereact-tailwindcss/iconField.pt';
+import { inputTextPT } from '@/primereact-tailwindcss/inputText.pt';
+import { Calendar } from 'primereact/calendar';
+import { FloatLabel } from 'primereact/floatlabel';
+import { IconField } from 'primereact/iconfield';
+import { InputIcon } from 'primereact/inputicon';
+import { InputText } from 'primereact/inputtext';
+import { Nullable } from 'primereact/ts-helpers';
+import { useState } from 'react';
+
 
 export default function DemoPage() {
-    // Ejemplo de uso con React 18/19
-    const [open, setOpen] = useState(false);
-
 
     return (
-        <>
-            <XButton label="Show" icon="pi pi-external-link" onClick={() => setOpen(true)} />
-            <XDialog visible={open} modal header={'hia'} footer={'jj'} style={{ width: '50rem' }} onHide={() => { if (!open) return; setOpen(false); }}>
-                <p className="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </XDialog>
-        </>
-    )
+        <div className="flex gap-3">
+            <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
+                <div className="flex items-stretch w-full">
+                    <XButton label="Search" className="rounded-r-none" />
+                    <XInputText
+                        name='keyword'
+                        placeholder="Keyword"
+                        className="rounded-l-none border-l-0"
+                    />
+                </div>
+            </XForm>
+        </div>
+    );
 }
+// className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"

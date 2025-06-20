@@ -1,43 +1,42 @@
-'use client';
-import { inputNumberPT } from '@/primereact-tailwindcss/inputNumber.pt';
-import { InputNumber, InputNumberProps } from 'primereact/inputnumber';
+import React from 'react'
+import { ToggleButton, ToggleButtonChangeEvent, ToggleButtonProps } from 'primereact/togglebutton';
 import { useController, useFormContext } from 'react-hook-form';
+import { toggleButtonPT } from '@/primereact-tailwindcss/toogleButton.pt';
 
-type XInputNumberProps = {
+type XToggleButtonProps = {
     name: string;
     label?: string;
     labelRequired?: boolean;
+    description?: string;
     rules?: any;
-    validation?: (val: number | null) => number | null;
-} & Omit<InputNumberProps, 'name' | 'value' | 'onChange' | 'ref'>;
+    validation?: (val: boolean) => boolean;
+} & Omit<ToggleButtonProps, 'name' | 'checked' | 'value' | 'onChange'>;
 
-export const XInputNumber = ({
+const XToggleButton = ({
     name,
     label,
     labelRequired,
+    description,
     rules,
     validation,
     ...props
-}: XInputNumberProps) => {
+}: XToggleButtonProps) => {
+
     const { control } = useFormContext();
     const {
-        field: { value, onChange, ref },
+        field: { value, onChange, ref, ...fieldProps },
         fieldState: { error }
     } = useController({
         name,
         control,
         rules,
-        defaultValue: null
+        defaultValue: false
     });
 
-    const handleChange = (event: { value: number | null }) => {
-        let newValue = event.value;
-        if (validation) {
-            newValue = validation(newValue);
-        }
+    const handleChange = (e: { value: boolean }) => {
+        const newValue = validation ? validation(e.value) : e.value;
         onChange(newValue);
     };
-
     return (
         <div className="flex flex-col gap-1">
             {label && (
@@ -46,15 +45,17 @@ export const XInputNumber = ({
                     {labelRequired && <span className="text-red-500"> *</span>}
                 </label>
             )}
-            <InputNumber
+            <ToggleButton
+                {...fieldProps}
                 {...props}
-                inputRef={ref}
                 id={name}
-                value={value as number | null | undefined}
+                name={name}
+                ref={ref}
+                checked={Boolean(value)}
                 onChange={handleChange}
                 className={`${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
-                pt={inputNumberPT(!!error)}
+                pt={toggleButtonPT(!!error)}
             />
             {error?.message && (
                 <small id={`${name}-error`} className="text-xs text-red-500">
@@ -62,5 +63,7 @@ export const XInputNumber = ({
                 </small>
             )}
         </div>
-    );
-};
+    )
+}
+
+export default XToggleButton
