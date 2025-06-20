@@ -130,6 +130,7 @@ import XCalendar from '@/components/XCalendar';
 import XFloatLabel from '@/components/XFloatLabel';
 import XIconField from '@/components/XIconField';
 import XInputIcon from '@/components/XInputIcon';
+import { IconFile, IconGlobe } from '@/components/XIcons';
 
 //CarrouselTyped
 interface Product {
@@ -195,8 +196,8 @@ const localTreeNodes: TreeNode[] = [
                 data: 'Work Folder',
                 icon: 'pi pi-fw pi-cog',
                 children: [
-                    { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                    { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
+                    { key: '0-0-0', label: 'Expenses.doc', icon: <IconGlobe width="1rem" height="1rem" />, data: ' Expenses Document' },
+                    { key: '0-0-1', label: 'Resume.doc', icon: <IconGlobe width="1rem" height="1rem" />, data: ' Resume Document' }
                 ]
             },
             {
@@ -204,7 +205,7 @@ const localTreeNodes: TreeNode[] = [
                 label: 'Home',
                 data: 'Home Folder',
                 icon: 'pi pi-fw pi-home',
-                children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
+                children: [{ key: '0-1-0', label: 'Invoices.txt', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Invoices for this month' }]
             }
         ]
     },
@@ -214,9 +215,9 @@ const localTreeNodes: TreeNode[] = [
         data: 'Events Folder',
         icon: 'pi pi-fw pi-calendar',
         children: [
-            { key: '1-0', label: 'Meeting', icon: 'pi pi-fw pi-calendar-plus', data: 'Meeting' },
-            { key: '1-1', label: 'Product Launch', icon: 'pi pi-fw pi-calendar-plus', data: 'Product Launch' },
-            { key: '1-2', label: 'Report Review', icon: 'pi pi-fw pi-calendar-plus', data: 'Report Review' }
+            { key: '1-0', label: 'Meeting', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Meeting' },
+            { key: '1-1', label: 'Product Launch', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Product Launch' },
+            { key: '1-2', label: 'Report Review', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Report Review' }
         ]
     },
     {
@@ -231,8 +232,8 @@ const localTreeNodes: TreeNode[] = [
                 label: 'Al Pacino',
                 data: 'Pacino Movies',
                 children: [
-                    { key: '2-0-0', label: 'Scarface', icon: 'pi pi-fw pi-video', data: 'Scarface Movie' },
-                    { key: '2-0-1', label: 'Serpico', icon: 'pi pi-fw pi-video', data: 'Serpico Movie' }
+                    { key: '2-0-0', label: 'Scarface', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Scarface Movie' },
+                    { key: '2-0-1', label: 'Serpico', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Serpico Movie' }
                 ]
             },
             {
@@ -241,8 +242,8 @@ const localTreeNodes: TreeNode[] = [
                 icon: 'pi pi-fw pi-star-fill',
                 data: 'De Niro Movies',
                 children: [
-                    { key: '2-1-0', label: 'Goodfellas', icon: 'pi pi-fw pi-video', data: 'Goodfellas Movie' },
-                    { key: '2-1-1', label: 'Untouchables', icon: 'pi pi-fw pi-video', data: 'Untouchables Movie' }
+                    { key: '2-1-0', label: 'Goodfellas', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Goodfellas Movie' },
+                    { key: '2-1-1', label: 'Untouchables', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Untouchables Movie' }
                 ]
             }
         ]
@@ -269,7 +270,7 @@ export default function PageDocumentation() {
     const menuItemsDoc = [
         {
             label: 'FORM',
-            icon: 'pi pi-chart-line',
+            icon: <IconGlobe width="1rem" height="1rem" color="#6366F1" />,
             id: 'form', // Usaremos este ID para referenciar el useRef
             children: [
                 { name: 'AutoComplete', panel: 'autocomplete' },
@@ -2061,36 +2062,7 @@ export default function PageDocumentation() {
                                     <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
                                         <XIconField iconPosition="left" >
                                             <XInputIcon>
-                                                <svg
-                                                    className="w-3.5 h-3.5 text-gray-500" // Cambiado a text-gray-500 como color por defecto
-                                                    viewBox="0 0 35 35"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <g className="[mask-type:alpha]" mask="url(#mask0_2642_713)">
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            clipRule="evenodd"
-                                                            d="..."
-                                                            className="fill-current"
-                                                        />
-                                                    </g>
-                                                    <path d="..." className="fill-current" />
-                                                    <path d="..." className="fill-current" />
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        clipRule="evenodd"
-                                                        d="..."
-                                                        className="fill-current"
-                                                    />
-                                                    <path d="..." className="fill-current" />
-                                                    <path d="..." className="fill-current" />
-                                                    <path fillRule="evenodd" clipRule="evenodd" d="..." className="fill-current" />
-                                                    <path d="..." className="fill-current" />
-                                                    <path d="..." className="fill-current" />
-                                                    <path d="..." className="fill-current" />
-                                                    <path d="..." className="fill-current" />
-                                                </svg>
+                                                <IconGlobe className="w-4 h-4" />
                                             </XInputIcon>
                                             <XInputText name='hola' placeholder="Search" />
                                         </XIconField>
