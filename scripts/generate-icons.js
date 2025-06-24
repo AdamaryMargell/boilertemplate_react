@@ -1,67 +1,12 @@
-// const fs = require('fs');
-// const path = require('path');
-
-// // 1. Resuelve las rutas de manera más robusta
-// const PROJECT_ROOT = path.resolve(__dirname, '../');
-// const ICONS_DIR = path.join(PROJECT_ROOT, 'src', 'assets', 'icons');
-// const OUTPUT_DIR = path.join(PROJECT_ROOT, 'src', 'components', 'XIcons');
-// const OUTPUT_FILE = path.join(OUTPUT_DIR, 'index.ts');
-
-// // 2. Crea el directorio de salida si no existe
-// if (!fs.existsSync(OUTPUT_DIR)) {
-//     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-//     console.log(`📂 Created directory: ${OUTPUT_DIR}`);
-// }
-
-// // 3. Función para convertir a PascalCase mejorada
-// const pascalCase = (str) => {
-//     if (typeof str !== 'string') {
-//         throw new Error('Input must be a string');
-//     }
-//     return str
-//         .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '')
-//         .replace(/[^a-zA-Z0-9]+/g, ' ')
-//         .split(' ')
-//         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-//         .join('');
-// };
-
-// try {
-//     // 4. Lee los archivos SVG con manejo de errores
-//     if (!fs.existsSync(ICONS_DIR)) {
-//         throw new Error(`Icons directory not found: ${ICONS_DIR}`);
-//     }
-
-//     const files = fs.readdirSync(ICONS_DIR);
-//     const svgFiles = files.filter(file => file.endsWith('.svg'));
-
-//     if (svgFiles.length === 0) {
-//         console.warn('⚠️ No SVG files found in icons directory');
-//     }
-
-//     // 5. Genera el contenido del archivo index.ts
-//     const content = [
-//         '// AUTO-GENERATED FILE - DO NOT EDIT MANUALLY',
-//         '// Este archivo se genera automáticamente, no lo edites directamente\n',
-//         ...svgFiles.map(file => {
-//             const iconName = pascalCase(file.replace('.svg', ''));
-//             return `export { default as Icon${iconName} } from "@/assets/icons/${file}";`;
-//         }),
-//         ''
-//     ].join('\n');
-
-//     // 6. Escribe el archivo de salida
-//     fs.writeFileSync(OUTPUT_FILE, content);
-//     console.log(`✅ Successfully generated ${svgFiles.length} icon exports in ${OUTPUT_FILE}`);
-
-// } catch (error) {
-//     console.error('❌ Error generating icons:', error.message);
-//     process.exit(1);
-// }
-
-
 const fs = require('fs');
 const path = require('path');
+const { promisify } = require('util');
+
+// Convertimos funciones a promesas
+const readdir = promisify(fs.readdir);
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
+const stat = promisify(fs.stat);
 
 // Configuración de rutas
 const PROJECT_ROOT = path.resolve(__dirname, '../');
@@ -69,72 +14,148 @@ const ICONS_DIR = path.join(PROJECT_ROOT, 'src', 'assets', 'icons');
 const OUTPUT_DIR = path.join(PROJECT_ROOT, 'src', 'components', 'XIcons');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'index.ts');
 
-// Función para procesar SVG
-const processSVG = (content) => {
-    return content
-        .replace(/fill="[^"]*"/g, '')
-        .replace(/<svg([^>]*)>/, '<svg$1 fill="currentColor">')
-        .replace(/stroke="[^"]*"/g, '');
+const PRESERVE_COLOR_CATEGORIES = ['bnbEmpresas', 'bnbBancos'];
+
+// ✅ Función corregida para procesar SVG
+const processSVG = (content, filePath) => {
+    // Determinar si está en una categoría que preserva colores
+    const shouldPreserveColor = PRESERVE_COLOR_CATEGORIES.some(category =>
+        filePath.includes(`${path.sep}${category}${path.sep}`) ||
+        filePath.includes(`/${category}/`)
+    );
+
+    if (shouldPreserveColor) {
+        console.log(`🎨 Preserving colors for ${path.relative(ICONS_DIR, filePath)}`);
+        return content; // No modificar SVG
+    }
+
+    // Eliminar fills y strokes específicos solo para otras categorías
+    let processed = content
+        .replace(/fill="#?\w+"/g, '')
+        .replace(/stroke="#?\w+"/g, '')
+        .replace(/fill-opacity="[^"]*"/g, '')
+        .replace(/stroke-opacity="[^"]*"/g, '');
+
+    // Añadir fill="currentColor" si no está presente
+    if (!processed.includes('fill=')) {
+        processed = processed.replace(/<svg([^>]*)>/, '<svg$1 fill="currentColor">');
+    }
+
+    return processed;
 };
 
 // Función PascalCase mejorada
 const pascalCase = (str) => {
-    if (typeof str !== 'string') throw new Error('Input must be a string');
     return str
-        .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '')
+        .replace(/\.[^/.]+$/, '') // Elimina extensión
         .replace(/[^a-zA-Z0-9]+/g, ' ')
         .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join('');
 };
 
-// Crear directorio si no existe
-if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-    console.log(`Created directory: ${OUTPUT_DIR}`);
+// Función recursiva para buscar archivos SVG
+async function findSVGFiles(dir) {
+    const subdirs = await readdir(dir);
+    const files = await Promise.all(
+        subdirs.map(async (subdir) => {
+            const res = path.resolve(dir, subdir);
+            const stats = await stat(res);
+            return stats.isDirectory() ? findSVGFiles(res) : res;
+        })
+    );
+    return files.flat().filter(file => file.endsWith('.svg'));
 }
 
-try {
-    // Verificar directorio de íconos
-    if (!fs.existsSync(ICONS_DIR)) {
-        throw new Error(`Icons directory not found: ${ICONS_DIR}`);
-    }
-
-    const files = fs.readdirSync(ICONS_DIR);
-    const svgFiles = files.filter(file => file.endsWith('.svg'));
-
-    if (svgFiles.length === 0) {
-        console.warn('No SVG files found in icons directory');
-    }
-
-    // Procesar cada archivo SVG
-    svgFiles.forEach(file => {
-        const filePath = path.join(ICONS_DIR, file);
-        let content = fs.readFileSync(filePath, 'utf8');
-
-        // Solo procesar si no tiene currentColor
-        if (!content.includes('currentColor')) {
-            const processedContent = processSVG(content);
-            fs.writeFileSync(filePath, processedContent);
-            console.log(` Processed ${file}`);
+// Función principal
+async function main() {
+    try {
+        // Crear directorio si no existe
+        if (!fs.existsSync(OUTPUT_DIR)) {
+            fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+            console.log(`📂 Created directory: ${OUTPUT_DIR}`);
         }
-    });
 
-    // Generar archivo index.ts
-    const exportsContent = [
-        '// AUTO-GENERATED FILE - DO NOT EDIT MANUALLY',
-        '// Este archivo se genera automáticamente, no lo edites directamente\n',
-        ...svgFiles.map(file => {
-            const iconName = pascalCase(file.replace('.svg', ''));
-            return `export { default as Icon${iconName} } from "@/assets/icons/${file}";`;
-        }),
-        ''
-    ].join('\n');
+        // Buscar todos los archivos SVG recursivamente
+        const svgFiles = await findSVGFiles(ICONS_DIR);
 
-    fs.writeFileSync(OUTPUT_FILE, exportsContent);
-    console.log(`Successfully generated ${svgFiles.length} icon exports in ${OUTPUT_FILE}`);
+        if (svgFiles.length === 0) {
+            console.warn('⚠️ No SVG files found in icons directory');
+            return;
+        }
 
-} catch (error) {
-    console.error('Error:', error.message);
-    process.exit(1);
+        console.log(`📊 Found ${svgFiles.length} SVG files`);
+
+        // Procesar cada archivo SVG
+        const processPromises = svgFiles.map(async (filePath) => {
+            try {
+                const content = await readFile(filePath, 'utf8');
+
+                // Solo procesar si no tiene currentColor y no está en categoría protegida
+                const shouldProcess = !content.includes('currentColor') &&
+                    !PRESERVE_COLOR_CATEGORIES.some(cat =>
+                        filePath.includes(`${path.sep}${cat}${path.sep}`) ||
+                        filePath.includes(`/${cat}/`)
+                    );
+
+                if (shouldProcess) {
+                    const processedContent = processSVG(content, filePath);
+                    await writeFile(filePath, processedContent);
+                    console.log(`✅ Processed ${path.relative(ICONS_DIR, filePath)}`);
+                } else {
+                    console.log(`⏭️  Skipped ${path.relative(ICONS_DIR, filePath)} (already processed or protected)`);
+                }
+
+                return filePath;
+            } catch (error) {
+                console.error(`❌ Error processing ${filePath}:`, error.message);
+                return null;
+            }
+        });
+
+        const processedFiles = (await Promise.all(processPromises)).filter(Boolean);
+
+        // Generar archivo index.ts
+        const exportsContent = [
+            '// AUTO-GENERATED FILE - DO NOT EDIT MANUALLY',
+            '// Este archivo se genera automáticamente, no lo edites directamente\n',
+            ...processedFiles.map(filePath => {
+                const relativePath = path.relative(ICONS_DIR, filePath);
+                const importPath = `@/assets/icons/${relativePath.replace(/\\/g, '/')}`;
+                const iconName = `Icon${pascalCase(path.basename(filePath))}`;
+
+                return `export { default as ${iconName} } from '${importPath}';`;
+            }),
+            ''
+        ].join('\n');
+
+        await writeFile(OUTPUT_FILE, exportsContent);
+        console.log(`\n🎉 Successfully generated ${processedFiles.length} icon exports in ${OUTPUT_FILE}`);
+
+        // Mostrar estructura de archivos para debugging
+        console.log('\n📁 Structure found:');
+        const structure = {};
+        processedFiles.forEach(filePath => {
+            const relativePath = path.relative(ICONS_DIR, filePath);
+            const parts = relativePath.split(path.sep);
+            const category = parts.length > 1 ? parts[0] : 'root';
+            if (!structure[category]) structure[category] = [];
+            structure[category].push(path.basename(filePath, '.svg'));
+        });
+
+        Object.entries(structure).forEach(([category, icons]) => {
+            console.log(`  ${category}: ${icons.length} icons`);
+            if (icons.length <= 5) {
+                console.log(`    ${icons.join(', ')}`);
+            } else {
+                console.log(`    ${icons.slice(0, 3).join(', ')}, ... and ${icons.length - 3} more`);
+            }
+        });
+
+    } catch (error) {
+        console.error('❌ Error:', error.message);
+        process.exit(1);
+    }
 }
+
+main();

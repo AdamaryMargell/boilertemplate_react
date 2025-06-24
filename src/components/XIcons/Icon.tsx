@@ -1,182 +1,94 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
     name: string;
     size?: number | string;
     className?: string;
-    color?: string;
+    category?: string;
+    preserveColor?: boolean;
 }
 
-const Icon = ({ name, size = 24, color = 'currentColor', className = "", ...props }: IconProps) => {
-    const [SvgComponent, setSvgComponent] = React.useState<
-        React.FC<React.SVGProps<SVGSVGElement>> | null
-    >(null);
+const COLOR_PRESERVE_CATEGORIES = ['bnbEmpresas', 'bnbBancos', 'bnbSocial'];
 
-    React.useEffect(() => {
-        import(`@/assets/icons/${name}.svg`)
-            .then((module) => {
-                setSvgComponent(() => module.default);
-            })
-            .catch(() => {
-                console.error(`Icon "${name}" not found`);
-            });
-    }, [name]);
+const Icon = ({
+    name,
+    size = 24,
+    className = '',
+    category = 'common',
+    preserveColor = COLOR_PRESERVE_CATEGORIES.includes(category),
+    ...props
+}: IconProps) => {
+    const [IconComponent, setIconComponent] = useState<React.FC<React.SVGProps<SVGSVGElement>> | null>(null);
+    const [loadingError, setLoadingError] = useState(false);
+    const [attemptedPath, setAttemptedPath] = useState('');
 
-    if (!SvgComponent) {
+    useEffect(() => {
+        let isMounted = true;
+        setLoadingError(false);
+        const loadIcon = async () => {
+            try {
+                const normalizedName = name
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                console.log(`Intentando cargar: @/assets/icons/${category}/${normalizedName}.svg`);
+                const iconPath = `@/assets/icons/${category}/${normalizedName}.svg`;
+                setAttemptedPath(iconPath);
+
+                const iconModule = await import(`@/assets/icons/${category}/${normalizedName}.svg`);
+
+                if (isMounted) {
+                    setIconComponent(() => iconModule.default);
+                    console.log(` Icono cargado: ${iconPath}`);
+                }
+            } catch (err) {
+                console.error(` Error loading icon ${name} from ${attemptedPath}:`, err);
+                if (isMounted) {
+                    setLoadingError(true);
+                }
+            }
+
+        };
+
+        loadIcon();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [name, category]);
+
+    if (loadingError) {
         return (
             <div
-                className={className}
+                className={`bg-red-100 border border-red-400 text-red-700 px-2 py-1 rounded text-xs ${className}`}
+                style={{ width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                title={`Icono ${name} no encontrado en ${attemptedPath}`}
+            >
+                ❌
+            </div>
+        );
+    }
+
+    if (!IconComponent) {
+        return (
+            <div
+                className={`bg-gray-100 animate-pulse rounded ${className}`}
                 style={{ width: size, height: size }}
             />
         );
     }
 
-    return SvgComponent ? (
-        <SvgComponent
+    return (
+        <IconComponent
             width={size}
             height={size}
-            className={`inline-block ${className}`}
-            style={{ color }}
+            className={className}
+            style={preserveColor ? undefined : { color: 'currentColor' }}
             {...props}
         />
-    ) : null;
+    );
 };
 
 export default Icon;
-
-
-// import React from 'react';
-
-// interface IconProps extends React.SVGProps<SVGSVGElement> {
-//     name: string;
-//     size?: number | string;
-//     category?: string;
-//     color?: string;
-// }
-
-// const Icon = ({
-//     name,
-//     size = 24,
-//     category = 'actions',
-//     className = '',
-//     color,
-//     ...props
-// }: IconProps) => {
-//     // Solución: Proporciona null como valor inicial
-//     const ImportedIconRef = React.useRef<React.FC<React.SVGProps<SVGSVGElement>> | null>(null);
-//     const [loading, setLoading] = React.useState(true);
-
-//     React.useEffect(() => {
-//         setLoading(true);
-//         const importIcon = async () => {
-//             try {
-//                 // Usamos dynamic import con template literals
-//                 const { default: namedImport } = await import(
-//                     `@/assets/icons/${category}/${name}.svg`
-//                 );
-//                 ImportedIconRef.current = namedImport;
-//             } catch (err) {
-//                 console.error(`Error loading icon ${name}:`, err);
-//                 ImportedIconRef.current = null;
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-//         importIcon();
-//     }, [name, category]);
-
-//     if (!loading && ImportedIconRef.current) {
-//         const { current: ImportedIcon } = ImportedIconRef;
-//         return (
-//             <ImportedIcon
-//                 width={size}
-//                 height={size}
-//                 className={`icon ${className}`}
-//                 style={{ color }}
-//                 {...props}
-//             />
-//         );
-//     }
-
-//     return <div style={{ width: size, height: size }} />;
-// };
-
-// export default Icon;
-
-
-// import React from 'react';
-
-// interface IconProps extends React.SVGProps<SVGSVGElement> {
-//     name: string;
-//     size?: number | string;
-//     category?: string;
-//     color?: string;
-// }
-
-// const Icon = ({
-//     name,
-//     size = 24,
-//     category = 'actions',
-//     className = '',
-//     color = 'currentColor',
-//     ...props
-// }: IconProps) => {
-//     const [SvgComponent, setSvgComponent] = React.useState<React.FC<React.SVGProps<SVGSVGElement>> | null>(null);
-//     const [error, setError] = React.useState(false);
-
-//     React.useEffect(() => {
-//         const loadIcon = async () => {
-//             try {
-//                 // Importación dinámica con verificación
-//                 const imported = await import(`@/assets/icons/${name}.svg`);
-
-//                 // Asegurarse que el default export es un componente válido
-//                 if (!imported.default || typeof imported.default !== 'function') {
-//                     throw new Error('Invalid SVG component');
-//                 }
-
-//                 // Crear componente wrapper para control de props
-//                 const WrappedComponent = (props: React.SVGProps<SVGSVGElement>) => (
-//                     <imported.default
-//                         {...props}
-//                         fill={color}
-//                         className={`inline-block ${props.className || ''}`}
-//                     />
-//                 );
-
-//                 setSvgComponent(() => WrappedComponent);
-//             } catch (err) {
-//                 console.error(`Failed to load icon ${name}:`, err);
-//                 setError(true);
-//             }
-//         };
-
-//         loadIcon();
-//     }, [name, category, color]);
-
-//     if (error) {
-//         return (
-//             <div
-//                 className={`inline-flex items-center justify-center bg-red-100 text-red-500 ${className}`}
-//                 style={{ width: size, height: size }}
-//             >
-//                 !
-//             </div>
-//         );
-//     }
-
-//     if (!SvgComponent) {
-//         return <div style={{ width: size, height: size }} className={className} />;
-//     }
-
-//     return (
-//         <SvgComponent
-//             width={size}
-//             height={size}
-//             className={`icon ${className}`}
-//             {...props}
-//         />
-//     );
-// };
-
-// export default Icon;

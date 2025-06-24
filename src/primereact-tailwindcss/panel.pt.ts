@@ -12,6 +12,7 @@ const TRANSITIONS = {
 };
 
 export const panelPT = {
+    root: 'mb-4',
     header: ({ props }: { props: any; }) => ({
         className: classNames(
             'flex items-center justify-between', // flex and alignments
@@ -36,7 +37,7 @@ export const panelPT = {
     },
     content: {
         className: classNames(
-            'border-t-0 last:rounded-br-lg last:rounded-bl-lg m-4'
+            'border-t-0 last:rounded-br-lg last:rounded-bl-lg m-4 mt-4'
         )
     },
     transition: TRANSITIONS.toggleable

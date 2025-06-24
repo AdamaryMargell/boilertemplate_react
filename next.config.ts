@@ -3,8 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   webpack(config) {
     config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
+      test: /\.svg$/,
       use: [
         {
           loader: "@svgr/webpack",
@@ -16,16 +15,13 @@ const nextConfig: NextConfig = {
                   name: "preset-default",
                   params: {
                     overrides: {
-                      removeViewBox: false, // Mantener viewBox para responsividad
+                      removeViewBox: false,
                     },
                   },
                 },
               ],
             },
-            // Props por defecto
-            replaceAttrValues: {
-              "#686868": "currentColor", // Usar color actual
-            },
+
           },
         },
       ],
