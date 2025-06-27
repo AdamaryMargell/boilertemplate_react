@@ -130,7 +130,9 @@ import XCalendar from '@/components/XCalendar';
 import XFloatLabel from '@/components/XFloatLabel';
 import XIconField from '@/components/XIconField';
 import XInputIcon from '@/components/XInputIcon';
-import { IconFile, IconGlobe } from '@/components/XIcons';
+import Icon from '@/components/XIcons/XIcon';
+import { XSnackbar } from '@/components/XSnackbar';
+import { XCardPrueba } from '@/components/XCardPrueba';
 
 //CarrouselTyped
 interface Product {
@@ -196,8 +198,8 @@ const localTreeNodes: TreeNode[] = [
                 data: 'Work Folder',
                 icon: 'pi pi-fw pi-cog',
                 children: [
-                    { key: '0-0-0', label: 'Expenses.doc', icon: <IconGlobe width="1rem" height="1rem" />, data: ' Expenses Document' },
-                    { key: '0-0-1', label: 'Resume.doc', icon: <IconGlobe width="1rem" height="1rem" />, data: ' Resume Document' }
+                    { key: '0-0-0', label: 'Expenses.doc', icon: <Icon name="next" width="1rem" height="1rem" />, data: ' Expenses Document' },
+                    { key: '0-0-1', label: 'Resume.doc', icon: <Icon name="next" width="1rem" height="1rem" />, data: ' Resume Document' }
                 ]
             },
             {
@@ -205,7 +207,7 @@ const localTreeNodes: TreeNode[] = [
                 label: 'Home',
                 data: 'Home Folder',
                 icon: 'pi pi-fw pi-home',
-                children: [{ key: '0-1-0', label: 'Invoices.txt', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Invoices for this month' }]
+                children: [{ key: '0-1-0', label: 'Invoices.txt', icon: <Icon name="next" width="1rem" height="1rem" />, data: 'Invoices for this month' }]
             }
         ]
     },
@@ -215,9 +217,9 @@ const localTreeNodes: TreeNode[] = [
         data: 'Events Folder',
         icon: 'pi pi-fw pi-calendar',
         children: [
-            { key: '1-0', label: 'Meeting', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Meeting' },
-            { key: '1-1', label: 'Product Launch', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Product Launch' },
-            { key: '1-2', label: 'Report Review', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Report Review' }
+            { key: '1-0', label: 'Meeting', icon: <Icon name="next" width="1rem" height="1rem" />, data: 'Meeting' },
+            { key: '1-1', label: 'Product Launch', icon: <Icon name="next" width="1rem" height="1rem" />, data: 'Product Launch' },
+            { key: '1-2', label: 'Report Review', icon: <Icon name="next" width="1rem" height="1rem" />, data: 'Report Review' }
         ]
     },
     {
@@ -232,8 +234,8 @@ const localTreeNodes: TreeNode[] = [
                 label: 'Al Pacino',
                 data: 'Pacino Movies',
                 children: [
-                    { key: '2-0-0', label: 'Scarface', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Scarface Movie' },
-                    { key: '2-0-1', label: 'Serpico', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Serpico Movie' }
+                    { key: '2-0-0', label: 'Scarface', icon: <Icon name="next" width="1rem" height="1rem" />, data: 'Scarface Movie' },
+                    { key: '2-0-1', label: 'Serpico', icon: <Icon name="next" width="1rem" height="1rem" />, data: 'Serpico Movie' }
                 ]
             },
             {
@@ -242,8 +244,8 @@ const localTreeNodes: TreeNode[] = [
                 icon: 'pi pi-fw pi-star-fill',
                 data: 'De Niro Movies',
                 children: [
-                    { key: '2-1-0', label: 'Goodfellas', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Goodfellas Movie' },
-                    { key: '2-1-1', label: 'Untouchables', icon: <IconGlobe width="1rem" height="1rem" />, data: 'Untouchables Movie' }
+                    { key: '2-1-0', label: 'Goodfellas', icon: <Icon name="next" width="1rem" height="1rem" />, data: 'Goodfellas Movie' },
+                    { key: '2-1-1', label: 'Untouchables', icon: <Icon name="next" width="1rem" height="1rem" />, data: 'Untouchables Movie' }
                 ]
             }
         ]
@@ -265,12 +267,13 @@ export default function PageDocumentation() {
         overlay: useRef(null),
         file: useRef(null),
         menu: useRef(null),
-        misc: useRef(null)
+        misc: useRef(null),
+        new: useRef(null)
     };
     const menuItemsDoc = [
         {
             label: 'FORM',
-            icon: <IconGlobe width="1rem" height="1rem" color="#6366F1" />,
+            icon: <Icon name="next" width="1rem" height="1rem" />,
             id: 'form', // Usaremos este ID para referenciar el useRef
             children: [
                 { name: 'AutoComplete', panel: 'autocomplete' },
@@ -430,6 +433,16 @@ export default function PageDocumentation() {
                 { name: 'Terminal', panel: 'terminal' },
             ]
         },
+        {
+            label: 'NEW',
+            icon: 'pi pi-chart-line',
+            id: 'new',
+            children: [
+                { name: 'Snackbar', panel: 'snackbar' },
+                { name: 'Card Information', panel: 'cardInformation' },
+                { name: 'Card Menu', panel: 'cardMenu' },
+            ]
+        },
     ];
 
     // Panels Documentation
@@ -444,6 +457,7 @@ export default function PageDocumentation() {
         message: 'MESSAGES',
         media: 'MEDIA',
         misc: 'MISC',
+        new: 'NEW',
     };
     const getPanelCategory = (panelKey: string | null) => {
         if (!panelKey) return null;
@@ -465,10 +479,10 @@ export default function PageDocumentation() {
                 const { className, onClick } = options;
 
                 return (
-                    <Button icon="pi pi-arrow-right" onClick={() => setVisibleLeft(true)} pt={{
-                        root: { className: '!bg-gray-700 hover:bg-gray-700 cursor-pointer text-white p-3 !border-round !border-white border-red-500 flex gap-2' },
+                    <Button onClick={() => setVisibleLeft(true)} pt={{
+                        root: { className: 'hover:bg-gray-800 cursor-pointer text-white p-3 hover:border-round flex gap-2' },
                         label: { className: 'text-white font-bold text-xl' },
-                    }} />
+                    }}><Icon name="menu" size={24} /></Button>
                 );
             }
         },
@@ -1285,25 +1299,25 @@ export default function PageDocumentation() {
         {
             label: 'Dashboard',
             command: () => {
-                toast.current.show({ severity: 'success', summary: 'Selected', detail: 'Dashboard', life: 3000 });
+                toast.current?.show({ severity: 'success', summary: 'Selected', detail: 'Dashboard', life: 3000 });
             }
         },
         {
             label: 'Transactions',
             command: () => {
-                toast.current.show({ severity: 'info', summary: 'Selected', detail: 'Transactions', life: 3000 });
+                toast.current?.show({ severity: 'info', summary: 'Selected', detail: 'Transactions', life: 3000 });
             }
         },
         {
             label: 'Products',
             command: () => {
-                toast.current.show({ severity: 'warn', summary: 'Selected', detail: 'Products', life: 3000 });
+                toast.current?.show({ severity: 'warn', summary: 'Selected', detail: 'Products', life: 3000 });
             }
         },
         {
             label: 'Messages',
             command: () => {
-                toast.current.show({ severity: 'error', summary: 'Selected', detail: 'Messages', life: 3000 });
+                toast.current?.show({ severity: 'error', summary: 'Selected', detail: 'Messages', life: 3000 });
             }
         }
     ];
@@ -1459,6 +1473,10 @@ export default function PageDocumentation() {
 
     //DataScroller
     const ds = useRef<null>(null);
+
+    //Card Menu
+    const [selectedCard, setSelectedCard] = useState<number | null>(null);
+
     const itemTemplateDataScroller = (data: Product, key) => {
         return (
             <div className="col-12">
@@ -2062,7 +2080,7 @@ export default function PageDocumentation() {
                                     <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
                                         <XIconField iconPosition="left" >
                                             <XInputIcon>
-                                                <IconGlobe className="w-4 h-4" />
+                                                <Icon name="next" width="1rem" height="1rem" />
                                             </XInputIcon>
                                             <XInputText name='hola' placeholder="Search" />
                                         </XIconField>
@@ -3554,17 +3572,35 @@ export default function PageDocumentation() {
                                             numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
                                         </p>
                                     </XCard>
-                                    <XCard
-                                        title="Advanced Card"
-                                        subTitle="Card subtitle"
-                                        footer={footer}
-                                        header={header}
-                                        className="md:w-25rem"
-                                    >
-                                        <p className="m-0">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-                                            numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-                                        </p>
+                                    <XCard>
+                                        <div className=''>
+                                            <XAvatar label="AB" size="large" className="mr-2 bg-[#F1F0FA] w-[4.5rem] h-[4.313rem] text-[#7866CB]" shape="circle" />
+                                        </div>
+                                        <div>
+                                            <h2 className="font-bold">1. Card Information </h2>
+                                            <p className="font-bold pl-[19px]"> Text: <XTag severity="success" value="Success"></XTag></p>
+                                            <div className="pl-[19px]">
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                        Ullam qui earum eius nesciunt nam, tempore voluptatibus dolores reiciendis
+                                                        reprehenderit commodi voluptatem nemo iure vitae sit exercitationem laborum,
+                                                        laboriosam repudiandae! Dolore culpa harum voluptatibus corporis illum et amet
+                                                        quasi doloremque sunt quo, reiciendis iure commodi est? Debitis maiores hic
+                                                        quisquam quasi.
+                                                    </p>
+                                                </div>
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>Lorem ipsum dolor</p>
+                                                </div>
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>Lorem ipsum dolor</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </XCard>
                                 </div>
                             </XPanel>
@@ -3813,6 +3849,168 @@ export default function PageDocumentation() {
                             >
                                 <div className="card  justify-center">
                                     <XToolbar start={startContent} center={centerContent} end={endContent} />
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de NUEVO */}
+                        {/* Panel de Snackbar */}
+                        {activePanel === 'snackbar' && (
+                            <XPanel
+                                header="Snackbar"
+                            >
+                                <div className="card">
+                                    <XSnackbar
+                                        icon="check-circle"
+                                        severity="success"
+                                        bgCircle="bg-[#E2F7F3]"
+                                        classIcon="text-[#15BB9C]"
+                                    >
+                                        <h3 className="font-bold gap-6">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="cancel-circle"
+                                        severity="error"
+                                        bgCircle="bg-[#FDEDEC]"
+                                        classIcon="text-[#E84C3D]"
+                                    >
+                                        <h3 className="font-bold">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="warning-circle"
+                                        severity="warn"
+                                        bgCircle="bg-[#FEF5E7]"
+                                        classIcon="text-[#F39C0F]"
+                                    >
+                                        <h3 className="font-bold">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="info-empty"
+                                        severity="info"
+                                        bgCircle="bg-[#EBF5FB]"
+                                        classIcon="text-[#3698DB]"
+                                    >
+                                        <h3 className="font-bold">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="help-circle"
+                                        severity="secondary"
+                                        bgCircle="bg-[#F3F3F3]"
+                                        classIcon="text-[#686868]"
+                                    >
+                                        <h3 className="font-bold">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="help-circle"
+                                        severity="contrast"
+                                        bgCircle="bg-[#686868]"
+                                        classIcon="text-[#FFFFFF]"
+                                        closable={false}
+                                    >
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Snackbar */}
+                        {activePanel === 'cardInformation' && (
+                            <XPanel
+                                header="Card Information"
+                            >
+                                <div className="card flex justify-center gap-4">
+                                    <XCard>
+                                        <div>
+                                            <XAvatar label="AB" size="large" className="mr-2 bg-purple-50 w-[4.5rem] h-[4.313rem] text-purple-600" shape="circle" />
+                                        </div>                                        <div>
+                                            <h2 className="font-bold">1. Card Information </h2>
+                                            <p className="font-bold pl-[1.188rem]"> Text: <XTag severity="success" value="Success"></XTag></p>
+                                            <div className="pl-[1.188rem]">
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                        Ullam qui earum eius nesciunt nam, tempore voluptatibus dolores reiciendis
+                                                        reprehenderit commodi voluptatem nemo iure vitae sit exercitationem laborum,
+                                                        laboriosam repudiandae! Dolore culpa harum voluptatibus corporis illum et amet
+                                                        quasi doloremque sunt quo, reiciendis iure commodi est? Debitis maiores hic
+                                                        quisquam quasi.
+                                                    </p>
+                                                </div>
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>Lorem ipsum dolor</p>
+                                                </div>
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>Lorem ipsum dolor</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </XCard>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Snackbar */}
+                        {activePanel === 'cardMenu' && (
+                            <XPanel
+                                header="Card Menu"
+                            >
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+                                    {[0, 1, 2].map((id) => (
+                                        <div
+                                            key={id}
+                                            onClick={() => setSelectedCard(id)}
+                                            className="cursor-pointer w-full"
+                                        >
+                                            <XCardPrueba
+                                                orientation="vertical"
+                                                title="Card especial"
+                                                body="Este es un contenido completamente diferente"
+                                                showArrow={false}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+                                    {[0, 1, 2].map((id) => (
+                                        <div
+                                            key={id}
+                                            onClick={() => setSelectedCard(id)}
+                                            className="cursor-pointer w-full"
+                                        >
+                                            <XCardPrueba
+                                                orientation="horizontal"
+                                                title="Title text"
+                                                body="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"
+                                                showArrow={true}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="flex flex-wrap gap-6 p-6">
+                                    {[0, 1, 2].map((id) => (
+                                        <div key={id} onClick={() => setSelectedCard(id)} className="cursor-pointer">
+                                            <XCardPrueba
+                                                orientation={id % 2 === 0 ? 'vertical' : 'horizontal'}
+                                                disabled={id % 2 === 0 ? true : false}
+                                                title={id % 2 === 0 ? 'Title text' : 'Title text disabled'}
+                                                body={id % 2 === 0 ? 'Lorem Ipsum is simply dummy text typesetting industry.' : 'Lorem Ipsum is simply dummy text  text ever since the 1500s, when an unknown printer took a galley'}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
                             </XPanel>
                         )}

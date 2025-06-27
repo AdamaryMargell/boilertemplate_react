@@ -1,6 +1,5 @@
 'use client';
-import { IconGlobe, IconSuzuki } from '@/components/XIcons';
-import Icon from '@/components/XIcons/Icon';
+import XIcon from '@/components/XIcons/XIcon';
 import XMenuBar from '@/components/XMenuBar';
 import XPanel from '@/components/XPanel';
 import XScrollPanel from '@/components/XScrollPanel';
@@ -304,7 +303,37 @@ export default function DemoPage() {
                 'x-circle', 'whatsapp-circle', 'youtube'
             ]
         },
-
+        bnbImagenes: {
+            name: "BNB Imagenes",
+            icons: [
+                'qr-simple', 'qr'
+            ]
+        },
+        bnbSubmarcas: {
+            name: "BNB sub marcas",
+            icons: [
+                'banca-joven', 'banca-joven-logo-bnb', 'primary-bille-logo-positive', 'primary-bille-logo-negative'
+            ]
+        },
+        otros: {
+            name: "Otros",
+            icons: [
+                'excel', 'excel-1', 'pdf', 'pdf-1'
+            ]
+        },
+        bnbwithBg: {
+            name: "BNB Icons with Background",
+            icons: [
+                'bnb-billetera-sus-bg', 'bnb-billetera-bs-bg', 'bnb-pago-bs-bg', 'bnb-transferencias-bg', 'cashback-bg', 'bnb-servicios-bg', 'bnb-extractos-bg', 'bnb-mis-debitos-bg', 'bnb-compras-por-internet-bg', 'bnb-compras-por-internet-bs-bg', 'bnb-avion-bg', 'bnb-cobro-qr-bg',
+                'bnb-facturas-bg', 'bnb-rescate-de-cuotas-bs-bg'
+            ]
+        },
+        textEditor: {
+            name: "Text Editor",
+            icons: [
+                'bold', 'italic', 'underline', 'align-left', 'align-right', 'align-center', 'align-just', 'bullet-list', 'number-list', 'text-color', 'text-highlight'
+            ]
+        }
     }
 
     //Filter icons
@@ -376,7 +405,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="actions" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -413,7 +442,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="analytics" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -449,7 +478,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="audio" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -485,7 +514,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="buildings" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -521,7 +550,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="clothing" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -557,7 +586,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="cloud" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -593,7 +622,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="communication" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -629,7 +658,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="connectivity" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -665,7 +694,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="development" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -701,7 +730,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="devices" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -737,7 +766,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="docs" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -773,7 +802,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="editor" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -809,7 +838,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="emojis" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -845,7 +874,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="finance" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -881,7 +910,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="food" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -917,7 +946,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="gaming" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -953,7 +982,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="gestures" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -989,7 +1018,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="health" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1025,7 +1054,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="home" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1061,7 +1090,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="identity" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1097,7 +1126,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="maps" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1133,7 +1162,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="music" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1170,7 +1199,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="nature" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1206,7 +1235,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="navigate" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1242,7 +1271,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="organization" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1278,7 +1307,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="other" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1314,7 +1343,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="photosVideos" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1350,7 +1379,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="security" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1386,7 +1415,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="shopping" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1422,7 +1451,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="science" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1458,7 +1487,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="system" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1494,7 +1523,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="transport" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1530,7 +1559,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="users" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1566,7 +1595,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="weather" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1602,7 +1631,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="bnb" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1638,7 +1667,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="bnbTarjetas" preserveColor />
+                                                        <XIcon name={icon} size={24} className='text-red-500' />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1674,7 +1703,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="bnbwithoutBb" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1710,7 +1739,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="bnbEmpresas" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1748,7 +1777,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="bnbBancos" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1784,7 +1813,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <Icon name={icon} size={24} category="bnbSocial" preserveColor />
+                                                        <XIcon name={icon} size={24} />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1794,6 +1823,185 @@ export default function DemoPage() {
                                 )}
                             </XPanel>
 
+                            <XPanel header={IconCategories.bnbImagenes.name}>
+                                <div className="relative mb-8">
+                                    <InputText
+                                        value={searchTerms.bnbImagenes || ''}
+                                        onChange={(e) => setSearchTerms(prev => ({
+                                            ...prev,
+                                            bnbEmpresas: e.target.value
+                                        }))}
+                                        placeholder="Buscar iconos de bnb empresas"
+                                        pt={inputTextPT(false)}
+                                    />
+                                </div>
+                                {filteredIcons.bnbImagenes?.length === 0 && searchTerms.bnbImagenes ? (
+                                    <div className="text-center py-12 text-gray-500">
+                                        No se encontraron iconos para
+                                    </div>
+                                ) : (
+                                    <XScrollPanel className='h-[250px]'>
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                                            {filteredIcons.bnbImagenes?.map((icon) => (
+                                                <div
+                                                    key={`bnbImagenes-${icon}`}
+                                                    className="flex flex-col items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-all cursor-pointer hover:bg-blue-50"
+                                                    onClick={() => copyIconName(icon)}
+                                                >
+                                                    <div className="flex flex-col gap-3 items-center justify-center">
+                                                        <XIcon name={icon} size={24} />
+                                                        <span className="text-xs text-center text-gray-600">{icon}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </XScrollPanel>
+                                )}
+                            </XPanel>
+
+                            <XPanel header={IconCategories.bnbSubmarcas.name}>
+                                <div className="relative mb-8">
+                                    <InputText
+                                        value={searchTerms.bnbSubmarcas || ''}
+                                        onChange={(e) => setSearchTerms(prev => ({
+                                            ...prev,
+                                            bnbEmpresas: e.target.value
+                                        }))}
+                                        placeholder="Buscar iconos de bnb empresas"
+                                        pt={inputTextPT(false)}
+                                    />
+                                </div>
+                                {filteredIcons.bnbSubmarcas?.length === 0 && searchTerms.bnbSubmarcas ? (
+                                    <div className="text-center py-12 text-gray-500">
+                                        No se encontraron iconos para
+                                    </div>
+                                ) : (
+                                    <XScrollPanel className='h-[250px]'>
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                                            {filteredIcons.bnbSubmarcas?.map((icon) => (
+                                                <div
+                                                    key={`bnbSubmarcas-${icon}`}
+                                                    className="flex flex-col items-center p-4 bg-gray-200 rounded-lg shadow hover:shadow-md transition-all cursor-pointer hover:bg-blue-50"
+                                                    onClick={() => copyIconName(icon)}
+                                                >
+                                                    <div className="flex flex-col gap-3 items-center justify-center">
+                                                        <XIcon name={icon} size={24} />
+                                                        <span className="text-xs text-center text-gray-600">{icon}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </XScrollPanel>
+                                )}
+                            </XPanel>
+
+                            <XPanel header={IconCategories.otros.name}>
+                                <div className="relative mb-8">
+                                    <InputText
+                                        value={searchTerms.otros || ''}
+                                        onChange={(e) => setSearchTerms(prev => ({
+                                            ...prev,
+                                            bnbEmpresas: e.target.value
+                                        }))}
+                                        placeholder="Buscar iconos de bnb empresas"
+                                        pt={inputTextPT(false)}
+                                    />
+                                </div>
+                                {filteredIcons.otros?.length === 0 && searchTerms.otros ? (
+                                    <div className="text-center py-12 text-gray-500">
+                                        No se encontraron iconos para
+                                    </div>
+                                ) : (
+                                    <XScrollPanel className='h-[250px]'>
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                                            {filteredIcons.otros?.map((icon) => (
+                                                <div
+                                                    key={`otros-${icon}`}
+                                                    className="flex flex-col items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-all cursor-pointer hover:bg-blue-50"
+                                                    onClick={() => copyIconName(icon)}
+                                                >
+                                                    <div className="flex flex-col gap-3 items-center justify-center">
+                                                        <XIcon name={icon} size={24} />
+                                                        <span className="text-xs text-center text-gray-600">{icon}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </XScrollPanel>
+                                )}
+                            </XPanel>
+
+                            <XPanel header={IconCategories.bnbwithBg.name}>
+                                <div className="relative mb-8">
+                                    <InputText
+                                        value={searchTerms.bnbwithBg || ''}
+                                        onChange={(e) => setSearchTerms(prev => ({
+                                            ...prev,
+                                            bnbEmpresas: e.target.value
+                                        }))}
+                                        placeholder="Buscar iconos de bnb empresas"
+                                        pt={inputTextPT(false)}
+                                    />
+                                </div>
+                                {filteredIcons.bnbwithBg?.length === 0 && searchTerms.bnbwithBg ? (
+                                    <div className="text-center py-12 text-gray-500">
+                                        No se encontraron iconos para
+                                    </div>
+                                ) : (
+                                    <XScrollPanel className='h-[250px]'>
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                                            {filteredIcons.bnbwithBg?.map((icon) => (
+                                                <div
+                                                    key={`bnbwithBg-${icon}`}
+                                                    className="flex flex-col items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-all cursor-pointer hover:bg-blue-50"
+                                                    onClick={() => copyIconName(icon)}
+                                                >
+                                                    <div className="flex flex-col gap-3 items-center justify-center">
+                                                        <XIcon name={icon} size={24} />
+                                                        <span className="text-xs text-center text-gray-600">{icon}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </XScrollPanel>
+                                )}
+                            </XPanel>
+
+                            <XPanel header={IconCategories.textEditor.name}>
+                                <div className="relative mb-8">
+                                    <InputText
+                                        value={searchTerms.textEditor || ''}
+                                        onChange={(e) => setSearchTerms(prev => ({
+                                            ...prev,
+                                            textEditor: e.target.value
+                                        }))}
+                                        placeholder="Buscar iconos de bnb empresas"
+                                        pt={inputTextPT(false)}
+                                    />
+                                </div>
+                                {filteredIcons.textEditor?.length === 0 && searchTerms.textEditor ? (
+                                    <div className="text-center py-12 text-gray-500">
+                                        No se encontraron iconos para textEditor
+                                    </div>
+                                ) : (
+                                    <XScrollPanel className='h-[250px]'>
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                                            {filteredIcons.textEditor?.map((icon) => (
+                                                <div
+                                                    key={`textEditor-${icon}`}
+                                                    className="flex flex-col items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-all cursor-pointer hover:bg-blue-50"
+                                                    onClick={() => copyIconName(icon)}
+                                                >
+                                                    <div className="flex flex-col gap-3 items-center justify-center">
+                                                        <XIcon name={icon} size={24} />
+                                                        <span className="text-xs text-center text-gray-600">{icon}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </XScrollPanel>
+                                )}
+                            </XPanel>
                         </div >
                     </div >
                 </div >

@@ -1,0 +1,46 @@
+/* Estado disabled */
+.p-cardmenu-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Pseudo-elemento base (siempre presente pero invisible) */
+.p-cardmenu-container::before {
+    content: '';
+    /* ¡ESENCIAL! */
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background-image: linear-gradient(to bottom, var(--purple-600-core), var(--purple-300));
+    border-radius: 14px;
+    z-index: -1;
+    box-shadow: 0px 0px 25px 0px rgba(120, 102, 203, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+/* Estado hover - solo cambia la opacidad */
+.p-cardmenu-container:not(.disabled):hover::before {
+    opacity: 1;
+}
+
+/* Efecto hover */
+.p-cardmenu-container:not(.disabled):hover::before {
+    opacity: 1;
+}
+
+/* Título al hacer hover */
+.p-cardmenu-container:not(.disabled):hover .xcard-title {
+    color: #6366F1 !important;
+}
+
+/* Card e icono en estado disabled */
+.p-cardmenu-container.disabled {
+    cursor: not-allowed;
+}
+
+.p-cardmenu-container.disabled .xcard-icon svg {
+    opacity: 0.5;
+}

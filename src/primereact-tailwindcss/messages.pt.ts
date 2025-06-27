@@ -3,53 +3,39 @@ import { classNames } from "primereact/utils";
 export const messagesPT = {
     root: ({ state, index }) => {
         return {
-            className: classNames('my-3 rounded-lg border bg-white shadow-sm relative ml-6', {
-                'border-blue-400 bg-blue-50/30': state.messages[index]?.message.severity === 'info',
-                'border-green-400 bg-green-50/30': state.messages[index]?.message.severity === 'success',
-                'border-orange-400 bg-orange-50/30': state.messages[index]?.message.severity === 'warn',
-                'border-red-400 bg-red-50/30': state.messages[index]?.message.severity === 'error',
-                'border-purple-400 bg-purple-50/30': state.messages[index]?.message.severity === 'secondary',
-                'border-gray-400 bg-gray-50/30': state.messages[index]?.message.severity === 'contrast'
+            className: classNames('pl-8', {
+                'relative pl-8 rounded-md p-4 border-2 border-[#86C1E9]': state.messages[index]?.message.severity === 'info',
+                'relative pl-8 rounded-md p-4 border-2 border-[#9EE3D6]': state.messages[index]?.message.severity === 'success',
+                'relative pl-8 rounded-md p-4 border-2 border-[#F39C0F]': state.messages[index]?.message.severity === 'warn',
+                'relative pl-8 rounded-md p-4 border-2 border-[#F1948B]': state.messages[index]?.message.severity === 'error',
+                'relative pl-8 rounded-md p-4 border-2 border-[#CDCDCD]': state.messages[index]?.message.severity === 'secondary',
+                'relative pl-8 rounded-md p-4 border-2 border-[#C1C1C1]': state.messages[index]?.message.severity === 'contrast'
             })
         };
     },
-    wrapper: 'flex flex-col p-4 gap-1',
+    wrapper: 'flex flex-col',
     icon: ({ state, index }) => {
         return {
-            className: classNames('w-6 h-6 flex-shrink-0 rounded-full flex items-center justify-center absolute -left-3 top-[2.5rem] border-2 border-white', {
-                'bg-blue-500 text-white': state.messages[index]?.message.severity === 'info',
-                'bg-green-500 text-white': state.messages[index]?.message.severity === 'success',
-                'bg-orange-500 text-white': state.messages[index]?.message.severity === 'warn',
-                'bg-red-500 text-white': state.messages[index]?.message.severity === 'error',
-                'bg-purple-500 text-white': state.messages[index]?.message.severity === 'secondary',
-                'bg-gray-500 text-white': state.messages[index]?.message.severity === 'contrast'
+            className: classNames('absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center p-2', {
+                'bg-[#F3F3F3] text-[#3698DB]': state.messages[index]?.message.severity === 'info',
+                'bg-[#E2F7F3] text-[#15BB9C]': state.messages[index]?.message.severity === 'success',
+                'bg-[#FEF5E7] text-[#F39C0F]': state.messages[index]?.message.severity === 'warn',
+                'bg-[#FDEDEC] text-[#E84C3D]': state.messages[index]?.message.severity === 'error',
+                'bg-[#F3F3F3] text-[#686868]': state.messages[index]?.message.severity === 'secondary',
+                'bg-[#686868] text-[#FFFFFF]': state.messages[index]?.message.severity === 'contrast'
             })
         }
     },
-    contentWrapper: 'flex items-start', // Contenedor flex para icono y texto
-    textContainer: 'flex-1', // Contenedor de texto que ocupa el espacio restante
+    contentWrapper: 'flex flex-col pl-0', // Contenedor flex para icono y texto
+    textContainer: 'flex flex-col pl-0', // Contenedor de texto que ocupa el espacio restante
     summary: {
-        className: 'text-sm font-semibold flex items-start gap-3 pl-2', // Contenedor flex para alinear icono y título
-        style: {
-            lineHeight: '1.25rem' // Ajuste de interlineado para mejor alineación
-        }
+        className: 'font-bold', // Contenedor flex para alinear icono y título
     },
-    detail: 'text-sm text-gray-600 mt-1 pl-2', 
+    detail: 'text-sm',
     button: ({ state, index }) => {
         return {
             className: classNames(
-                'w-6 h-6 rounded-full bg-transparent transition-colors duration-200',
-                'ml-auto overflow-hidden relative -mt-1 -mr-1',
-                'flex items-center justify-center',
-                'hover:bg-gray-200/50',
-                {
-                    'text-blue-500 hover:bg-blue-100/50': state.messages[index]?.message.severity === 'info',
-                    'text-green-500 hover:bg-green-100/50': state.messages[index]?.message.severity === 'success',
-                    'text-orange-500 hover:bg-orange-100/50': state.messages[index]?.message.severity === 'warn',
-                    'text-red-500 hover:bg-red-100/50': state.messages[index]?.message.severity === 'error',
-                    'text-purple-500 hover:bg-purple-100/50': state.messages[index]?.message.severity === 'secondary',
-                    'text-gray-500 hover:bg-gray-100/50': state.messages[index]?.message.severity === 'contrast'
-                }
+                'absolute right-4 top-4 text-gray-500 hover:text-gray-700',
             )
         }
     },

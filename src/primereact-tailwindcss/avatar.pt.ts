@@ -4,7 +4,6 @@ export const avatarPT = {
     root: ({ props, state }) => ({
         className: classNames(
             'flex items-center justify-center',
-            'bg-gray-300 dark:bg-gray-800',
             'inline-flex',
             {
                 'rounded-lg': props.shape == 'square',
