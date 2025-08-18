@@ -1,0 +1,194 @@
+
+/* ============================= */
+/* CONTENEDOR PRINCIPAL TIMELINE */
+/* ============================= */
+.p-timeline {
+    @apply flex flex-col flex-grow
+}
+/* ============================= */
+/* TIMELINE ALINEADO A LA IZQUIERDA */
+/* ============================= */
+.p-timeline-left .p-timeline-event-opposite {
+    /* En timeline izquierdo: alinea el contenido "opuesto" (fechas/títulos) hacia la derecha */
+    @apply text-end
+}
+
+.p-timeline-left .p-timeline-event-content {
+    /* En timeline izquierdo: alinea el contenido principal hacia la izquierda */
+    @apply text-start text-lg font-medium
+}
+
+/* ============================= */
+/* TIMELINE ALINEADO A LA DERECHA */
+/* ============================= */
+.p-timeline-right .p-timeline-event {
+    /* En timeline derecho: invierte el orden de los elementos (contenido-marcador-fecha) */
+    @apply flex-row-reverse
+}
+
+.p-timeline-right .p-timeline-event-opposite {
+    /* En timeline derecho: alinea el contenido "opuesto" hacia la izquierda */
+    @apply text-start
+}
+
+.p-timeline-right .p-timeline-event-content {
+    /* En timeline derecho: alinea el contenido principal hacia la derecha */
+    @apply text-end text-lg font-medium
+}
+
+/* ============================= */
+/* TIMELINE VERTICAL ALTERNADO (ZIGZAG) */
+/* ============================= */
+.p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) {
+    /* En timeline alternado: los eventos PARES se invierten (van hacia la derecha) */
+    @apply flex-row-reverse
+}
+
+.p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-opposite {
+    /* En timeline alternado: en eventos IMPARES, el contenido opuesto se alinea a la derecha */
+    @apply text-end
+}
+
+.p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-content {
+    /* En timeline alternado: en eventos IMPARES, el contenido principal se alinea a la izquierda */
+    @apply text-start text-lg font-medium
+}
+
+.p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-opposite {
+    /* En timeline alternado: en eventos PARES, el contenido opuesto se alinea a la izquierda */
+    @apply text-start
+}
+
+.p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-content {
+    /* En timeline alternado: en eventos PARES, el contenido principal se alinea a la derecha */
+    @apply text-end text-lg font-medium
+}
+
+/* ============================= */
+/* ESTILOS GENERALES TIMELINE VERTICAL */
+/* ============================= */
+.p-timeline-vertical .p-timeline-event {
+    @apply flex-grow gap-6; /* Permite que los eventos crezcan */
+}
+
+.p-timeline-vertical .p-timeline-event-separator {
+    @apply flex flex-col h-full; /* Contenedor con altura completa */
+}
+
+
+.p-timeline-vertical .p-timeline-event-opposite,
+.p-timeline-vertical .p-timeline-event-content {
+    /* Para timeline vertical: sin padding vertical, con padding horizontal de 1rem, sin interlineado extra */
+    @apply py-0 px-4 leading-none
+}
+
+.p-timeline-vertical .p-timeline-event-connector {
+    /* Línea vertical: 2px de ancho y 34px de altura fija */
+    @apply w-[2px] flex-grow min-h-[50px];
+}
+
+/* ============================= */
+/* ESTRUCTURA DE CADA EVENTO */
+/* ============================= */
+.p-timeline-event {
+    @apply flex items-baseline relative min-h-20 last:min-h-0 
+}
+
+.p-timeline-event-opposite {
+    @apply flex-1
+}
+
+.p-timeline-event-content {
+    @apply flex-1
+}
+
+.p-timeline-event-separator {
+    @apply flex-none flex flex-col items-center
+}
+
+/* ============================= */
+/* MARCADOR (CÍRCULO CON GOTA) */
+/* ============================= */
+.p-timeline-event-marker {
+    @apply inline-flex items-center justify-center relative self-baseline border-4 rounded-full border-primary dark:border-primary w-17 h-17 bg-white dark:bg-white before:rounded-full before:w-6 before:h-6 before:bg-primary-700 after:absolute after:rounded-full
+}
+
+/* ============================= */
+/* GOTAS DIRECCIONALES */
+/* ============================= */
+/* GOTA HACIA LA DERECHA (contenido a la derecha) */
+.p-timeline-left .p-timeline-event-marker::after,
+.p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-marker::after {
+    @apply content-[''] -translate-y-2/4 w-0 h-0 border-l-[12px] border-l-primary border-y-[7px] border-y-transparent border-solid -right-6 top-2/4;
+}
+
+
+/* GOTA HACIA LA IZQUIERDA (contenido a la izquierda) */
+.p-timeline-right .p-timeline-event-marker::after,
+.p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-marker::after {
+    @apply content-[''] -translate-y-2/4 w-0 h-0 border-r-[12px] border-r-primary border-y-[7px] border-y-transparent border-solid -left-6 top-2/4
+}
+
+/* ============================= */
+/* CONECTORES (LÍNEAS) */
+/* ============================= */
+.p-timeline-event-connector {
+    @apply flex-grow bg-gray-300 dark:bg-gray-300
+}
+
+
+/* ============================= */
+/* CONTENEDOR PRINCIPAL TIMELINE HORIZONTAL */
+/* ============================= */
+.p-timeline-horizontal {
+    @apply flex-row w-full justify-center;
+    /* Ocupa todo el ancho y centra contenido */
+}
+
+/* ============================= */
+/* EVENTOS DEL TIMELINE */
+/* ============================= */
+.p-timeline-horizontal .p-timeline-event {
+    @apply flex-col flex-grow-0 flex-shrink-0;
+    /* Evita que se encojan */
+}
+/* ============================= */
+/* SEPARADOR Y CONECTOR */
+/* ============================= */
+.p-timeline-horizontal .p-timeline-event-separator {
+    @apply flex-row;
+}
+
+.p-timeline-horizontal .p-timeline-event-connector {
+    @apply h-[2px] flex-grow min-w-[60px];
+}
+
+.p-timeline-horizontal .p-timeline-event-opposite,
+.p-timeline-horizontal .p-timeline-event-content {
+    @apply py-4 px-0 text-lg font-medium
+}
+
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event:nth-child(even) {
+    @apply flex-col-reverse
+}
+
+.p-timeline-bottom .p-timeline-event {
+    @apply flex-col-reverse
+}
+
+/* ============================= */
+/* GOTAS HORIZONTALES */
+/* ============================= */
+/* GOTA HACIA ABAJO (contenido a abajo) */
+.p-timeline-bottom .p-timeline-event-marker::after,
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-marker::after {
+    @apply content-[''] absolute -translate-x-2/4 w-0 h-0 border-b-[12px] border-b-primary border-x-[7px] border-x-transparent border-solid left-2/4 -top-6;
+}
+
+/* GOTA HACIA ARRIBA (contenido a arriba) */
+.p-timeline-top .p-timeline-event-marker::after,
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-marker::after {
+    @apply content-[''] absolute -translate-x-2/4 w-0 h-0 border-t-[12px] border-t-primary border-x-[7px] border-x-transparent border-solid left-2/4 -bottom-6;
+}
+
+

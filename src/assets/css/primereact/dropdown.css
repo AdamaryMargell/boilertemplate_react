@@ -1,0 +1,198 @@
+/* @import './button'; */
+@import './inputtext';
+
+.p-dropdown {
+    @apply inline-flex cursor-pointer relative select-none rounded-md 
+    bg-white dark:bg-white min-w-[1.429rem] h-20 px-5 py-2 
+    border border-gray-400 dark:border-gray-400 
+    shadow-[0_1px_2px_0_rgba(18,18,23,0.05)] 
+    transition-colors duration-200
+    items-center
+}
+
+.p-dropdown:not(.p-disabled):hover {
+    @apply border-gray-600 dark:border-gray-600
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+    @apply border-primary shadow-[0_0px_4px_0_rgba(12,85,248,0.5)]
+}
+
+.p-dropdown.p-variant-filled {
+    @apply bg-gray-50 dark:bg-gray-50
+}
+
+.p-dropdown.p-invalid {
+    @apply border-red-500 dark:border-red-500 
+    hover:border-gray-600 dark:hover:border-gray-600
+}
+
+.p-dropdown.p-invalid:not(.p-disabled).p-focus,
+.p-dropdown.p-invalid:not(.p-disabled):focus {
+    @apply border-red-500 dark:border-red-500 
+    shadow-[0_0_4px_0_rgba(241,89,78,0.5)]
+}
+
+.p-dropdown.p-invalid:not(.p-disabled) .p-dropdown-label{
+    @apply text-red-500 dark:text-red-500
+}
+
+.p-dropdown.p-invalid:not(.p-disabled) .p-dropdown-trigger .p-icon {
+    @apply text-red-500
+}
+
+.p-dropdown.p-invalid .p-dropdown-label.p-inputtext.p-placeholder {
+    @apply text-red-400 dark:text-red-400 !important;
+}
+
+.p-dropdown.p-invalid .p-dropdown-clear-icon {
+    @apply text-red-500 dark:text-red-500
+}
+
+.p-dropdown.p-disabled {
+    @apply bg-gray-100 text-gray-400 border-gray-200 dark:bg-gray-100 dark:text-gray-400 dark:border-gray-200 opacity-100 cursor-default
+}
+
+.p-dropdown-label {
+    @apply block whitespace-nowrap overflow-hidden flex-auto w-[1%]
+        overflow-ellipsis
+        text-gray-700 dark:text-gray-700 bg-transparent border-none outline-none
+}
+
+.p-dropdown .p-dropdown-label.p-inputtext.p-placeholder {
+    @apply h-auto border-none shadow-none bg-transparent 
+    px-0 py-4 m-0 hover:border-none focus:border-none 
+    focus:shadow-none text-gray-500 dark:text-gray-500 !important;
+}
+
+.p-dropdown > .p-dropdown-label.p-inputtext {
+    @apply shadow-none h-auto leading-[normal] m-0 py-4 px-0 border-[none] bg-transparent
+}
+
+.p-dropdown-trigger {
+    @apply flex items-center justify-center shrink-0 bg-transparent
+    text-gray-500 dark:text-gray-500 w-10 rounded-e-md
+}
+
+.p-dropdown .p-dropdown-trigger .p-icon {
+    @apply w-8 h-8 text-gray-500
+}
+
+.p-dropdown-clear-icon {
+    @apply  text-gray-500 dark:text-gray-500 
+    end-18 w-8 h-8 
+}
+
+.p-dropdown:has(.p-dropdown-clear-icon) .p-dropdown-label {
+    @apply pe-12
+}
+
+.p-dropdown.p-disabled .p-dropdown-label {
+    @apply text-gray-400 dark:text-gray-400
+}
+
+.p-dropdown.p-disabled .p-icon.p-dropdown-dropdown-icon {
+    @apply text-gray-600 dark:text-gray-600
+}
+
+.p-dropdown-label-empty {
+    @apply overflow-hidden opacity-0
+}
+
+input.p-dropdown-label {
+    @apply cursor-default
+}
+
+.p-dropdown .p-dropdown-panel {
+    @apply min-w-full
+}
+
+.p-dropdown-panel {
+    @apply absolute top-0 left-0 rounded-md mt-2
+        bg-white dark:bg-white
+        border border-gray-400 dark:border-gray-400
+        text-gray-700 dark:text-gray-700
+        shadow-[0_2px_6px_0px_rgba(191,200,215,0.75)]
+}
+
+.p-dropdown-items-wrapper {
+    @apply overflow-auto
+}
+
+.p-dropdown-items {
+    @apply m-0 p-2 rounded-md border-gray-400 list-none gap-[2px] flex flex-col
+}
+
+.p-dropdown-item {
+    @apply cursor-pointer font-normal whitespace-nowrap relative overflow-hidden flex items-center
+        px-3 py-2 border-none text-gray-700 dark:text-gray-700 bg-white rounded-sm
+        transition-colors duration-200
+}
+
+.p-dropdown-item:not(.p-dropdown-item-selected):not(.p-disabled).p-focus {
+    @apply bg-secondary-50 dark:bg-secondary-50 text-gray-1000 dark:text-gray-1000
+}
+
+.p-dropdown-item.p-dropdown-item-selected {
+    @apply bg-secondary-700 text-white
+}
+
+.p-dropdown-item.p-dropdown-item-selected.p-focus {
+    @apply bg-secondary-900 text-white
+}
+
+.p-dropdown-item-check-icon {
+    @apply relative -ms-[0.375rem] me-[0.375rem] text-gray-700 dark:text-gray-700 w-7 h-7
+}
+
+.p-dropdown-filter-container {
+    @apply pt-2 pb-1 px-4 bg-white rounded-t-md
+}
+
+.p-dropdown-filter {
+    @apply w-full
+}
+
+.p-dropdown-empty-message {
+    @apply px-3 py-2
+}
+
+.p-dropdown-fluid {
+    @apply flex
+}
+
+.p-dropdown-sm {
+    @apply h-15 px-4 py-2
+}
+
+.p-dropdown-sm .p-dropdown-label {
+    @apply py-2
+}
+
+.p-dropdown-sm .p-dropdown-label {
+    @apply text-sm 
+}
+
+.p-dropdown-sm .p-dropdown-dropdown .p-icon {
+    @apply text-sm w-7 h-7
+}
+
+.p-dropdown:hover .p-icon.p-dropdown-dropdown-icon {
+    @apply text-gray-1000
+}
+
+.p-inputicon .p-icon{
+    @apply w-8 h-8 mt-[-4px]
+}
+
+.p-dropdown-lg {
+    @apply h-25 px-6 py-5
+}
+
+.p-dropdown-lg .p-dropdown-label {
+    @apply text-lg pr-15
+}
+
+.p-dropdown-lg .p-dropdown-dropdown .p-icon {
+    @apply text-lg w-9 h-9
+}

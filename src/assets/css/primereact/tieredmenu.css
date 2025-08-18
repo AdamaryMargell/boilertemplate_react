@@ -1,0 +1,105 @@
+.p-tieredmenu {
+    @apply bg-surface-0 dark:bg-surface-900
+        text-surface-700 dark:text-surface-0
+        border border-gray-400 dark:border-gray-400
+        rounded-md min-w-52
+}
+
+.p-tieredmenu-root-list,
+.p-tieredmenu-submenu {
+    @apply m-0 p-2 list-none outline-none flex flex-col gap-[2px]
+}
+
+.p-tieredmenu-submenu {
+    @apply absolute min-w-full z-10 rounded-md
+        bg-white dark:bg-white
+        text-gray-700 dark:text-gray-700
+        border border-gray-400 dark:border-gray-400
+        shadow-[0_2px_6px_0px_rgba(191,200,215,0.75)]
+}
+
+.p-tieredmenu-item {
+    @apply relative
+}
+
+.p-tieredmenu-item-content {
+    @apply transition-colors duration-200 rounded-sm text-gray-700 dark:text-gray-700
+}
+
+.p-tieredmenu-item-link {
+    @apply cursor-pointer flex items-center no-underline overflow-hidden relative text-inherit
+        px-4 py-3 gap-3 select-none outline-none
+}
+
+.p-tieredmenu-item-icon {
+    @apply text-gray-700 dark:text-gray-700
+}
+
+.p-tieredmenu-submenu-icon.p-icon {
+    @apply !w-6 !h-6 text-gray-700 dark:text-gray-700 ms-auto text-sm scale-[1.4]
+}
+
+.p-tieredmenu-item.p-focus > .p-tieredmenu-item-content {
+    @apply bg-secondary-200 dark:bg-secondary-200 text-gray-800 dark:text-gray-800
+}
+
+.p-tieredmenu-item.p-focus > .p-tieredmenu-item-content .p-tieredmenu-item-icon {
+    @apply text-gray-800 dark:text-gray-800
+}
+
+.p-tieredmenu-item.p-focus > .p-tieredmenu-item-content .p-tieredmenu-submenu-icon {
+    @apply text-gray-800 dark:text-gray-800
+}
+
+.p-tieredmenu-item:not(.p-disabled) > .p-tieredmenu-item-content:hover {
+    @apply bg-secondary-50 dark:bg-secondary-50 text-gray-1000 dark:text-gray-1000
+}
+
+.p-tieredmenu-item:not(.p-disabled) > .p-tieredmenu-item-content:hover .p-tieredmenu-item-icon {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-tieredmenu-item:not(.p-disabled) > .p-tieredmenu-item-content:hover .p-tieredmenu-submenu-icon {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-tieredmenu-item-active > .p-tieredmenu-item-content {
+    @apply bg-secondary-200  dark:bg-secondary-200 text-gray-800 dark:text-gray-800
+}
+
+.p-tieredmenu-item-active > .p-tieredmenu-item-content .p-tieredmenu-item-icon {
+    @apply text-gray-800 dark:text-gray-800
+}
+
+.p-tieredmenu-item-active > .p-tieredmenu-item-content .p-tieredmenu-submenu-icon {
+    @apply text-gray-800 dark:text-gray-800
+}
+
+.p-tieredmenu-separator {
+    @apply border-t border-gray-200 dark:border-gray-200
+}
+
+.p-tieredmenu-overlay {
+    @apply shadow-[0_2px_6px_0px_rgba(191,200,215,0.75)]
+}
+
+.p-tieredmenu-enter-from,
+.p-tieredmenu-leave-active {
+    @apply opacity-0
+}
+
+.p-tieredmenu-enter-active {
+    @apply transition-opacity duration-[250ms]
+}
+
+.p-tieredmenu-mobile .p-tieredmenu-submenu {
+    @apply static shadow-none border-none ps-4 pe-0
+}
+
+.p-tieredmenu-mobile .p-tieredmenu-submenu-icon {
+    @apply transition-transform duration-200 rotate-90
+}
+
+.p-tieredmenu-mobile .p-tieredmenu-item-active > .p-tieredmenu-item-content .p-tieredmenu-submenu-icon {
+    @apply -rotate-90
+}

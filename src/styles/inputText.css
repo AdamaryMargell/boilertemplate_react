@@ -1,0 +1,7 @@
+.p-inputtext-sm {
+    @apply text-sm px-2 py-1 h-8 !important;
+}
+
+.p-inputtext-lg {
+    @apply text-lg px-4 py-3 h-12 !important;
+}

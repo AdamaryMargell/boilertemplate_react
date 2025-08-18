@@ -2,70 +2,110 @@ import { classNames } from "primereact/utils";
 
 const TRANSITIONS = {
     overlay: {
-        enterFromClass: 'opacity-0 scale-75',
-        enterActiveClass: 'transition-transform transition-opacity duration-150 ease-in',
-        leaveActiveClass: 'transition-opacity duration-150 ease-linear',
-        leaveToClass: 'opacity-0'
+        enterFromClass: 'opacity-0 scale-95',
+        enterActiveClass: 'transition-all duration-200 ease-out',
+        leaveActiveClass: 'transition-all duration-150 ease-in',
+        leaveToClass: 'opacity-0 scale-95'
     }
 };
+
 export const dropdownPT = (hasError = false) => ({
     root: ({ props }) => ({
         className: classNames(
             'cursor-pointer inline-flex relative select-none',
-            'bg-with border border-gray-400 transition-colors duration-200 ease-in-out rounded-md',
-            'w-full md:w-56',
-            'hover:border-blue-500 focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]',
-            { 'opacity-60 select-none pointer-events-none cursor-default': props.disabled },
-            hasError && 'border-red-500 animate-shake hover:border-red-500 focus:shadow-[0_0_0_0.2rem_rgba(238,69,68,1)]'
-
+            'bg-white border border-gray-300 transition-all duration-200 ease-in-out rounded-lg',
+            'w-full md:w-56 min-h-[44px]',
+            'hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500',
+            'shadow-sm hover:shadow-md',
+            {
+                'opacity-60 select-none pointer-events-none cursor-default': props.disabled,
+                'bg-gray-50': props.disabled
+            },
+            hasError && 'border-red-400 focus:ring-red-500/20 focus:border-red-500 animate-shake hover:border-red-400'
         )
     }),
+
     input: ({ props }) => ({
         className: classNames(
             'cursor-pointer block flex flex-auto overflow-hidden overflow-ellipsis whitespace-nowrap relative',
-            'bg-transparent border-0 text-gray-800',
-            'p-3 transition duration-200 bg-transparent rounded appearance-none font-sans text-base',
+            'bg-transparent border-0 text-gray-700 placeholder-gray-400',
+            'px-3 py-2.5 transition duration-200 bg-transparent rounded-lg appearance-none font-medium text-sm',
             'focus:outline-none focus:shadow-none',
-            { 'pr-7': props.showClear }
+            { 'pr-10': props.showClear || !props.editable }
         )
     }),
+
     trigger: {
-        className: classNames('flex items-center justify-center shrink-0', 'bg-transparent text-gray-500 w-12 rounded-tr-lg rounded-br-lg')
+        className: classNames(
+            'flex items-center justify-center shrink-0 absolute right-0 top-0 bottom-0',
+            'text-gray-400 w-10 rounded-r-lg transition-colors duration-200',
+            'hover:text-gray-600'
+        )
     },
+
+    panel: ({ props }) => ({
+        className: classNames(
+            'mt-1 border-[1px] border-[#CDCDCD] rounded-md bg-white'
+        )
+    }),
+
     wrapper: {
-        className: classNames('max-h-[200px] overflow-auto', 'bg-white text-gray-700 border-0 rounded-md shadow-lg')
+        className: classNames('max-h-[200px] overflow-auto', 'bg-white text-gray-700 rounded-md shadow-lg')
     },
-    list: 'py-3 list-none m-0',
+
+    list: 'py-1 list-none m-0 px-2',
+
     item: ({ context }) => ({
         className: classNames(
-            'cursor-pointer font-normal overflow-hidden relative whitespace-nowrap',
-            'm-0 p-3 border-0  transition-shadow duration-200 rounded-none',
-            'hover:text-gray-700 hover:bg-gray-200',
+            'cursor-pointer overflow-hidden relative whitespace-nowrap text-sm font-normal ',
+            'mx-1 my-0.5 px-3 py-2.5  transition-all duration-150 gap-1 rounded-md border-transparent ',
+            'flex items-center',
             {
-                'text-gray-700': !context.focused && !context.selected,
-                'bg-gray-300 text-gray-700': context.focused && !context.selected,
-                'bg-blue-400 text-blue-700': context.focused && context.selected,
-                'bg-blue-50 text-blue-700': !context.focused && context.selected,
-                'opacity-60 select-none pointer-events-none cursor-default': context.disabled
+                'text-[#3C3C3C]': !context.focused && !context.selected,
+                'bg-[#7866CB] !text-white': context.focused && !context.selected,
+                'bg-[#493E7D] !text-white': context.focused && context.selected,
+                'bg-blue-50 !text-blue-900': !context.focused && context.selected,
+                'bg-[#ECECEC] opacity-60 select-none pointer-events-none cursor-default': context.disabled
             }
         )
     }),
+
     itemgroup: {
-        className: classNames('m-0 p-3 text-gray-800 bg-white font-bold', 'cursor-auto')
-    },
-    header: {
-        className: classNames('p-3 border-b border-gray-300 text-gray-700 bg-gray-100 mt-0 rounded-tl-lg rounded-tr-lg')
-    },
-    filtercontainer: 'relative',
-    filterinput: {
         className: classNames(
-            'pr-7 -mr-7',
-            'w-full',
-            'font-sans text-base text-gray-700 bg-white py-3 px-3 border border-gray-300 transition duration-200 rounded-lg appearance-none',
-            'hover:border-blue-500 focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]'
+            'm-0 px-3 py-2 text-gray-600 bg-gray-50 font-semibold text-xs uppercase tracking-wider',
+            'cursor-auto border-b border-gray-100'
         )
     },
-    filtericon: '-mt-2 absolute top-1/2',
-    clearicon: 'text-gray-500 right-12 -mt-2 absolute top-1/2',
+
+    header: {
+        className: classNames(
+            'p-[4px]  text-gray-700 bg-white font-semibold text-sm',
+            'rounded-t-lg top-0  z-10'
+        )
+    },
+
+    filtercontainer: 'relative',
+
+    filterinput: {
+        className: classNames(
+            'w-full pr-8',
+            'font-medium text-sm text-gray-700 bg-white py-2 px-3 border border-gray-300 transition duration-200 rounded-md appearance-none',
+            'placeholder-gray-400',
+            'hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500'
+        )
+    },
+
+    filtericon: {
+        className: 'absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4'
+    },
+
+    clearicon: {
+        className: 'text-gray-400 hover:text-gray-600 right-10 absolute top-1/2 transform -translate-y-1/2 cursor-pointer transition-colors duration-200'
+    },
+
+    emptymessage: {
+        className: 'px-3 py-6 text-gray-500 text-center text-sm italic'
+    },
+
     transition: TRANSITIONS.overlay
 });

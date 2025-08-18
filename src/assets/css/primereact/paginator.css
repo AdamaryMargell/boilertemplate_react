@@ -1,0 +1,83 @@
+.p-paginator {
+    @apply flex items-center justify-center flex-wrap py-2 px-4 rounded-md gap-1
+        bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0
+}
+
+.p-paginator-content {
+    @apply flex items-center justify-center flex-wrap gap-1
+}
+
+.p-paginator-content-start {
+    @apply ms-auto
+}
+
+.p-paginator-content-end {
+    @apply me-auto
+}
+
+.p-paginator-page,
+.p-paginator-next,
+.p-paginator-last,
+.p-paginator-first,
+.p-paginator-prev {
+    @apply cursor-pointer inline-flex items-center justify-center leading-none overflow-hidden relative
+        min-w-10 transition-colors duration-200 p-1 m-1 h-21 w-21 rounded-md
+        text-gray-700 dark:text-gray-700
+        focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary
+}
+
+.p-paginator-next,
+.p-paginator-last,
+.p-paginator-first,
+.p-paginator-prev{
+    @apply border border-secondary-500 bg-white text-secondary-700 disabled:bg-gray-100 disabled:text-gray-500 disabled:border-none
+}
+
+.p-paginator .p-icon {
+    @apply h-12 w-12
+}
+
+.p-paginator-first:not(.p-disabled):hover,
+.p-paginator-prev:not(.p-disabled):hover,
+.p-paginator-next:not(.p-disabled):hover,
+.p-paginator-last:not(.p-disabled):hover {
+    @apply bg-secondary-50 text-secondary-700
+}
+
+.p-paginator-page:not(.p-disabled):not(.p-paginator-page-selected):hover {
+    @apply bg-white text-primary-600 font-semibold
+}
+
+.p-paginator-page.p-paginator-page-selected {
+    @apply bg-secondary-200 border border-secondary-200 text-primary-500
+}
+
+.p-paginator-current {
+    @apply text-gray-600 h-10 dark:text-surface-400 px-3 py-2 mx-2
+}
+
+.p-paginator-pages {
+    @apply flex items-center gap-1
+}
+
+.p-paginator-jtp-input .p-inputtext {
+    @apply w-21
+}
+
+.p-paginator-content .p-select {
+    @apply w-26 h-21 p-2
+}
+
+.p-paginator-content .p-select .p-select-label {
+    @apply py-3
+}
+.p-paginator-first:dir(rtl),
+.p-paginator-prev:dir(rtl),
+.p-paginator-next:dir(rtl),
+.p-paginator-last:dir(rtl) {
+    @apply rotate-180
+}
+
+.p-select-list {
+    @apply bg-white rounded-xl
+}

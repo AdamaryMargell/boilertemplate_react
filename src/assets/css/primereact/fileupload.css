@@ -1,0 +1,132 @@
+@import './button';
+@import './message';
+@import './progressbar';
+
+.p-fileupload input[type="file"] {
+    @apply hidden
+}
+
+.p-fileupload-advanced {
+    @apply border border-gray-300 dark:border-gray-400 rounded-lg text-surface-700 dark:text-surface-0 bg-white
+}
+
+.p-fileupload-buttonbar {
+    @apply flex items-center gap-4 text-gray-700 dark:text-gray-700 border-gray-400 pt-12 pl-12 pb-0 pr-12;
+}
+
+.p-fileupload:has(.p-fileupload-row:not(:empty)) .p-fileupload-buttonbar {
+    @apply border-b border-gray-400 pb-12;
+}
+
+.p-fileupload-content {
+    @apply relative transition-colors duration-200
+}
+
+.p-fileupload:has(.p-fileupload-row:not(:empty)) .p-fileupload-content {
+    @apply py-12 px-28
+}
+
+.p-fileupload-content .p-progressbar {
+    @apply w-full absolute top-0 start-0 h-2;
+}
+
+.p-fileupload-choose{
+    @apply !bg-white !text-secondary-700 !border-2 !border-secondary
+    hover:!border-secondary hover:!bg-secondary-50
+    !rounded-sm !text-base !font-semibold !transition-colors duration-200 !flex !items-center
+    !px-3 !py-5 !gap-3 !h-8
+}
+
+.p-fileupload-upload-button {
+    @apply bg-white text-secondary-700 border-2 border-secondary
+    hover:!border-secondary hover:!bg-secondary-50
+    rounded-sm text-base !font-semibold transition-colors duration-200 flex items-center px-3 py-5 gap-3 h-8;
+}
+
+.p-fileupload-cancel-button {
+    @apply bg-white text-secondary-700 border-2 border-secondary
+    hover:!border-secondary hover:!bg-secondary-50
+    rounded-sm text-base !font-semibold transition-colors duration-200 flex items-center px-3 py-5 gap-3 h-8;
+
+}
+
+.p-fileupload-choose-button .p-button-icon {
+    @apply w-7 h-7;
+}
+
+.p-fileupload-file-list {
+    @apply flex flex-col gap-4;
+}
+
+.p-fileupload-row{
+    @apply flex items-center gap-24 p-8;
+}
+
+.p-fileupload-row:not(:first-child) {
+    @apply border-t border-gray-400;
+}
+
+.p-fileupload-file-info {
+    @apply flex flex-col gap-4;
+}
+
+.p-fileupload-filename {
+    @apply text-sm font-medium text-gray-500;
+}
+
+.p-fileupload-filesize {
+    @apply text-sm text-gray-900;
+}
+
+.p-fileupload-file-thumbnail {
+    @apply flex-shrink-0
+}
+
+.p-fileupload-file-main {
+    @apply flex-1 min-w-0;
+}
+
+.p-fileupload-file-actions {
+    @apply ms-auto
+}
+
+.p-fileupload-file-actions .p-button {
+    @apply p-0 rounded-full border-0;
+}
+
+.p-fileupload-file-actions .p-button-icon {
+    @apply w-8 h-8;
+}
+
+.p-fileupload-highlight {
+    @apply border border-dashed border-primary
+}
+
+.p-fileupload-advanced .p-message {
+    @apply mt-0
+}
+
+.p-fileupload-basic {
+    @apply border border-gray-300 dark:border-gray-400 rounded-lg text-surface-700 dark:text-surface-0 bg-white p-12 gap-12;
+}
+
+[data-pc-section="details"] {
+    @apply flex flex-col gap-4; 
+}
+
+[data-pc-section="filename"] {
+    @apply text-sm font-medium text-gray-500;
+}
+
+[data-pc-section="filesize"] {
+    @apply text-sm text-gray-900;
+}
+
+.p-fileupload-file-badge {
+    @apply inline-block whitespace-nowrap  text-xs w-38 m-0 p-0;
+}
+
+.p-fileupload .p-fileupload-buttonbar .p-button:not(.p-fileupload-choose) {
+    display: none;
+}
+

@@ -74,12 +74,12 @@ const XDropdown = ({
                 value={value}
                 aria-describedby={error ? `${name}-error` : undefined}
                 onChange={handleChange}
-                pt={dropdownPT(!!error)}
+                className={`${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 placeholder={value ? undefined : props.placeholder}
                 showClear={!!value}
             />
             {error?.message && (
-                <small id={`${name}-error`} className="text-xs text-red-500">
+                <small id={`${name}-error`} className="text-[12px] text-red-500">
                     {error.message.toString()}
                 </small>
             )}

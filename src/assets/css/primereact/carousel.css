@@ -1,0 +1,85 @@
+@import './button';
+
+.p-carousel {
+    @apply flex flex-col
+}
+
+.p-carousel-content {
+    @apply flex flex-col overflow-auto
+}
+
+.p-carousel-container {
+    @apply flex flex-row gap-1
+}
+ 
+.p-carousel-container:dir(rtl) {
+    @apply flex-row-reverse
+}
+
+.p-carousel-items-content {
+    @apply overflow-hidden w-full
+}
+
+.p-carousel-items-container {
+    @apply flex flex-row 
+}
+
+.p-carousel-prev.p-link,
+.p-carousel-next {
+    @apply self-center rounded-full !bg-white
+        flex items-center justify-center
+        hover:!bg-secondary-50 hover:text-gray-1000 dark:hover:!bg-secondary-50 dark:hover:text-gray-1000
+        transition-all duration-200 p-0 m-0 text-gray-700
+        !w-11 !h-11 !min-w-11 !min-h-11 !text-lg;
+}
+
+.p-carousel-prev.p-link .p-icon > *,
+.p-carousel-next .p-icon > *,
+.p-carousel-prev.p-link svg > *,
+.p-carousel-next svg > * {
+    @apply !w-8 !h-8 
+}
+
+.p-carousel-prev.p-link.p-disabled,
+.p-carousel-next.p-link.p-disabled{
+    @apply !bg-gray-100 text-gray-400;
+}
+
+.p-carousel-prev.p-link.p-disabled .p-icon,
+.p-carousel-next.p-link.p-disabled .p-icon,
+.p-carousel-prev.p-link.p-disabled svg,
+.p-carousel-next.p-link.p-disabled svg {
+    @apply !w-8 !h-8 
+}
+
+.p-carousel-indicators.p-reset {
+    @apply flex flex-row justify-center flex-wrap p-4 gap-2 m-0 list-none
+}
+
+.p-carousel-indicators.p-reset:dir(rtl) {
+    @apply rtl:flex-row-reverse
+}
+
+.p-carousel-indicator .p-link{
+    @apply flex items-center justify-center w-16 h-4 border-none rounded-md p-0 m-0 select-none cursor-pointer transition-colors duration-200 bg-gray-100 hover:bg-gray-300 dark:bg-gray-100 dark:hover:bg-gray-300 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary
+}
+
+.p-carousel-indicator.p-highlight .p-link {
+    @apply bg-gray-700
+}
+
+.p-carousel-vertical .p-carousel-content {
+    @apply flex-col
+}
+
+.p-carousel-vertical .p-carousel-item-container {
+    @apply flex-col h-full
+}
+
+.p-items-hidden .p-carousel-item {
+    @apply invisible
+}
+
+.p-items-hidden .p-carousel-item.p-carousel-item-active {
+    @apply visible
+}

@@ -1,0 +1,175 @@
+@import './checkbox';
+@import './chip';
+@import './inputtext';
+@import './iconfield';
+
+.p-multiselect {
+    @apply inline-flex cursor-pointer relative select-none rounded-md
+        bg-white dark:bg-white
+        border border-gray-400 dark:border-gray-400
+        shadow-[0_1px_2px_0_rgba(18,18,23,0.05)]
+        transition-colors duration-200
+        px-5 py-3 gap-5 items-center
+
+}
+
+.p-multiselect:not(.p-disabled):hover {
+    @apply border-gray-600 dark:border-gray-600
+}
+
+.p-multiselect:not(.p-disabled):hover .p-multiselect-label {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-multiselect:not(.p-disabled).p-focus {
+    @apply border-primary shadow-[0_0_4px_0px_rgba(12,85,248,0.5)]
+}
+
+.p-multiselect.p-variant-filled {
+    @apply bg-white dark:bg-white
+}
+
+.p-multiselect.p-invalid {
+    @apply border-red dark:border-red 
+}
+
+.p-multiselect.p-invalid:not(.p-disabled).p-focus {
+    @apply border-red shadow-[0_0_4px_0px_rgba(241,89,78,0.5)]
+}
+
+.p-multiselect.p-invalid:not(.p-disabled) .p-multiselect-label,
+.p-multiselect.p-invalid:not(.p-disabled) .p-multiselect-dropdown,
+.p-multiselect.p-invalid:not(.p-disabled) .p-multiselect-clear-icon{
+    @apply text-red-500 dark:text-red-500
+}
+
+.p-multiselect.p-disabled {
+    @apply bg-gray-100 text-gray-400 dark:bg-gray-100 dark:text-gray-400 cursor-default
+}
+
+.p-multiselect-dropdown {
+    @apply flex items-center justify-center shrink-0
+        text-gray-700 dark:text-gray-700 w-10 rounded-e-md
+} 
+
+.p-multiselect-dropdown-icon {
+    @apply !w-8 !h-8
+}
+.p-multiselect-clear-icon {
+    @apply text-gray-700 dark:text-gray-700 w-8 h-8
+}
+
+.p-multiselect-label-container {
+    @apply overflow-hidden flex-auto
+}
+
+.p-multiselect-label {
+    @apply flex items-center gap-3 whitespace-nowrap overflow-hidden text-ellipsis text-gray-800 dark:text-gray-800
+}
+
+.p-multiselect-label.p-placeholder {
+    @apply text-gray-500 dark:text-gray-500
+}
+
+.p-multiselect.p-disabled .p-multiselect-label {
+    @apply text-gray-400 dark:text-gray-400
+}
+
+.p-multiselect-label-empty {
+    @apply overflow-hidden opacity-0
+}
+
+.p-multiselect .p-multiselect-overlay {
+    @apply min-w-full
+}
+
+.p-multiselect-overlay {
+    @apply absolute top-0 left-0 rounded-md
+        bg-white dark:bg-white
+        border border-gray-400 dark:border-gray-400
+        text-gray-700 dark:text-gray-700
+        shadow-[0_2px_6px_0px_rgba(191,200,215,0.75)]
+        p-2 mt-2
+}
+
+.p-multiselect-header {
+    @apply flex items-center py-3 px-4 gap-4
+}
+
+.p-multiselect-header .p-checkbox {
+    @apply me-2
+}
+
+.p-multiselect-filter-container {
+    @apply flex-auto
+}
+
+.p-multiselect-filter {
+    @apply w-full
+}
+
+.p-multiselect-list-container {
+    @apply overflow-auto
+}
+
+.p-multiselect-list {
+    @apply m-0 p-0 list-none gap-[2px] flex flex-col
+}
+
+.p-multiselect-option {
+    @apply cursor-pointer font-normal whitespace-nowrap relative overflow-hidden flex items-center gap-3 
+        py-3 px-4 rounded-sm text-gray-700 dark:text-gray-700
+        transition-colors duration-200 
+}
+
+.p-multiselect-option:not(.p-disabled).p-focus {
+    @apply bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-0
+}
+
+.p-multiselect-option-group {
+    @apply m-0 px-3 py-2 bg-transparent text-surface-500 dark:text-surface-400 font-semibold
+}
+
+.p-multiselect-empty-message {
+    @apply px-3 py-2
+}
+
+.p-multiselect-label .p-chip {
+    @apply py-2 px-4 rounded-md
+}
+
+.p-multiselect-fluid {
+    @apply flex
+}
+
+.p-multiselect-sm {
+    @apply !px-4 !py-2
+}
+
+.p-multiselect-sm .p-multiselect-label {
+    @apply text-sm 
+}
+
+.p-multiselect-sm .p-multiselect-dropdown-icon {
+    @apply !w-7 !h-7
+}
+
+.p-multiselect-sm .p-multiselect-clear-icon {
+    @apply w-7 h-7
+}
+
+.p-multiselect-lg {
+    @apply !px-6 !py-4
+}
+
+.p-multiselect-lg .p-multiselect-label {
+    @apply text-lg 
+}
+
+.p-multiselect-lg .p-multiselect-dropdown-icon {
+    @apply !w-9 !h-9 
+}
+
+.p-multiselect-lg .p-multiselect-clear-icon {
+    @apply w-9 h-9 
+}

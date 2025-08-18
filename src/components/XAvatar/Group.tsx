@@ -1,4 +1,3 @@
-import { avatargroupPT } from '@/primereact-tailwindcss/avatar.pt';
 import { AvatarGroup } from 'primereact/avatargroup';
 import React, { ReactNode } from 'react';
 
@@ -9,7 +8,7 @@ interface XAvatarGroupProps {
 
 const XAvatarGroup = ({ children, ...props }: XAvatarGroupProps) => {
     return (
-        <AvatarGroup {...props} pt={{ ...avatargroupPT }}>
+        <AvatarGroup {...props}>
             {children}
         </AvatarGroup>
     );

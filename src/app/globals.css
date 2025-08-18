@@ -1,3 +1,86 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "../assets/css/primereact/tailwind.css";
+
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: var(--font-work-sans), 'Work Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+h5 {
+    font-size: 16px;
+}
+
+
+:root {
+    font-size: 14px;
+
+    /* primary */
+    --p-primary-color: #0C55F8;
+    --p-primary-50: #E7EEFE;
+    --p-primary-100: #CEDDFE;
+    --p-primary-200: #9EBBFC;
+    --p-primary-300: #6D99FB;
+    --p-primary-400: #3D77F9;
+    --p-primary-500: #0C55F8;
+    --p-primary-600: #0A44C6;
+    --p-primary-700: #073395;
+    --p-primary-800: #052263;
+    --p-primary-900: #021132;
+    --p-primary-1000: #010B20;
+    /* secondary */
+    --p-secondary-color: #B6CCFD;
+    --p-secondary-50: #F0F5FF;
+    --p-secondary-100: #E9F0FE;
+    --p-secondary-200: #E2EBFE;
+    --p-secondary-300: #D3E0FE;
+    --p-secondary-400: #C5D6FD;
+    --p-secondary-500: #B6CCFD;
+    --p-secondary-600: #92ACE5;
+    --p-secondary-700: #6F8CCE;
+    --p-secondary-800: #4B6DB6;
+    --p-secondary-900: #284D9F;
+    --p-secondary-1000: #163D93;
+    /* neutral */
+    --gray-color: #94A4BC;
+    --gray-50: #F4F6F8;
+    --gray-100: #EAEDF2;
+    --gray-200: #D4DBE4;
+    --gray-300: #BFC8D7;
+    --gray-400: #A9B6C9;
+    --gray-500: #94A4BC;
+    --gray-600: #79879B;
+    --gray-700: #5F6A7B;
+    --gray-800: #373F4A;
+    --gray-900: #2A303A;
+    --gray-1000: #1C2229;
+}
+
+
+svg[fill="currentColor"] path {
+    fill: currentColor !important;
+}

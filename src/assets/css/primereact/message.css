@@ -1,0 +1,52 @@
+.p-inline-message {
+    @apply inline-flex items-center justify-center align-top p-3 m-0 rounded-md;
+}
+
+.p-inline-message-text{
+    @apply text-sm font-normal
+}
+
+.p-inline-message-success {
+    @apply bg-green-50 dark:bg-green-50 text-green-600 dark:text-green-600
+}
+
+.p-inline-message-info {
+    @apply bg-sky-50 dark:bg-sky-50 text-sky-500 dark:text-sky-500
+}
+
+.p-inline-message-warn {
+    @apply bg-yellow-50 dark:bg-yellow-50 text-yellow-600 dark:text-yellow-600
+}
+
+.p-inline-message-error {
+    @apply bg-red-50 dark:bg-red-50 text-red-500 dark:text-red-500
+}
+
+.p-inline-message-secondary {
+    @apply  text-gray-600
+}
+
+.p-inline-message-contrast  {
+    @apply  text-gray-1000
+}
+
+.p-inline-message-icon {
+    @apply text-base mr-2
+}
+
+
+.p-message-inline-simple [data-pc-section="icon"] {
+    @apply hidden;
+}
+
+.p-message-inline-simple {
+    @apply bg-transparent border-none shadow-none p-0;
+}
+
+.p-message-inline-simple.p-message-error{
+    @apply text-red-500
+}
+
+.p-message-inline-simple.p-message-secondary {
+    @apply text-gray-600
+}

@@ -1,0 +1,147 @@
+.p-steplist {
+    @apply relative flex justify-between items-center m-0 p-0 gap-0 list-none overflow-x-auto
+}
+
+.p-step {
+    @apply flex flex-auto items-center gap-4 last-of-type:flex-initial
+}
+
+.p-step-header {
+    @apply border-none inline-flex items-center no-underline cursor-pointer transition-colors duration-200 rounded-md p-0 gap-0 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary
+}
+
+.p-step.p-disabled .p-step-header {
+    @apply cursor-default
+}
+
+.p-stepper.p-stepper-readonly .p-step {
+    @apply cursor-auto
+}
+
+.p-step-title {
+    @apply block whitespace-nowrap overflow-hidden text-ellipsis max-w-full text-gray-600 dark:text-gray-600 font-medium transition-colors duration-200 px-4 gap-4
+}
+
+.p-step-number {
+    @apply flex items-center justify-center text-gray-600 dark:text-gray-600
+    bg-white dark:bg-white border-2 border-gray-600 dark:border-gray-600 
+    min-w-20 h-20 leading-8 text-[1.429rem] font-normal rounded-full 
+    z-10 relative p-4 after:absolute after:w-full after:h-full 
+    after:rounded-full
+}
+
+.p-stepper-separator {
+    @apply flex-1 bg-gray-400 dark:bg-gray-400 w-full h-[2px] transition-colors duration-200
+}
+
+
+.p-step-active .p-step-header {
+    @apply cursor-default
+}
+
+.p-step-active .p-step-number {
+    @apply bg-white dark:bg-white border-2 border-solid border-primary-300 text-white text-[1.214rem] font-semibold
+}
+
+.p-step-active .p-step-number::before {
+    @apply content-[''] absolute z-[-1] rounded-[50%] inset-1 bg-primary;
+}
+
+.p-step-active .p-step-title {
+    @apply text-gray-900 font-semibold
+}
+
+.p-step:not(.p-disabled):focus-visible {
+    @apply outline outline-1 outline-offset-2 outline-primary
+}
+
+.p-step:has(~ .p-step-active) .p-stepper-separator {
+    @apply bg-primary
+}
+
+.p-steppanels {
+    @apply pt-[0.875rem] pb-[1.125rem] px-2
+}
+
+.p-steppanel {
+    @apply bg-surface-0 dark:bg-surface-900 text-surface-700 dark:text-surface-0
+}
+
+.p-stepper:has(.p-stepitem) {
+    @apply flex flex-col
+}
+
+.p-stepitem {
+    @apply flex flex-col flex-initial
+}
+
+.p-stepitem.p-stepitem-active {
+    @apply flex-auto
+}
+
+.p-stepitem .p-step {
+    @apply flex-initial
+}
+
+.p-stepitem .p-steppanel-content {
+    @apply w-full ps-4
+}
+
+.p-stepitem .p-steppanel {
+    @apply flex flex-auto
+}
+
+.p-stepitem .p-stepper-separator {
+    @apply flex-grow-0 flex-shrink-0 basis-auto w-[2px] h-auto ms-[1.625rem] relative start-[-2.5px]
+}
+
+.p-stepitem:has(~ .p-stepitem-active) .p-stepper-separator {
+    @apply bg-primary
+}
+
+.p-stepitem:last-of-type .p-steppanel {
+    @apply ps-8
+}
+
+.p-step-number[data-p="completed"],
+.p-step-number[data-p="completed vertical"] {
+    @apply bg-primary-200 dark:bg-primary-200 border-2 border-primary-200 text-white !text-[1.429rem] !font-normal
+}
+
+.p-step-header[data-p="completed"] .p-step-title ,
+.p-step-header[data-p="completed vertical"] .p-step-title {
+    @apply text-primary-400;
+}
+
+.p-step:has([data-p="completed"]) .p-stepper-separator {
+    @apply bg-primary-200;
+}
+
+.p-step:has([data-p="completed vertical"]) .p-stepper-separator {
+    @apply bg-primary-200 flex-grow-0 flex-shrink-0 basis-auto w-[2px] h-auto ms-[1.525rem] relative start-[-2.5px] mx-8
+}
+
+.stepper-layout {
+    @apply grid grid-cols-[300px_1fr] gap-8;
+}
+
+.stepper-navigation {
+    @apply h-full border-r border-gray-200;
+}
+
+.custom-vertical-stepper {
+    @apply flex flex-col h-full;
+    position: relative;
+}
+
+.vertical-step-list {
+    @apply flex flex-col gap-4 !important;
+}
+
+.p-stepitem:last-child .p-stepper-separator {
+    @apply hidden !important;
+}
+
+.p-step-number:has(> .iconify) {
+    @apply px-2 py-0 text-gray-600;
+}

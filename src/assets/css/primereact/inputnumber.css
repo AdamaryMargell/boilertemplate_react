@@ -1,0 +1,120 @@
+@import './inputtext';
+
+.p-inputnumber {
+    @apply inline-flex relative
+}
+
+.p-inputnumber-button {
+    @apply flex items-center justify-center flex-grow-0 flex-shrink-0 basis-auto cursor-pointer w-10 bg-transparent enabled:hover:bg-primary-50 enabled:active:bg-white border border-gray-400 enabled:hover:border-gray-600 enabled:active:border-gray-400 text-gray-700 enabled:hover:text-gray-1000 enabled:active:text-gray-700 dark:bg-transparent dark:enabled:hover:bg-primary-50 dark:enabled:active:bg-white dark:border-gray-400 dark:enabled:hover:border-gray-600 dark:enabled:active:border-gray-400 dark:text-gray-700 dark:enabled:hover:text-gray-1000 dark:enabled:active:text-gray-700 transition-colors duration-200
+}
+
+.p-inputnumber-stacked .p-inputnumber-button {
+    @apply relative flex-auto border-none w-20 justify-center items-center
+}
+
+.p-inputnumber-stacked .p-inputnumber-button .p-icon,
+.p-inputnumber-stacked .p-inputnumber-button svg path,
+.p-inputnumber-stacked .p-inputnumber-button .iconify {
+    @apply !w-7 !h-7 !origin-center !scale-110;
+}
+
+.p-inputnumber-button[data-p*="small"] {
+    @apply w-15 text-center;
+}
+
+.p-inputnumber-button[data-p*="small"] .p-icon,
+.p-inputnumber-button[data-p*="small"] svg path,
+.p-inputnumber-button[data-p*="small"] .iconify {
+    @apply !w-5 !h-5 !origin-center !scale-[1.15];
+}
+
+.p-inputnumber-button[data-p*="large"] {
+    @apply w-25;
+}
+
+.p-inputnumber-button[data-p*="large"] .p-icon,
+.p-inputnumber-button[data-p*="large"] svg path,
+.p-inputnumber-button[data-p*="large"] .iconify {
+    @apply !w-8 !h-8 !origin-center !scale-[1.2];
+}
+
+.p-inputnumber-stacked .p-inputnumber-button-group {
+    @apply flex flex-col absolute top-px end-px h-[calc(100%-2px)] z-10
+}
+
+.p-inputnumber-stacked .p-inputnumber-increment-button {
+    @apply p-0 rounded-tr-[4px] flex-1 flex items-center justify-center border-b-0
+}
+
+.p-inputnumber-stacked .p-inputnumber-decrement-button {
+    @apply p-0 rounded-br-[4px] flex-1 flex items-center justify-center border-t-0
+}
+
+.p-inputnumber-horizontal {
+    @apply flex items-stretch w-full;
+}
+
+.p-inputnumber-horizontal .p-inputnumber-button {
+    @apply flex-shrink-0 w-21 h-full px-[13px] py-6;
+}
+
+.p-inputnumber-horizontal .p-inputnumber-increment-button {
+    @apply order-3 rounded-e-md border-s-0
+}
+
+.p-inputnumber-horizontal .p-inputnumber-input {
+    @apply order-2 rounded-none flex-1;
+}
+
+.p-inputnumber-horizontal .p-inputnumber-decrement-button {
+    @apply order-1 rounded-s-md border-e-0
+}
+
+.p-inputnumber-horizontal:has(.p-inputtext-sm) .p-inputnumber-button {
+    @apply w-15 px-5 py-4;
+}
+
+.p-inputnumber-horizontal:has(.p-inputtext-lg) .p-inputnumber-button {
+    @apply w-26 !px-8 !py-7;
+}
+
+.p-floatlabel:has(.p-inputnumber-horizontal) label {
+    @apply ms-10;
+}
+
+/* INPUT NUMBER VERTICAL */
+.p-inputnumber-vertical {
+    @apply flex-col
+}
+
+.p-inputnumber-vertical .p-inputnumber-button {
+    @apply py-6 px-7
+}
+
+.p-inputnumber-vertical .p-inputnumber-increment-button {
+    @apply order-1 rounded-ss-md rounded-se-md w-full border-b-0
+}
+
+.p-inputnumber-vertical .p-inputnumber-input {
+    @apply order-2 rounded-none text-center
+}
+
+.p-inputnumber-vertical .p-inputnumber-decrement-button {
+    @apply order-3 rounded-ee-md rounded-es-md w-full border-t-0
+}
+
+.p-inputnumber-input {
+    @apply flex-auto
+}
+
+.p-inputnumber-fluid {
+    @apply w-full
+}
+
+.p-inputnumber-fluid .p-inputnumber-input {
+    @apply w-[1%]
+}
+
+.p-inputnumber-fluid.p-inputnumber-vertical .p-inputnumber-input {
+    @apply w-full
+}

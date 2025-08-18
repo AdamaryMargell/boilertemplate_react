@@ -1,4 +1,3 @@
-import { radioButtonPT } from '@/primereact-tailwindcss/radioButton.pt';
 import { RadioButton, RadioButtonChangeEvent, RadioButtonProps } from 'primereact/radiobutton';
 import { useController, useFormContext } from 'react-hook-form';
 
@@ -90,7 +89,6 @@ const XRadioButton = ({
                                 disabled={option.disabled}
                                 className={`${error ? 'p-invalid' : ''}`}
                                 inputRef={index === 0 ? ref : undefined}
-                                pt={radioButtonPT(!!error)}
                             />
                             <label
                                 htmlFor={optionId}

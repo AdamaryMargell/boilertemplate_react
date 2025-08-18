@@ -1,0 +1,52 @@
+.p-knob-range {
+    @apply fill-none transition-[stroke] duration-100 ease-in
+}
+
+.p-knob-text {
+    @apply text-xl text-center font-bold
+}
+
+.p-knob svg {
+    @apply transition-colors duration-200
+        focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary rounded-full;
+}
+
+.p-knob svg path:first-child {
+    @apply stroke-gray-100 dark:stroke-gray-100 stroke-[18];
+}
+
+.p-knob svg path + path {
+    @apply stroke-primary stroke-[18];
+}
+
+.p-knob svg text {
+    @apply fill-primary dark:fill-primary
+}
+
+.p-knob-value {
+    animation-name: p-knob-dash-frame;
+    animation-fill-mode: forwards;
+    fill: none;
+}
+
+@keyframes p-knob-dash-frame {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+.p-knob.p-disabled {
+    @apply opacity-60 cursor-not-allowed pointer-events-none
+}
+
+.p-knob.p-disabled svg path:first-child {
+    @apply stroke-gray-100 dark:stroke-gray-100 stroke-[18];
+}
+
+.p-knob.p-disabled svg path + path {
+    @apply stroke-gray-100 dark:stroke-gray-100 stroke-[18];
+}
+
+.p-knob.p-disabled svg text {
+    @apply fill-gray-400 dark:fill-gray-500
+}

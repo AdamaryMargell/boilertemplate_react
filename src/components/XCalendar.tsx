@@ -1,5 +1,4 @@
 import { configurePrimeReactLocale } from "@/config/primeLocale";
-import { calendarPT } from "@/primereact-tailwindcss/calendar.pt";
 import { Calendar, CalendarProps } from "primereact/calendar";
 import { Nullable } from "primereact/ts-helpers";
 import { FormEvent } from "react";
@@ -82,10 +81,9 @@ const XCalendar = ({
                 className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
                 locale="es"
-                pt={calendarPT}
             />
             {error?.message && (
-                <small id={`${name}-error`} className="text-xs text-red-500">
+                <small id={`${name}-error`} className="text-xs text-red">
                     {error.message.toString()}
                 </small>
             )}

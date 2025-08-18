@@ -1,6 +1,6 @@
-import { inputtextareaPT } from '@/primereact-tailwindcss/inputTextarea.pt';
 import { InputTextarea, InputTextareaProps } from 'primereact/inputtextarea';
 import { useController, useFormContext } from 'react-hook-form';
+import XLabel from './XLabel';
 
 type XInputTextareaProps = {
     name: string;
@@ -41,10 +41,13 @@ const XInputTextarea = ({
     return (
         <div className="flex flex-col gap-1">
             {label && (
-                <label htmlFor={name} className={`font-medium ${error ? 'text-red-500' : ''}`}>
+                <XLabel
+                    htmlFor={name}
+                    required={labelRequired}
+                    error={!!error}
+                >
                     {label}
-                    {labelRequired && <span className="text-red-500"> *</span>}
-                </label>
+                </XLabel>
             )}
             <InputTextarea
                 {...fieldProps}
@@ -56,10 +59,9 @@ const XInputTextarea = ({
                 onChange={handleChange}
                 className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
-                pt={inputtextareaPT(!!error)}
             />
             {error?.message && (
-                <small id={`${name}-error`} className="text-xs text-red-500">
+                <small id={`${name}-error`} className="text-[12px] text-red">
                     {error.message.toString()}
                 </small>
             )}
@@ -67,4 +69,4 @@ const XInputTextarea = ({
     )
 }
 
-export default XInputTextarea
+export default XInputTextarea;

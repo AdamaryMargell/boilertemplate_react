@@ -9,13 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "libphonenumber-js": "^1.10.14",
     "next": "^15.3.2",
     "primereact": "^10.8.5",
     "react": "=18.2.0",
     "react-dom": "=18.2.0",
-    "react-hook-form": "=7.45.4"
+    "react-hook-form": "=7.45.4",
+    "react-phone-number-input": "^3.2.10",
+    "tailwindcss-primeui": "^0.6.1"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

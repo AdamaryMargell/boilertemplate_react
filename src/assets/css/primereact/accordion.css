@@ -1,0 +1,67 @@
+.p-accordionpanel {
+    @apply flex flex-col rounded-[1.143rem] mt-12
+}
+
+.p-accordionheader {
+    @apply cursor-pointer 
+    disabled:cursor-auto flex items-center justify-between 
+    p-12 font-semibold bg-gray-50 dark:bg-gray-50 text-gray-700 dark:text-gray-700 
+    transition-colors duration-200 rounded-[1.143rem]
+    disabled:bg-gray-100 disabled:dark:bg-gray-100 disabled:text-gray-400 disabled:dark:text-gray-400
+}
+
+.p-accordionpanel:first-child>.p-accordionheader {
+    @apply rounded-ss-[1.143rem] rounded-se-[1.143rem]
+}
+
+.p-accordionpanel:last-child>.p-accordionheader {
+    @apply rounded-ee-[1.143rem] rounded-es-[1.143rem]
+}
+
+.p-accordionpanel:last-child.p-accordionpanel-active>.p-accordionheader {
+    @apply rounded-ee-[1.143rem] rounded-es-[1.143rem]
+}
+
+.p-accordionheader-toggle-icon {
+    @apply text-gray-700 dark:text-gray-700 !w-6 !h-6 text-[0.857rem]
+}
+
+.p-accordionheader:disabled .p-accordionheader-toggle-icon {
+    @apply !text-gray-400 dark:!text-gray-400;
+}
+
+.p-accordionpanel:not(.p-disabled) .p-accordionheader:focus-visible {
+    @apply outline outline-1 outline-offset-[-1px] outline-primary
+}
+
+.p-accordionpanel:not(.p-accordionpanel-active):not(.p-disabled)>.p-accordionheader:hover {
+    @apply bg-secondary-50 dark:bg-secondary-50 text-primary-800 dark:text-primary-800
+}
+
+.p-accordionpanel:not(.p-accordionpanel-active):not(.p-disabled) .p-accordionheader:hover .p-accordionheader-toggle-icon {
+    @apply text-primary-800 dark:text-primary-800
+}
+
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active>.p-accordionheader {
+    @apply bg-secondary-200 dark:bg-secondary-200 text-primary-600 dark:text-primary-600 !px-0
+}
+
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active>.p-accordionheader .p-accordionheader-toggle-icon {
+    @apply text-primary-600 dark:text-primary-600;
+}
+
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active>.p-accordionheader:hover {
+    @apply  text-primary-800 dark:text-primary-800 
+}
+
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active>.p-accordionheader:hover .p-accordionheader-toggle-icon {
+    @apply first-letter:text-primary-800 dark:text-primary-800 
+}
+
+.p-accordionpanel.p-accordionpanel-active {
+    @apply px-12 pb-12 !bg-secondary-200
+}
+
+.p-accordioncontent-content {
+    @apply bg-white dark:bg-white text-gray-700 dark:text-gray-700 p-12 rounded-[1.143rem]
+}

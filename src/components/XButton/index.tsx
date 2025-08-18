@@ -1,6 +1,5 @@
 import React, { ReactNode, forwardRef } from 'react';
 import { Button, ButtonProps } from 'primereact/button';
-import { buttonPT } from "../../primereact-tailwindcss/button.pt";
 
 interface XButtonsProps extends ButtonProps {
     children?: ReactNode;
@@ -8,7 +7,7 @@ interface XButtonsProps extends ButtonProps {
 
 const XButton = forwardRef<any, XButtonsProps>(({ children, ...props }, ref) => {
     return (
-        <Button ref={ref} {...props} pt={{ ...buttonPT }}>
+        <Button ref={ref} {...props}>
             {children}
         </Button>
     );

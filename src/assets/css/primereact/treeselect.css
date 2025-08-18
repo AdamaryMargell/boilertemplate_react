@@ -1,0 +1,174 @@
+@import './chip';
+@import './tree';
+
+.p-treeselect {
+    @apply cursor-pointer relative select-none rounded-md
+        bg-white dark:bg-white
+        border border-gray-400 dark:border-gray-400
+        shadow-[0_1px_2px_0_rgba(18,18,23,0.05)]
+        transition-colors duration-200
+        px-4 py-2 gap-3
+        inline-flex items-center h-[36px];
+}
+
+.p-treeselect:not(.p-disabled):hover {
+    @apply border-gray-600 dark:border-gray-600
+}
+
+.p-treeselect:not(.p-disabled):hover .p-treeselect-label {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-treeselect:not(.p-disabled).p-focus {
+    @apply border-primary shadow-[0_0_4px_0px_rgba(12,85,248,0.5)]
+}
+
+.p-treeselect.p-variant-filled {
+    @apply bg-surface-50 dark:bg-surface-800
+}
+
+.p-treeselect.p-invalid {
+    @apply !border-red dark:!border-red
+}
+
+.p-treeselect.p-invalid:not(.p-disabled):hover {
+    @apply !border-gray-600 dark:!border-gray-600
+}
+
+.p-treeselect.p-invalid:not(.p-disabled).p-focus {
+    @apply !border-red dark:!border-red !shadow-[0_0_4px_0px_rgba(241,89,78,0.5)]
+}
+
+.p-treeselect.p-invalid .p-treeselect-open:not(.p-disabled).p-focus,
+.p-treeselect.p-invalid.p-treeselect-open:not(.p-disabled).p-inputwrapper-focus{
+    @apply !border-red dark:!border-red !shadow-[0_0_4px_0px_rgba(241,89,78,0.5)]
+}
+
+.p-treeselect.p-invalid:not(.p-disabled) .p-treeselect-label,
+.p-treeselect.p-invalid:not(.p-disabled) .p-treeselect-dropdown,
+.p-treeselect.p-invalid:not(.p-disabled) .p-treeselect-clear-icon{
+    @apply text-red-500 dark:text-red-500
+}
+
+.p-treeselect.p-disabled {
+    @apply bg-gray-100 text-gray-400 dark:bg-gray-100 dark:text-gray-400 cursor-default
+}
+
+.p-treeselect.p-disabled .p-treeselect-label {
+    @apply text-gray-400 dark:text-gray-400
+}
+
+.p-treeselect.p-disabled .p-treeselect-dropdown {
+    @apply text-gray-400 dark:text-gray-400
+}
+
+.p-treeselect-dropdown {
+    @apply flex items-center justify-center shrink-0 bg-transparent
+        text-gray-700 dark:text-gray-700 w-auto rounded-md p-2
+}
+
+.p-treeselect-dropdown .p-icon {
+    @apply !w-8 !h-8 
+}
+
+.p-treeselect-clear-icon {
+    @apply text-gray-700 dark:text-gray-700 end-10 w-8 h-8
+}
+
+.p-treeselect-label-container {
+    @apply overflow-hidden flex-auto flex items-center
+}
+
+.p-treeselect-label {
+    @apply flex items-center gap-1 whitespace-nowrap text-ellipsis text-gray-800 dark:text-gray-800
+        leading-none
+}
+
+.p-treeselect-label.p-placeholder {
+    @apply text-gray-500 dark:text-gray-500
+}
+
+.p-treeselect.p-disabled .p-treeselect-label {
+    @apply text-gray-400 dark:text-gray-400
+}
+
+.p-treeselect-label-empty {
+    @apply overflow-hidden invisible
+}
+
+.p-treeselect .p-treeselect-overlay {
+    @apply min-w-full
+}
+
+.p-treeselect-overlay {
+    @apply absolute top-0 left-0 rounded-md
+        bg-white dark:bg-white
+        border border-gray-400 dark:border-gray-400
+        text-gray-700 dark:text-gray-700
+        shadow-[0_2px_6px_0px_rgba(191,200,215,0.75)]
+        p-2 mt-1
+}
+
+.p-treeselect-tree-container {
+    @apply overflow-auto
+}
+
+.p-treeselect-empty-message {
+    @apply px-3 py-2
+}
+
+.p-treeselect-fluid {
+    @apply flex
+}
+
+.p-treeselect-overlay .p-tree {
+    @apply p-0
+}
+
+.p-treeselect-overlay .p-tree-loading {
+    @apply min-h-12
+}
+
+.p-treeselect-label .p-chip {
+    @apply pt-1 pb-1 rounded-md
+}
+
+.p-treeselect-label:has(.p-chip) {
+    @apply py-1 px-1
+}
+
+.p-treeselect-sm {
+    @apply !px-3 !py-1 !gap-2 h-[30px]
+} 
+
+.p-treeselect-sm .p-treeselect-label {
+    @apply text-sm leading-none
+}
+
+.p-treeselect-sm .p-treeselect-dropdown-icon {
+    @apply !w-7 !h-7
+}
+
+.p-treeselect-sm .p-treeselect-clear-icon {
+    @apply w-7 h-7
+}
+
+.p-treeselect-lg {
+    @apply !px-6 !py-3 !gap-4 h-[50px]
+}
+
+.p-treeselect-lg .p-treeselect-label {
+    @apply text-lg leading-none
+}
+
+.p-treeselect-lg .p-treeselect-dropdown-icon {
+    @apply !w-9 !h-9 
+}
+
+.p-treeselect-lg .p-treeselect-clear-icon {
+    @apply w-9 h-9 
+}
+
+span[data-pc-section="nodeicon"] {
+    @apply hidden
+}
