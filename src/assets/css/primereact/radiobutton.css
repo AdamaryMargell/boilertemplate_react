@@ -1,0 +1,94 @@
+.p-radiobutton {
+    @apply relative inline-flex select-none h-9 w-9;
+}
+
+.p-radiobutton-input {
+    @apply cursor-pointer disabled:cursor-default appearance-none 
+        absolute start-0 top-0 w-full h-full m-0 p-0 opacity-0 z-10 
+        border border-transparent rounded-full;
+}
+
+.p-radiobutton-box {
+    @apply flex justify-center items-center
+        border border-gray-500 bg-white
+        transition-colors duration-200 shadow-sm
+        w-9 h-9 rounded-full;
+}
+
+.p-radiobutton-icon {
+    @apply bg-white transition-all duration-200 w-4 h-4 rounded-full;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.p-radiobutton:not(.p-disabled):has(.p-radiobutton-input:hover) .p-radiobutton-box {
+    @apply border-primary dark:border-primary;
+}
+
+.p-highlight .p-radiobutton-box {
+    @apply border-primary  border-[3px]
+}
+
+.p-highlight .p-radiobutton-box .p-radiobutton-icon {
+    @apply bg-primary border-[1.5px] m-[1.5px];
+    border-color: white !important;
+    transform: scale(1.2); 
+    opacity: 1;
+}
+
+.p-radiobutton:not(.p-disabled):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box {
+    @apply outline outline-1 outline-offset-2 outline-primary
+}
+
+.p-radiobutton.p-invalid>.p-radiobutton-box {
+    @apply border-red dark:border-red
+}
+
+
+.p-radiobutton.p-invalid:not(.p-disabled):has(.p-radiobutton-input:hover) .p-radiobutton-box {
+    @apply border-red shadow-sm transform;
+}
+
+.p-radiobutton.p-variant-filled .p-radiobutton-box {
+    @apply bg-gray-500 dark:bg-gray-500
+}
+
+.p-radiobutton:not(.p-disabled):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box {
+    @apply outline outline-2 outline-offset-2
+}
+
+
+.p-radiobutton.p-disabled {
+    @apply opacity-100
+}
+
+.p-radiobutton.p-disabled .p-radiobutton-box {
+    @apply bg-gray-100 dark:bg-gray-100 border-gray-400 dark:border-gray-400
+}
+
+.p-highlight.p-disabled  .p-radiobutton-box {
+    @apply border-gray-400 border-[3px] bg-white
+}
+
+.p-highlight.p-disabled .p-radiobutton-box .p-radiobutton-icon {
+    @apply bg-gray-100  border-[1.5px] m-[1px];;
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+.p-radiobutton-sm,
+.p-radiobutton-sm .p-radiobutton-box {
+    @apply w-4 h-4
+}
+
+.p-radiobutton-sm .p-radiobutton-icon {
+    @apply w-2 h-2
+}
+
+.p-radiobutton-lg, .p-radiobutton-lg .p-radiobutton-box {
+    @apply w-6 h-6
+}
+
+.p-radiobutton-lg .p-radiobutton-icon {
+    @apply w-4 h-4
+}

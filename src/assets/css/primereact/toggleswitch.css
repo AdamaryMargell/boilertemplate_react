@@ -1,0 +1,76 @@
+.p-toggleswitch {
+    @apply inline-block w-20 h-12;
+}
+
+.p-toggleswitch-input {
+    @apply cursor-pointer disabled:cursor-default appearance-none 
+    absolute top-0 start-0 w-full h-full m-0 p-2 opacity-0 z-10 rounded-[2.143rem]
+}
+
+.p-toggleswitch-slider {
+    @apply inline-block rounded-[9.286rem] shadow-[0_1px_2px_0_rgba(18,18,23,0.05)]
+        bg-gray-300 dark:bg-gray-300
+        border border-transparent
+        transition-colors duration-200
+        w-20 h-12;
+}
+
+.p-toggleswitch-handle {
+    @apply absolute
+        bg-white dark:bg-white shadow-[0_2px_8px_0_rgba(0,0,0,0.15)]
+        text-gray-700 dark:text-gray-700 rounded-full
+        transition-[background,color,left] duration-200
+        w-9 h-9 -right-1 -translate-y-2/4 top-2/4;
+    @apply relative;
+}
+
+.p-toggleswitch-handle > * {
+    @apply !absolute !m-0 !p-0 -translate-x-2/4 -translate-y-2/4 leading-none !font-normal w-auto h-auto left-2/4 top-2/4 !text-[0.643rem];
+}
+.p-toggleswitch-handle .iconify {
+    @apply !w-5 !h-5;
+}
+
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-slider {
+    @apply bg-primary
+}
+
+.p-toggleswitch.p-toggleswitch-checked .p-toggleswitch-handle {
+    @apply bg-white dark:bg-white text-primary font-normal left-9;
+}
+
+.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover) .p-toggleswitch-slider {
+    @apply bg-gray-500 dark:bg-gray-500
+}
+
+.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover) .p-toggleswitch-handle {
+    @apply bg-white dark:bg-white text-primary dark:text-primary text-[0.594rem] font-normal start-2 
+}
+
+.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover).p-toggleswitch-checked .p-toggleswitch-slider {
+    @apply bg-primary-700
+}
+
+.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:hover).p-toggleswitch-checked .p-toggleswitch-handle {
+    @apply bg-white dark:bg-white text-primary text-[0.594rem] font-normal
+}
+
+.p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:focus-visible) .p-toggleswitch-slider {
+    @apply outline outline-1 outline-offset-2 outline-primary
+}
+
+.p-toggleswitch.p-invalid > .p-toggleswitch-slider {
+    @apply border-red-600 dark:border-red-600
+}
+
+.p-toggleswitch.p-disabled {
+    @apply opacity-100
+}
+
+.p-toggleswitch.p-disabled .p-toggleswitch-slider {
+    @apply bg-gray-100 dark:bg-gray-100
+}
+
+.p-toggleswitch.p-disabled .p-toggleswitch-handle {
+    @apply bg-gray-100 dark:bg-gray-100 shadow-[0_2px_8px_0_rgba(0,0,0,0.15)]
+}

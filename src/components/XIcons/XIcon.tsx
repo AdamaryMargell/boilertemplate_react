@@ -1,21 +1,17 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
     name: string;
-    size?: number | string;
     className?: string;
 }
 
-
 const XIcon = ({
     name,
-    size = 24,
-    className = '',
+    className = 'iconify',
     ...props
 }: IconProps) => {
-    const [IconComponent, setIconComponent] = useState<React.FC<React.SVGProps<SVGSVGElement>> | null>(null);
+    const [IconCustomer, setIconCustomer] = useState<React.FC<React.SVGProps<SVGSVGElement>> | null>(null);
     const [loadingError, setLoadingError] = useState(false);
     const [attemptedPath, setAttemptedPath] = useState('');
 
@@ -35,7 +31,7 @@ const XIcon = ({
                 const iconModule = await import(`@/assets/icons/${normalizedName}.svg`);
 
                 if (isMounted) {
-                    setIconComponent(() => iconModule.default);
+                    setIconCustomer(() => iconModule.default);
                     console.log(` Icono cargado: ${iconPath}`);
                 }
             } catch (err) {
@@ -46,39 +42,23 @@ const XIcon = ({
             }
 
         };
-
         loadIcon();
-
         return () => {
             isMounted = false;
         };
     }, [name]);
 
     if (loadingError) {
-        return (
-            <div
-                className={`bg-red-100 border border-red-400 text-red-700 px-2 py-1 rounded text-xs ${className}`}
-                style={{ width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                title={`Icono ${name} no encontrado en ${attemptedPath}`}
-            >
-                ❌
-            </div>
-        );
+        return <span className={`icon-error ${className}`}>❌</span>;
     }
 
-    if (!IconComponent) {
-        return (
-            <div
-                className={`bg-gray-100 animate-pulse rounded ${className}`}
-                style={{ width: size, height: size }}
-            />
-        );
+    if (!IconCustomer) {
+        return <span className={`icon-loading ${className}`} />;
     }
 
     return (
-        <IconComponent
-            width={size}
-            height={size}
+        <IconCustomer
+            key={`icon-${name}`}
             className={className}
             {...props}
         />
@@ -86,3 +66,4 @@ const XIcon = ({
 };
 
 export default XIcon;
+

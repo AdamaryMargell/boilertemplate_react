@@ -1,4 +1,3 @@
-import { tooltipPT } from "@/primereact-tailwindcss/tooltip.pt";
 import { Tooltip, TooltipProps } from "primereact/tooltip";
 import React, { useId } from "react";
 
@@ -20,14 +19,13 @@ const XTooltip = ({ children, target, ...props }: XTooltipProps) => {
                 <Tooltip
                     {...props}
                     target={`#${children.props.id || tooltipId}`}
-                    pt={{ ...tooltipPT }}
                 />
                 {childWithId}
             </>
         );
     }
 
-    return <Tooltip {...props} target={target} pt={{ ...tooltipPT }} />;
+    return <Tooltip {...props} target={target}/>;
 };
 
 export default XTooltip;

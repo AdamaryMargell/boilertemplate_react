@@ -1,0 +1,105 @@
+/* Estilos base para p-inputgroup */
+/* SOLO borde izquierdo */
+.p-inputgroup {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    /* redondeado solo izquierda */
+    overflow: hidden;
+    background: white;
+    transition: border-color 0.2s ease;
+}
+
+/* Estado de error para el grupo */
+.p-inputgroup.input-group-error,
+.p-inputgroup.error {
+    border-color: var(--status-error-default, #ef4444) !important;
+    animation: shake 0.5s ease-in-out;
+}
+
+.p-inputgroup.input-group-error:hover,
+.p-inputgroup.input-group-error:focus-within,
+.p-inputgroup.error:hover,
+.p-inputgroup.error:focus-within {
+    border-color: var(--status-error-default, #ef4444) !important;
+}
+
+/* Estilos para el addon */
+.p-inputgroup .p-inputgroup-addon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    background-color: #f9fafb;
+    border-right: 1px solid #d1d5db;
+    min-width: 40px;
+    flex-shrink: 0;
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+    border: none;
+}
+
+/* Último addon sin borde derecho */
+.p-inputgroup .p-inputgroup-addon:last-child {
+    border-right: none;
+    border-left: 1px solid #d1d5db;
+}
+
+
+
+/* Primer elemento con esquina izquierda redondeada */
+.p-inputgroup> :first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+/* Último elemento con esquina derecha redondeada */
+.p-inputgroup> :last-child {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+
+/* Estilos responsivos */
+@media (max-width: 640px) {
+    .p-inputgroup {
+        height: 1.875rem;
+    }
+
+    .p-inputgroup .p-inputgroup-addon {
+        padding: 6px 8px;
+        min-width: 35px;
+        font-size: 12px;
+    }
+
+    .p-inputgroup .p-inputtext {
+        padding: 6px 8px !important;
+        font-size: 12px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .p-inputgroup {
+        height: 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .p-inputgroup {
+        height: 3.125rem;
+    }
+
+    .p-inputgroup .p-inputgroup-addon {
+        padding: 10px 16px;
+        min-width: 50px;
+        font-size: 16px;
+    }
+
+    .p-inputgroup .p-inputtext {
+        padding: 10px 16px !important;
+        font-size: 16px !important;
+    }
+}

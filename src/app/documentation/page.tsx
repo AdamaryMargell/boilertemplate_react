@@ -133,6 +133,10 @@ import XInputIcon from '@/components/XInputIcon';
 import Icon from '@/components/XIcons/XIcon';
 import { XSnackbar } from '@/components/XSnackbar';
 import { XCardPrueba } from '@/components/XCardPrueba';
+import XInputPhoneCodeSelector from '@/components/XInputPhoneNumber';
+import XIcon from '@/components/XIcons/XIcon';
+import { Calendar } from 'primereact/calendar';
+import { Divider } from 'primereact/divider';
 
 //CarrouselTyped
 interface Product {
@@ -253,8 +257,22 @@ const localTreeNodes: TreeNode[] = [
 ];
 
 export default function PageDocumentation() {
+
+    //pruebas
+    const [date, setDate] = useState<Nullable<(Date | null)[]>>(null);
+    const [dates, setDates] = useState<Nullable<(Date | null)[]>>(null);
+    const [time, setTime] = useState(null);
+    const [datetime12h, setDateTime12h] = useState(null);
+
+
+
     const [visibleLeft, setVisibleLeft] = useState<boolean>(false);
     const [activePanel, setActivePanel] = useState<string | null>(null);
+
+
+    const customHeader = (
+        <div className="p-sidebar-title">Right Sidebar</div>
+    );
 
     // Sidebar Documentation
     const btnRefs = {
@@ -441,6 +459,7 @@ export default function PageDocumentation() {
                 { name: 'Snackbar', panel: 'snackbar' },
                 { name: 'Card Information', panel: 'cardInformation' },
                 { name: 'Card Menu', panel: 'cardMenu' },
+                { name: 'Input Phone Code Selector', panel: 'inputPhoneCodeSelector' },
             ]
         },
     ];
@@ -497,6 +516,7 @@ export default function PageDocumentation() {
         setActivePanel(panelKey);
         setVisibleLeft(false);
     };
+
 
     //AutoComplete
     const countries = ['Argentina', 'Brasil', 'Chile', 'Colombia', 'Bolivia'];
@@ -675,18 +695,31 @@ export default function PageDocumentation() {
     };
     const productTemplate = (product: Product) => {
         return (
-            <div className="border-2 border-gray-900 surface-border rounded-lg m-2 text-center py-5 px-3">
-                <div className="mb-3">
-                    <img
-                        src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
-                        alt={product.name}
-                        className="w-full shadow-2"
-                    />
+            <div className="border border-gray-400 dark:border-gray-400 rounded-[0.857rem] m-2 p-6">
+                <div className="mb-4">
+                    <div>
+                        <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} className="w-full rounded-[0.571rem] h-[175px]" />
+                        <h3 className="font-medium text-base text-gray-700">{product.name || 'Cheque del cliente'}</h3>
+                        <p className="text-sm text-sm text-gray-700 mt-1">{product.description || 'Detalles del cheque...'}</p>
+                    </div>
                 </div>
-                <div>
-                    <h4 className="mb-1">{product.name}</h4>
-                    <h6 className="mt-0 mb-3">${product.price}</h6>
-                    <XTag value={product.inventoryStatus} severity={getSeverity(product)}></XTag>
+                <div className="mt-4 font-medium">{product.name}</div>
+                <div className="grid grid-cols-4 gap-2 mt-0 w-full">
+                    <div className="min-w-0">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Fecha de emisión:</p>
+                        <p className="text-sm font-medium text-gray-500 truncate">{product.code || '00/00/0000'}</p>
+                    </div>
+                    <div className="min-w-0">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Estado:</p>
+                        <XTag
+                            value={product.inventoryStatus}
+                            severity={getSeverity(product)}
+                            class="mt-1"
+                        />
+                    </div>
+                    <div className="flex justify-end mt-2">
+                        <XButton label="Ver imagen" className="!text-sm !py-1" />
+                    </div>
                 </div>
             </div>
         );
@@ -922,17 +955,24 @@ export default function PageDocumentation() {
     };
 
     //Toast
-    const toastTopCenter = useRef<Toast>(null);
-    const toastTopLeft = useRef<Toast>(null);
-    const toastTopRight = useRef<Toast>(null);
-    const toastCenter = useRef<Toast>(null);
-    const toastBottomLeft = useRef<Toast>(null);
-    const toastBottomCenter = useRef<Toast>(null);
-    const toastBottomRight = useRef<Toast>(null);
-    const showMessage = (event: React.MouseEvent<HTMLButtonElement>, ref: React.RefObject<Toast | null>, severity: ToastMessage['severity']) => {
-        const target = event.target as HTMLButtonElement;
-        const label = target.innerText;
-        ref.current?.show({ severity: severity, summary: label, detail: label, life: 3000 });
+    const toast = useRef<Toast>(null);
+    const showSuccess = () => {
+        toast.current?.show({ severity: 'success', summary: 'Success', icon: 'check-circle', detail: 'Message Content', life: 3000 });
+    }
+    const showInfo = () => {
+        toast.current?.show({ severity: 'info', summary: 'Info', icon: 'info-empty', detail: 'Message Content', life: 3000 });
+    }
+    const showWarn = () => {
+        toast.current?.show({ severity: 'warn', summary: 'Warning', icon: 'warning-circle', detail: 'Message Content', life: 6000 });
+    }
+    const showError = () => {
+        toast.current?.show({ severity: 'error', summary: 'Error', icon: 'cancel-circle', detail: 'Message Content', life: 3000 });
+    }
+    const showSecondary = () => {
+        toast.current?.show({ severity: 'secondary', summary: 'Secondary', icon: 'help-circle', detail: 'Message Content', life: 3000 });
+    };
+    const showContrast = () => {
+        toast.current?.show({ severity: 'contrast', summary: 'Contrast', icon: 'help-circle', detail: 'Message Content', life: 3000 });
     };
 
     //ColoPicker
@@ -995,7 +1035,7 @@ export default function PageDocumentation() {
     //Menu
     const menuLeft = useRef<Menu>(null);
     const menuRight = useRef<Menu>(null);
-    const toast = useRef<Toast>(null);
+
     const itemsMenu: MenuItem[] = [
         {
             label: 'Options',
@@ -1327,44 +1367,89 @@ export default function PageDocumentation() {
 
     const addMessages = () => {
         msgs.current?.clear();
-        msgs.current?.show([
+        const messages = [
             {
                 sticky: true,
                 severity: 'info',
-                summary: 'Información importante',
-                detail: 'Este es un mensaje informativo para el usuario.'
+                content: (
+                    <>
+                        <XIcon name="check-circle" className="p-message-icon" />
+                        <div className="p-toast-message-text">
+                            <span className="p-message-summary">Titlle text</span>
+                            <span className="p-message-detail">Content text</span>
+                        </div>
+                    </>
+                )
             },
             {
                 sticky: true,
                 severity: 'success',
-                summary: 'Operación exitosa',
-                detail: 'Los cambios se han guardado correctamente en el sistema.'
+                content: (
+                    <>
+                        <XIcon name="info-empty" className="p-message-icon" />
+                        <div className="p-toast-message-text">
+                            <span className="p-message-summary">Titlle text</span>
+                            <span className="p-message-detail">Content text</span>
+                        </div>
+                    </>
+                )
             },
             {
                 sticky: true,
                 severity: 'warn',
-                summary: 'Advertencia',
-                detail: 'Esta acción puede tener consecuencias importantes.'
+                content: (
+                    <>
+                        <XIcon name="warning-circle" className="p-message-icon" />
+                        <div className="p-toast-message-text">
+                            <span className="p-message-summary">Titlle text</span>
+                            <span className="p-message-detail">Content text</span>
+                        </div>
+                    </>
+                )
             },
             {
                 sticky: true,
                 severity: 'error',
-                summary: 'Error crítico',
-                detail: 'No se pudo completar la operación. Por favor intente nuevamente.'
+                content: (
+                    <>
+                        <XIcon name="cancel-circle" className="p-message-icon" />
+                        <div className="p-toast-message-text">
+                            <span className="p-message-summary">Titlle text</span>
+                            <span className="p-message-detail">Content text</span>
+                        </div>
+                    </>
+                )
             },
             {
                 sticky: true,
                 severity: 'secondary',
-                summary: 'Nota secundaria',
-                detail: 'Información adicional relevante para el proceso.'
+                content: (
+                    <>
+                        <XIcon name="help-circle" className="p-message-icon" />
+                        <div className="p-toast-message-text">
+                            <span className="p-message-summary">Titlle text</span>
+                            <span className="p-message-detail">Content text</span>
+                        </div>
+                    </>
+                )
             },
             {
                 sticky: true,
                 severity: 'contrast',
-                summary: 'Mensaje neutro',
-                detail: 'Este es un mensaje estándar sin énfasis particular.'
+                content: (
+                    <>
+                        <XIcon name="help-circle" className="p-message-icon" />
+                        <div className="p-toast-message-text">
+                            <span className="p-message-summary">Titlle text</span>
+                            <span className="p-message-detail">Content text</span>
+                        </div>
+                    </>
+                )
             }
-        ]);
+        ];
+
+        // Agregar uno por uno para que PrimeReact los pinte separados
+        messages.forEach(msg => msgs.current?.show(msg));
     };
 
     const clearMessages = () => {
@@ -1525,6 +1610,7 @@ export default function PageDocumentation() {
 
     //Rating
     const [valueRating, setValueRating] = useState<number>(null);
+    const [valueRatingDisabled, setValueRatingDisabled] = useState<number>(5);
 
     //Organization Chart
     const [dataChart] = useState([
@@ -1637,10 +1723,10 @@ export default function PageDocumentation() {
 
     // ConfirmDialog
     const accept = () => {
-        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        toast.current?.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
     }
     const reject = () => {
-        toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        toast.current?.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
     }
     const confirm1 = () => {
         confirmDialog({
@@ -1788,7 +1874,6 @@ export default function PageDocumentation() {
     ];
 
 
-
     return (
         <>
             <div className="card w-full">
@@ -1905,7 +1990,19 @@ export default function PageDocumentation() {
                                                 minDate: new Date(),
                                                 maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
                                             }}
+                                            showButtonBar
                                         />
+                                        <Calendar value={date} onChange={(e) => setDate(e.value)} selectionMode="range" readOnlyInput hideOnRangeSelection locale="es" />
+                                        <Calendar id="calendar-12h" value={datetime12h} onChange={(e) => setDateTime12h(e.value)} showTime hourFormat="12" locale="es" />
+
+                                        <Calendar id="calendar-timeonly" value={time} onChange={(e) => setTime(e.value)} timeOnly locale="es" />
+
+                                        <Calendar value={dates} onChange={(e) => setDates(e.value)} view="month" dateFormat="mm/yy" locale="es" />
+
+                                        <Calendar value={dates} onChange={(e) => setDates(e.value)} numberOfMonths={2} locale="es" />
+
+                                        <Calendar invalid />
+
                                         <Button type="submit" className="px-3 py-2 bg-slate-100 border border-slate-400 rounded mt-7">Enviar</Button>
                                     </XForm>
                                 </div>
@@ -2045,12 +2142,22 @@ export default function PageDocumentation() {
                                     <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
                                         <XDropdown
                                             name="city"
+                                            filter
                                             options={cities}
                                             optionLabel="name"
                                             optionValue="code"
                                             placeholder="Seleccione una Ciudad"
                                             className="w-full md:w-14rem"
                                             rules={{ required: 'Campo requerido' }} />
+
+                                        <Dropdown
+                                            id="cities"
+                                            options={cities}
+                                            optionLabel="name"
+                                            optionValue="code"
+                                            placeholder={"Selecciona una remesadora"}
+                                            className={`w-[25.71rem]`}
+                                        />
                                         <XButton type="submit" label="Enviar" />
                                     </XForm>
                                 </div>
@@ -2487,13 +2594,27 @@ export default function PageDocumentation() {
                             <XPanel
                                 header="Rating"
                             >
-                                <div className="card justify-center flex flex-wrap gap-2">
-                                    <XRating value={valueRating} onChange={(e: RatingChangeEvent) => setValueRating(e.value)}
-                                        cancelIcon={<img src="https://primefaces.org/cdn/primereact/images/rating/cancel.png" alt="custom-cancel-image" width="25px" height="25px" />}
-                                        onIcon={<img src="https://primefaces.org/cdn/primereact/images/rating/custom-icon-active.png" alt="custom-image-active" width="25px" height="25px" />}
-                                        offIcon={<img src="https://primefaces.org/cdn/primereact/images/rating/custom-icon.png" alt="custom-image" width="25px" height="25px" />}
-                                    />
+                                <div className="card flex justify-center gap-4 flex-col items-center">
                                     <XRating value={valueRating} onChange={(e) => setValueRating(e.value)} cancel={false} />
+
+                                    <h5 className="font-semibold">Icons Core (Recomendado)</h5>
+                                    <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
+                                        cancel={false}
+                                        onIcon={<XIcon name="star-fill" className="p-icon p-rating-icon" />}
+                                        offIcon={<XIcon name="star" className="p-icon p-rating-icon" />}
+                                    ></XRating>
+                                    <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
+                                        cancel={false}
+                                        onIcon={<XIcon name="emoji-happy-fill" className="p-icon p-rating-icon" />}
+                                        offIcon={<XIcon name="emoji-sad" className="p-icon p-rating-icon" />}
+                                    ></XRating>
+                                    <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
+                                        cancel={false}
+                                        onIcon={<XIcon name="emoji-satisfied-fill" className="p-icon p-rating-icon" />}
+                                        offIcon={<XIcon name="emoji-ball-fill" className="p-icon p-rating-icon" />}
+                                    ></XRating>
+                                    <h5 className="font-semibold">Disabled</h5>
+                                    <XRating value={valueRatingDisabled} onChange={(e) => setValueRatingDisabled(e.value)} cancel={false} disabled />
                                 </div>
                             </XPanel>
                         )}
@@ -2848,7 +2969,7 @@ export default function PageDocumentation() {
                         )}
 
                         {/* Panel de MESSAGES */}
-                        {/* Panel de Toast */}
+                        {/* Panel de Message */}
                         {activePanel === 'message' && (
                             <XPanel
                                 header="Message"
@@ -2860,41 +2981,40 @@ export default function PageDocumentation() {
                                     <XMessage severity="error" text="Error Message" />
                                     <XMessage severity="secondary" text="Secondary Message" />
                                     <XMessage severity="contrast" text="Contrast Message" />
+
+                                    <XMessage variant="simple" severity="error" text="Success Message" />
+
+                                    <XMessage variant="simple" severity="secondary" text="Success Message" />
                                 </div>
                             </XPanel>
                         )}
+                        {/* Panel de Messages */}
                         {activePanel === 'messages' && (
                             <XPanel
                                 header="Messages"
                             >
-                                <div className="card justify-content-center">
+                                <div className="card justify-content-center gap-4">
                                     <XButton type="button" onClick={addMessages} label="Show" className="mr-2" />
                                     <XButton type="button" onClick={clearMessages} label="Clear" className="p-button-secondary" />
 
-                                    <XMessages ref={msgs} />
+                                    <XMessages ref={msgs} className="flex flex-col gap-4" />
                                 </div>
                             </XPanel>
                         )}
+                        {/* Panel de Toast */}
                         {activePanel === 'toast' && (
                             <XPanel
                                 header="Toast"
                             >
                                 <div className="flex justify-center pb-4">
-                                    <XToast ref={toastTopLeft} position="top-left" />
-                                    <XToast ref={toastTopCenter} position="top-center" />
-                                    <XToast ref={toastTopRight} position="top-right" />
-                                    <XToast ref={toastCenter} position="center" />
-                                    <XToast ref={toastBottomLeft} position="bottom-left" />
-                                    <XToast ref={toastBottomCenter} position="bottom-center" />
-                                    <XToast ref={toastBottomRight} position="bottom-right" />
+                                    <XToast ref={toast} />
                                     <div className="flex flex-wrap gap-2">
-                                        <XButton label="Top Left" severity="success" onClick={(e) => showMessage(e, toastTopLeft, 'success')} />
-                                        <XButton label="Top Center" severity="info" onClick={(e) => showMessage(e, toastTopCenter, 'info')} />
-                                        <XButton label="Top Right" severity="warning" onClick={(e) => showMessage(e, toastTopRight, 'warn')} />
-                                        <XButton label="Center" severity="danger" onClick={(e) => showMessage(e, toastCenter, 'error')} />
-                                        <XButton label="Bottom Left" severity="success" onClick={(e) => showMessage(e, toastBottomLeft, 'success')} />
-                                        <XButton label="Bottom Center" severity="info" onClick={(e) => showMessage(e, toastBottomCenter, 'info')} />
-                                        <XButton label="Bottom Right" severity="warning" onClick={(e) => showMessage(e, toastBottomRight, 'warn')} />
+                                        <XButton label="Success" severity="success" onClick={showSuccess} />
+                                        <XButton label="Info" severity="info" onClick={showInfo} />
+                                        <XButton label="Warn" severity="warning" onClick={showWarn} />
+                                        <XButton label="Error" severity="danger" onClick={showError} />
+                                        <XButton label="Secondary" severity="secondary" onClick={showSecondary} />
+                                        <XButton label="Contrast" severity="contrast" onClick={showContrast} />
                                     </div>
                                 </div>
                             </XPanel>
@@ -3010,8 +3130,8 @@ export default function PageDocumentation() {
                                 header="Sidebar"
                             >
                                 <div className="card justify-center flex">
-                                    <XSidebar visible={visibleSidebar} position="right" onHide={() => setVisibleSidebar(false)}>
-                                        <h2>Right Sidebar</h2>
+                                    <XSidebar header={customHeader} visible={visibleSidebar} position="right" onHide={() => setVisibleSidebar(false)}>
+                                        {/* <h5 className='font-semibold pb-4'>Right Sidebar</h5> */}
                                         <p>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -3048,8 +3168,16 @@ export default function PageDocumentation() {
                             <XPanel
                                 header="FileUpload"
                             >
-                                <div className="card justify-center flex">
-                                    <XFileUpload name="demo[]" url={'/api/upload'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
+                                <div className="card">
+                                    <XFileUpload 
+                                        name="demo[]" 
+                                        chooseLabel="Elegir archivo" 
+                                        url={'/api/upload'} 
+                                        multiple
+                                        accept="image/*" maxFileSize={1000000}
+                                        emptyTemplate={<div className="mb-6 mt-4 px-[1.714rem]">
+                                            <span className="text-normal font-normal text-gray-700">Arrastra y suelta archivos aquí para subirlos.</span>
+                                        </div>} />
                                 </div>
                             </XPanel>
                         )}
@@ -3061,32 +3189,25 @@ export default function PageDocumentation() {
                             <XPanel
                                 header="Avatar"
                             >
-                                <div className="card">
-                                    <div className="flex flex-wrap gap-5">
-                                        <div className="flex-auto">
-                                            <h5>Image</h5>
-                                            <XAvatarGroup>
-                                                <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size="large" shape="circle" />
-                                                <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" size="large" shape="circle" />
-                                                <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" size="large" shape="circle" />
-                                                <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" size="large" shape="circle" />
-                                                <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" size="large" shape="circle" />
-                                                <XAvatar label="+2" shape="circle" size="large" />
-                                            </XAvatarGroup>
-                                        </div>
-
-                                        <div className="flex-auto">
-                                            <h5>Badge</h5>
-                                            <XAvatar className="p-overlay-badge" image="https://primefaces.org/cdn/primereact/images/organization/walter.jpg" size="xlarge">
-                                                <XBadge value="4" severity="danger" />
-                                            </XAvatar>
-                                        </div>
-
-                                        <div className="flex-auto">
-                                            <h5>Gravatar</h5>
-                                            <XAvatar image={"https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"} className="flex align-items-center justify-content-center mr-2" size="xlarge" />
-                                        </div>
-                                    </div>
+                                <div className="grid grid-cols-3 gap-4 p-2 bg-gray-100">
+                                    <XAvatar className="mr-2 mt-4 bg-primary-100 text-primary" label="AB" shape="circle" />
+                                    <XAvatar icon="user" className="mr-2 mt-4 bg-primary-100 text-primary" shape="circle" />
+                                    <XAvatar
+                                        image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+                                        shape="circle"
+                                        className="mr-2 mt-4"
+                                    />
+                                    <XAvatar className="mr-2 mt-4 bg-white text-primary" label="AB" shape="circle" />
+                                    <XAvatar icon="user" className="mr-2 mt-4 bg-white text-primary" shape="circle" />
+                                    <div></div>
+                                    <XAvatar className="mr-2 mt-4 bg-primary-100 text-primary" label="AB" />
+                                    <XAvatar icon="user" className="mr-2 mt-4 bg-primary-100 text-primary" />
+                                    <XAvatar
+                                        image="https://primefaces.org/cdn/primevue/images/organization/walter.jpg"
+                                        className="mr-2 mt-4"
+                                    />
+                                    <XAvatar className="mr-2 mt-4 bg-white text-primary" label="AB" />
+                                    <XAvatar icon="user" className="mr-2 mt-4 bg-white text-primary" />
                                 </div>
                             </XPanel>
                         )}
@@ -3096,14 +3217,25 @@ export default function PageDocumentation() {
                             <XPanel
                                 header="Badge"
                             >
-                                <div className="card justify-center flex flex-wrap  gap-2">
-                                    <XBadge value="2"></XBadge>
-                                    <XBadge value="8" severity="success"></XBadge>
-                                    <XBadge value="4" severity="info"></XBadge >
-                                    <XBadge value="12" severity="warning"></XBadge>
-                                    <XBadge value="3" severity="danger"></XBadge>
-                                    <XBadge value="7" severity="secondary"></XBadge>
-                                    <XBadge value="5" severity="contrast"></XBadge>
+                                <div className="card flex flex-wrap justify-center gap-2 bg-gray-100">
+
+                                    <XBadge value="1" severity="success"></XBadge>
+                                    <XBadge value="123" severity="success"></XBadge>
+
+                                    <XBadge value="1" severity="danger"></XBadge>
+                                    <XBadge value="123" severity="danger"></XBadge>
+
+                                    <XBadge value="1" severity="contrast"></XBadge>
+                                    <XBadge value="3445" severity="contrast"></XBadge>
+
+                                    <XBadge value="1" severity="info"></XBadge>
+                                    <XBadge value="123" severity="info"></XBadge>
+
+                                    <XBadge value="1" severity="warning"></XBadge>
+                                    <XBadge value="123" severity="warning"></XBadge>
+
+                                    <XBadge value="1" severity="secondary"></XBadge>
+                                    <XBadge value="123" severity="secondary"></XBadge>
                                 </div>
                             </XPanel>
                         )}
@@ -3137,7 +3269,7 @@ export default function PageDocumentation() {
                                 header="Chip"
                             >
                                 <div className="card justify-center flex flex-wrap  gap-2">
-                                    <XChip label="Action" />
+                                    <XChip label="Action" icon='bnb-casa' />
                                     <XChip label="Comedy" />
                                     <XChip label="Mystery" />
                                     <XChip label="Thriller" removable />
@@ -3308,14 +3440,19 @@ export default function PageDocumentation() {
                             <XPanel
                                 header="Tag"
                             >
-                                <div className="card justify-center flex flex-wrap  gap-2">
+                                <div className="flex flex-wrap justify-center gap-2">
                                     <XTag value="Primary"></XTag>
-                                    <XTag severity="success" value="Success"></XTag>
-                                    <XTag severity="info" value="Info"></XTag>
-                                    <XTag severity="warning" value="Warning"></XTag>
-                                    <XTag severity="danger" value="Danger"></XTag>
-                                    <XTag severity="secondary" value="Secondary"></XTag>
-                                    <XTag severity="contrast" value="Contrast"></XTag>
+                                    <XTag icon="apple" severity="secondary" value="Secondary"></XTag>
+                                    <XTag icon="archive" severity="success" value="Success"></XTag>
+                                    <XTag icon="atm-dollar" severity="info" value="Info"></XTag>
+                                    <XTag icon="atom" severity="warn" value="Warn"></XTag>
+                                    <XTag icon="camera" severity="danger" value="Danger"></XTag>
+                                    <XTag icon="menu" severity="contrast" value="Contrast"></XTag>
+                                    <XTag icon="arrow-bl" severity="aqua" value="Aqua"></XTag>
+                                    <XTag severity="mint" value="Mint"></XTag>
+                                    <XTag severity="sand" value="Sand"></XTag>
+                                    <XTag severity="orange" value="Orange"></XTag>
+                                    <XTag icon="alarm" severity="magenta" value="Magenta"></XTag>
                                 </div>
                             </XPanel>
                         )}
@@ -3627,21 +3764,38 @@ export default function PageDocumentation() {
                                 header="Divider"
                             >
                                 <div className="card flex justify-content-center">
+
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                                         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                     </p>
-                                    <XDivider layout="vertical" />
+                                    <XDivider layout="vertical" ><b className='bg-white'>OR</b></XDivider>
                                     <p>
                                         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
                                         ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
                                     </p>
-                                    <XDivider layout="vertical" />
+                                    <XDivider layout="vertical"><b className='bg-white'>OR</b></XDivider>
                                     <p>
                                         At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
                                         officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
                                     </p>
                                 </div>
+
+                                <XDivider align="center">
+                                    <b className='bg-white'>Datos</b>
+                                </XDivider>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </p>
+                                <XDivider align="left">
+                                    <b className='bg-white'>Text</b>
+                                </XDivider>
+                                <p>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                </p>
+
                             </XPanel>
                         )}
 
@@ -3922,7 +4076,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
-                        {/* Panel de Snackbar */}
+                        {/* Panel de InputPhoneNumber */}
                         {activePanel === 'cardInformation' && (
                             <XPanel
                                 header="Card Information"
@@ -3961,7 +4115,7 @@ export default function PageDocumentation() {
                             </XPanel>
                         )}
 
-                        {/* Panel de Snackbar */}
+                        {/* Panel de CardMenu */}
                         {activePanel === 'cardMenu' && (
                             <XPanel
                                 header="Card Menu"
@@ -4011,6 +4165,26 @@ export default function PageDocumentation() {
                                             />
                                         </div>
                                     ))}
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Snackbar */}
+                        {activePanel === 'inputPhoneCodeSelector' && (
+                            <XPanel
+                                header="Input Phone Code Selector"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
+                                        <XInputPhoneCodeSelector
+                                            name="phoneNumber"
+                                            label="Teléfono"
+                                            labelRequired
+                                            rules={{ required: 'El teléfono es requerido' }}
+                                            defaultCountry="BO"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
                                 </div>
                             </XPanel>
                         )}

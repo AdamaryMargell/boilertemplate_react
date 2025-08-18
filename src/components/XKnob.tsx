@@ -2,7 +2,6 @@
 import { Knob, KnobProps } from 'primereact/knob';
 import { useController, useFormContext } from 'react-hook-form';
 import { useEffect, useRef, useState } from 'react';
-import { knobPT } from '@/primereact-tailwindcss/knob.pt';
 
 type XKnobProps = {
     name: string;
@@ -91,8 +90,7 @@ const XKnob = ({
                 id={name}
                 value={localValue}
                 onChange={handleChange}
-                className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
-                pt={{ ...knobPT }}
+                className={`${error ? 'p-invalid' : ''} ${props.className || ''}`}
             />
             {error?.message && (
                 <small id={`${name}-error`} className="text-xs text-red-500">

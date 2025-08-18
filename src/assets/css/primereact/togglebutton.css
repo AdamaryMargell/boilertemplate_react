@@ -1,0 +1,75 @@
+.p-togglebutton {
+    @apply inline-flex items-center justify-center overflow-hidden relative cursor-pointer select-none
+        border border-primary-50 dark:border-primary-50
+        bg-primary-50 dark:bg-primary-50
+        text-gray-700 dark:text-gray-700 text-base font-medium
+        px-4 py-3
+        focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary
+        disabled:cursor-default
+        disabled:bg-gray-100 disabled:border-gray-100 disabled:text-gray-400
+        disabled:dark:bg-gray-100 disabled:dark:border-gray-100 disabled:dark:text-gray-400
+        transition-colors duration-300
+        before:bg-transparent before:absolute before:start-1 before:top-1 before:rounded-lg before:w-[calc(100%-0.5rem)] before:h-[calc(100%-0.5rem)]
+        before:transition-colors before:duration-200
+        rounded-md
+}
+
+.p-togglebutton-content {
+    @apply relative inline-flex items-center justify-center gap-6
+}
+
+.p-togglebutton-label,
+.p-togglebutton-icon {
+    @apply relative transition-none
+}
+
+.p-togglebutton.p-togglebutton-checked::before {
+    @apply bg-primary dark:bg-primary shadow-[0px_1px_2px_0px_rgba(0,0,0,0.02),0px_1px_2px_0px_rgba(0,0,0,0.04)]
+}
+
+.p-togglebutton:not(:disabled):not(.p-togglebutton-checked):hover {
+    @apply  text-gray-1000 dark:text-gray-1000 border border-primary 
+}
+
+.p-togglebutton.p-togglebutton-checked {
+    @apply bg-primary dark:bg-primary border-primary dark:border-primary text-white dark:text-white
+}
+
+.p-togglebutton.p-invalid {
+    @apply border-red dark:border-red
+}
+
+.p-togglebutton-icon {
+    @apply text-surface-500 dark:text-surface-400
+}
+
+.p-togglebutton:not(:disabled):not(.p-togglebutton-checked):hover .p-togglebutton-icon {
+    @apply text-surface-700 dark:text-surface-300
+}
+
+.p-togglebutton.p-togglebutton-checked .p-togglebutton-icon {
+    @apply text-surface-900 dark:text-surface-0
+}
+
+.p-togglebutton:disabled .p-togglebutton-icon {
+    @apply text-surface-500 dark:text-surface-400
+}
+
+.p-togglebutton-sm .p-togglebutton-content,
+.p-togglebutton-sm .p-togglebutton-label {
+    @apply text-[0.8572rem] !rounded-sm;
+}
+
+.p-selectbutton .p-togglebutton-sm {
+    @apply px-2 py-3 !-m-1 !rounded-sm;
+}
+
+.p-togglebutton-lg .p-togglebutton-content,
+.p-togglebutton-lg .p-togglebutton-label {
+    @apply text-[1.1429rem] !rounded-lg;
+}
+
+.p-selectbutton .p-togglebutton-lg {
+    @apply !text-[2rem] !px-4 py-5 !m-1 !rounded-lg;
+}
+

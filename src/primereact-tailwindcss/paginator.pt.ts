@@ -10,7 +10,7 @@ export const paginatorPT = {
     firstpagebutton: ({ context }) => ({
         className: classNames(
             'relative inline-flex items-center justify-center user-none overflow-hidden leading-none',
-            'border-0 text-gray-500  min-w-[3rem] h-12 m-[0.143rem] rounded-md',
+            'border-0 text-gray-500  min-w-[3rem] h-12 m-[0.143rem] rounded-md bg-primary-50',
             'transition duration-200',
             {
                 'cursor-default pointer-events-none opacity-60': context.disabled,
@@ -58,7 +58,7 @@ export const paginatorPT = {
             'transition duration-200',
             'focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)]', // Focus
             {
-                'bg-blue-50 border-blue-50 text-blue-700 dark:bg-blue-300': context.active
+                'bg-primary-50 border-primary-600 text-blue-700': context.active
             }
         )
     }),

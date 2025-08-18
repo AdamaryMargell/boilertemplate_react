@@ -1,0 +1,55 @@
+.p-avatar {
+    @apply inline-flex items-center justify-center
+        w-36 h-37 text-[1.714rem] rounded-[0.857rem]
+        bg-primary dark:bg-primary
+        p-10
+}
+
+.p-avatar-image {
+    @apply bg-transparent !p-0
+}
+
+.p-avatar img {
+    @apply rounded-[0.857rem] w-full h-full
+}
+
+.p-avatar-circle,
+.p-avatar-circle img {
+    @apply rounded-full
+}
+
+.p-avatar-icon {
+    @apply text-[2.286rem]
+}
+
+.p-avatar .iconify {
+    @apply w-16 h-16
+}
+
+.p-avatar-lg {
+    @apply w-12 h-12 text-2xl
+}
+
+.p-avatar-lg .p-avatar-icon {
+    @apply text-2xl
+}
+
+.p-avatar-xl {
+    @apply w-16 h-16 text-[2rem]
+}
+
+.p-avatar-xl .p-avatar-icon {
+    @apply text-[2rem]
+}
+
+.p-avatar-group {
+    @apply flex items-center
+}
+
+.p-avatar-group .p-avatar + .p-avatar {
+    @apply -ms-4
+}
+
+.p-avatar-group .p-avatar {
+    @apply border-2 border-transparent dark:border-transparent
+}

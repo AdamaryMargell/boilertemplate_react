@@ -1,13 +1,8 @@
-import { carouselPT } from '@/primereact-tailwindcss/carousel.pt';
 import { Carousel, CarouselProps } from 'primereact/carousel';
-import React, { ReactNode } from 'react'
 
-interface XCarouselProps extends CarouselProps {
-    children?: ReactNode;
-}
-const XCarousel = ({ children, ...props }: XCarouselProps) => {
+const XCarousel = ({ children, ...props }: CarouselProps) => {
     return (
-        <Carousel {...props} pt={{ ...carouselPT }}>
+        <Carousel {...props}>
             {children}
         </Carousel>
     )

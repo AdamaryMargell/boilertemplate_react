@@ -1,0 +1,35 @@
+.p-rating {
+    @apply relative flex items-center gap-6 p-6
+}
+
+.p-rating-item {
+    @apply inline-flex items-center cursor-pointer rounded-full
+}
+
+.p-rating-item.p-focus-visible {
+    @apply outline outline-1 outline-offset-2 outline-primary
+}
+
+.p-rating-icon {
+    @apply text-gray-700 dark:text-gray-700 text-base w-12 h-12 transition-colors duration-200
+}
+
+.p-rating:not(.p-disabled):not(.p-readonly) .p-rating-item:not(.p-rating-item-active):hover .p-rating-icon {
+    @apply text-gray-1000 transition-colors duration-200
+}
+
+.p-rating-item-active .p-rating-icon {
+    @apply text-primary transition-colors duration-200
+}
+
+.p-rating-item-active .iconify{
+    @apply text-primary bg-primary;
+}
+
+.p-rating:not(.p-disabled):not(.p-readonly) .p-rating-item:not(.p-rating-item-active):hover .iconify {
+    @apply text-gray-1000 transition-colors duration-200
+}
+
+.p-rating.p-disabled .p-rating-icon {
+    @apply text-gray-400 cursor-not-allowed
+}

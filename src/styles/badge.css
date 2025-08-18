@@ -1,0 +1,14 @@
+/* Contenedor del Avatar */
+.avatar-container.p-overlay-badge {
+    position: relative !important;
+    display: inline-block;
+}
+
+/* Badge */
+.badge-overlay {
+    position: absolute;
+    top: -5px !important;
+    right: -2px !important;
+    transform: scale(0.8);
+    z-index: 10;
+}

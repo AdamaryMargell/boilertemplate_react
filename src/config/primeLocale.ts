@@ -3,12 +3,12 @@ import { addLocale } from "primereact/api"
 export const configurePrimeReactLocale = () => {
     addLocale('es', {
         firstDayOfWeek: 1,
-        dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
         dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
         dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
         monthNames: [
-            'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-            'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
         ],
         monthNamesShort: [
             'ene', 'feb', 'mar', 'abr', 'may', 'jun',
@@ -16,6 +16,6 @@ export const configurePrimeReactLocale = () => {
         ],
         today: 'Hoy',
         clear: 'Limpiar',
-        weekHeader: 'Sm'
+        weekHeader: 'Sm',
     });
 }

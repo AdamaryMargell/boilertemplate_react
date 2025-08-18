@@ -1,0 +1,31 @@
+.p-chip {
+    @apply inline-flex items-center rounded-2xl gap-2 px-6 py-2
+    bg-gray-100 dark:bg-gray-100
+    text-gray-700 dark:text-gray-700
+}
+
+.p-chip-icon {
+    @apply text-gray-700 dark:bg-gray-700 text-[0.857rem] w-7 h-7
+}
+
+.p-chip .iconify{
+    @apply w-7 h-7
+}
+
+.p-chip-image {
+    @apply rounded-full w-8 h-8 -ms-2
+}
+
+.p-chip:has(.p-chip-remove-icon) {
+    @apply pe-6
+}
+
+.p-chip:has(.p-chip-image) {
+    @apply pt-1 pb-1
+}
+
+.p-chip-remove-icon {
+    @apply cursor-pointer text-[0.857rem] w-6 h-6 rounded-full
+        text-gray-700 dark:text-gray-700
+        focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-primary
+}

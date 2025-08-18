@@ -3,26 +3,50 @@ import { classNames } from "primereact/utils";
 export const toastPT = {
     root: {
         className: classNames(
-            'w-96 opacity-90',
-        )
+            'w-[350px]',
+        ),
     },
-    message: ({ state, index }) => ({
-        className: classNames('my-4 rounded-md w-full', {
-            'bg-blue-100 border-solid border-0 border-l-4 border-blue-500 text-blue-700': state.messages[index] && state.messages[index].message.severity == 'info',
-            'bg-green-100 border-solid border-0 border-l-4 border-green-500 text-green-700': state.messages[index] && state.messages[index].message.severity == 'success',
-            'bg-orange-100 border-solid border-0 border-l-4 border-orange-500 text-orange-700': state.messages[index] && state.messages[index].message.severity == 'warn',
-            'bg-red-100 border-solid border-0 border-l-4 border-red-500 text-red-700': state.messages[index] && state.messages[index].message.severity == 'error'
-        })
+    message: ({ state, index }: { state: any, index: any }) => ({
+        className: classNames(
+            'my-4 rounded-[8px] w-full relative',
+            'shadow-sm', // Borde izquierdo más prominente
+            {
+                'bg-status-success-invert border-[1px] border-status-success-default text-status-success-default':
+                    state.messages[index] && state.messages[index].message.severity == 'success',
+
+                'bg-status-information-invert border-[1px]  border-status-information-default text-status-information-default':
+                    state.messages[index] && state.messages[index].message.severity == 'info',
+
+                'bg-status-warning-invert border-[1px] border-status-warning-default text-status-warning-default':
+                    state.messages[index] && state.messages[index].message.severity == 'warn',
+
+                'bg-status-error-invert border-[1px] border-status-error-default text-status-error-default':
+                    state.messages[index] && state.messages[index].message.severity == 'error',
+
+                'bg-neutral-100 border-l-neutral-900 border-[1px] border-neutral-900 text-neutral-900':
+                    state.messages[index] && state.messages[index].message.severity == 'secondary',
+
+                'bg-neutral-1300 border-l-neutral-1300 border-[1px] border-neutral-1300 !text-white':
+                    state.messages[index] && state.messages[index].message.severity == 'contrast'
+            })
     }),
-    content: 'flex items-center py-5 px-7',
-    icon: {
-        className: classNames('w-6 h-6', 'text-lg mr-2')
+    content: 'flex items-start p-[16px] pr-[40px] gap-[8px] font-medium',
+    icon: 'w-[18px] h-[18px] flex-shrink-0 -translate-y-[1px]',
+    text: 'flex flex-col flex-1 min-w-0',
+    summary: {
+        className: ' text-[16px] leading-[18px] -mt-[1px]',
     },
-    text: 'text-base font-normal flex flex-col flex-1 grow shrink ml-4',
-    summary: 'font-bold block',
-    detail: 'mt-1 block',
+    detail: ({ state, index }: { state: any, index: any }) => ({
+        className: classNames(
+            'block text-[14px]',
+            {
+                'text-white': state.messages[index] && state.messages[index].message.severity === 'contrast',
+                'text-neutral-1200': state.messages[index] && state.messages[index].message.severity !== 'contrast'
+            }
+        )
+    }),
     closebutton: {
-        className: classNames('w-8 h-8 rounded-full bg-transparent transition duration-200 ease-in-out', 'ml-auto overflow-hidden relative', 'flex items-center justify-center', 'hover:bg-white/30')
+        className: 'absolute right-3 top-3 w-4 h-4 cursor-pointer hover:opacity-70 transition-opacity duration-200'
     },
     transition: {
         enterFromClass: 'opacity-0 translate-x-0 translate-y-2/4 translate-z-0',

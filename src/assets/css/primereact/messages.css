@@ -1,0 +1,88 @@
+.p-message {
+    @apply pl-10 relative
+}
+
+.p-message-icon {
+    @apply absolute left-0 translate-y-[2px] text-lg w-20 h-20 rounded-full flex items-center justify-center p-4;
+}
+
+.p-message-close-button { 
+    @apply flex items-center justify-center flex-shrink-0 ms-auto overflow-hidden relative cursor-pointer select-none
+        w-6 h-6 rounded-full bg-transparent transition-colors duration-200 text-inherit p-0 border-none
+        focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2
+}
+
+.p-message-wrapper {
+    @apply flex flex-col items-start pl-16 p-8 border-[0.214rem] rounded-md
+}
+
+.p-message-summary{
+    @apply font-semibold text-[1.143rem] text-gray-900 dark:text-gray-900
+}
+
+.p-message-detail{
+    @apply text-gray-700 dark:text-gray-700
+}
+
+.p-message-close.p-link { 
+    @apply absolute top-10 right-10
+    flex items-center justify-center flex-shrink-0 ms-auto overflow-hidden cursor-pointer select-none
+    rounded-full text-gray-700 transition-colors duration-200 p-0 border-none
+    focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2
+}
+
+.p-message-info .p-message-wrapper{
+    @apply border-sky-300 text-blue-600
+        dark:border-sky-300 dark:text-blue-500
+}
+
+.p-message-info .p-message-icon {
+    @apply bg-sky-50 text-sky-500;
+}
+
+.p-message-success .p-message-wrapper{
+    @apply  border-green-300 text-green-600
+    dark:border-green-300 dark:text-green-500
+        shadow-[0px_4px_8px_0px_theme(colors.green.500/0.04)]
+}
+
+.p-message-success .p-message-icon {
+    @apply bg-green-50 text-green-500;
+}
+
+
+.p-message-warn .p-message-wrapper{
+    @apply  border-yellow-300 text-yellow-600
+        dark:border-yellow-300 dark:text-yellow-500
+}
+
+.p-message-warn .p-message-icon {
+    @apply bg-yellow-50 text-yellow-500;
+}
+
+.p-message-error .p-message-wrapper {
+    @apply  border-red-300 text-red-600
+        dark:border-red-300 dark:text-red-500
+}
+
+.p-message-error .p-message-icon {
+    @apply bg-red-50 text-red-500;
+}
+
+.p-message-secondary .p-message-wrapper{
+    @apply outline-surface-200 text-surface-600
+        dark:outline-surface-700 dark:text-surface-300
+}
+
+.p-message-secondary .p-message-icon {
+    @apply bg-gray-100 text-gray-700;
+}
+
+.p-message-contrast .p-message-wrapper {
+    @apply  border-gray-400 text-red-600
+        dark:border-gray-400 dark:text-red-500
+}
+
+.p-message-contrast .p-message-icon {
+    @apply bg-gray-500 text-white;
+}

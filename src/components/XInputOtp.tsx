@@ -1,6 +1,5 @@
 'use client';
 
-import { inputOtpPT } from "@/primereact-tailwindcss/inputOtp.pt";
 import { InputOtp, InputOtpChangeEvent, InputOtpProps } from "primereact/inputotp";
 import { useRef } from "react";
 import { useController, useFormContext } from "react-hook-form";
@@ -56,9 +55,8 @@ const XInputOtp = ({
                 id={name}
                 value={value || ''}
                 onChange={handleChange}
-                className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
+                className={`${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
-                pt={inputOtpPT(!!error)}
             />
             {error?.message && (
                 <small id={`${name}-error`} className="text-xs text-red-500">

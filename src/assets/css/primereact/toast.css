@@ -1,0 +1,168 @@
+.p-toast {
+    @apply w-[350px] rounded-lg whitespace-pre-line break-words
+}
+
+.p-toast-message {
+    @apply mb-4
+}
+
+.p-toast-message-icon {
+    @apply flex-shrink-0 text-lg w-9 h-9 mt-2
+}
+
+.p-toast-message-content {
+    @apply flex items-start p-8 gap-4
+}
+
+.p-toast-message-text {
+    @apply flex-auto flex flex-col gap-2
+}
+
+.p-toast-summary {
+    @apply font-medium text-lg
+}
+
+.p-toast-message-text .p-toast-detail {
+    @apply font-medium text-sm 
+}
+
+.p-toast-icon-close.p-link {
+    @apply flex items-center justify-center overflow-hidden relative cursor-pointer bg-transparent select-none
+        transition-colors duration-200 text-inherit w-7 h-7 rounded-full -mt-[25%] -end-1/4 p-0 border-none
+        focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2
+}
+
+.p-toast-icon-close.p-link:dir(rtl) {
+    @apply ms-auto end-auto
+}
+
+.p-toast-message-info,
+.p-toast-message-success,
+.p-toast-message-warn,
+.p-toast-message-error,
+.p-toast-message-secondary,
+.p-toast-message-contrast {
+    @apply border rounded-lg
+}
+
+.p-toast-icon-close.p-link {
+    @apply text-base w-7 h-7
+}
+
+.p-toast-message-info {
+    @apply bg-sky-50 border-sky text-sky
+        dark:bg-sky-50 dark:border-sky dark:text-sky
+}
+
+.p-toast-message-info .p-toast-detail {
+    @apply text-gray-800 dark:text-gray-800 text-base font-medium
+}
+
+.p-toast-message-info .p-toast-icon-close.p-link {
+    @apply hover:bg-surface-200 focus-visible:outline-surface-600
+        dark:hover:bg-surface-700 dark:focus-visible:outline-surface-300
+}
+
+.p-toast-message-success {
+    @apply bg-green-50 border-green-500 text-green-600
+        dark:bg-green-50 dark:border-green-500 dark:text-green-600
+}
+
+.p-toast-message-success .p-toast-detail {
+    @apply text-gray-800 dark:text-gray-800 text-base font-medium
+}
+
+.p-toast-message-success .p-toast-icon-close.p-link {
+        @apply hover:bg-surface-200 focus-visible:outline-surface-600
+        dark:hover:bg-surface-700 dark:focus-visible:outline-surface-300
+}
+
+.p-toast-message-warn {
+    @apply bg-yellow-50 border-yellow-500 text-yellow-600
+        dark:bg-yellow-50 dark:border-yellow-500 dark:text-yellow-600
+}
+
+.p-toast-message-warn .p-toast-detail {
+    @apply text-gray-800 dark:text-gray-800 text-base font-medium
+}
+
+.p-toast-message-warn .p-toast-icon-close.p-link{
+        @apply hover:bg-surface-200 focus-visible:outline-surface-600
+        dark:hover:bg-surface-700 dark:focus-visible:outline-surface-300
+}
+
+.p-toast-message-error {
+    @apply bg-red-50 border-red-500 text-red-600
+        dark:bg-red-50 dark:border-red-500 dark:text-red-600
+}
+
+.p-toast-message-error .p-toast-detail {
+    @apply text-gray-800 dark:text-gray-800 text-base font-medium
+}
+
+.p-toast-message-error .p-toast-icon-close.p-link {
+        @apply hover:bg-surface-200 focus-visible:outline-surface-600
+        dark:hover:bg-surface-700 dark:focus-visible:outline-surface-300
+}
+
+.p-toast-message-secondary {
+    @apply bg-gray-50 border-gray-800 text-gray-900
+        dark:bg-gray-50 dark:border-gray-800 dark:text-gray-900
+}
+
+.p-toast-message-secondary .p-toast-detail {
+    @apply text-gray-800 dark:text-gray-800 text-base font-medium
+}
+
+.p-toast-message-secondary .p-toast-icon-close.p-link {
+    @apply hover:bg-surface-200 focus-visible:outline-surface-600
+        dark:hover:bg-surface-700 dark:focus-visible:outline-surface-300
+}
+
+.p-toast-message-contrast {
+    @apply bg-gray-700 border-gray-800 text-white
+        dark:bg-gray-700 dark:border-gray-800 dark:text-white
+}
+
+.p-toast-message-contrast .p-toast-detail {
+    @apply text-white dark:text-white
+}
+
+.p-toast-message-contrast .p-toast-icon-close.p-link{
+    @apply hover:bg-surface-800 focus-visible:outline-surface-50
+        dark:hover:bg-surface-200 dark:focus-visible:outline-surface-950
+}
+
+/* POSICIONAMIENTO */
+.p-toast-top-center {
+    @apply -translate-x-1/2;
+}
+
+.p-toast-bottom-center {
+    @apply -translate-x-1/2;
+}
+
+.p-toast-center {
+    @apply min-w-[20vw] -translate-x-1/2 -translate-y-1/2
+}
+
+/* ANIMACIONES */
+.p-toast-message-enter-from {
+    @apply opacity-0 translate-y-1/2
+}
+
+.p-toast-message-leave-from {
+    @apply max-h-[1000px]
+}
+
+.p-toast .p-toast-message.p-toast-message-leave-to {
+    @apply max-h-0 opacity-0 mb-0 overflow-hidden
+}
+
+.p-toast-message-enter-active {
+    @apply [transition:transform_0.3s,opacity_0.3s]
+}
+
+.p-toast-message-leave-active {
+    @apply [transition:max-height_0.45s_cubic-bezier(0,1,0,1),opacity_0.3s,margin-bottom_0.3s]
+}

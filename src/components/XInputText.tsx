@@ -1,7 +1,8 @@
 'use client';
-import { inputTextPT } from '@/primereact-tailwindcss/inputText.pt';
 import { InputText, InputTextProps } from 'primereact/inputtext';
 import { useController, useFormContext } from 'react-hook-form';
+import XLabel from './XLabel';
+import '../styles/inputText.css';
 
 type XInputTextProps = {
     name: string;
@@ -38,10 +39,13 @@ export const XInputText = ({
     return (
         <div className="flex flex-col gap-1">
             {label && (
-                <label htmlFor={name} className={`font-medium ${error ? 'text-red-500' : ''}`}>
+                <XLabel
+                    htmlFor={name}
+                    required={labelRequired}
+                    error={!!error}
+                >
                     {label}
-                    {labelRequired && <span className="text-red-500"> *</span>}
-                </label>
+                </XLabel>
             )}
             <InputText
                 {...fieldProps}
@@ -51,15 +55,15 @@ export const XInputText = ({
                 ref={ref}
                 value={value ?? ''}
                 onChange={handleChange}
-                className={`w-full ${error ? 'p-invalid' : ''} ${props.className || ''}`}
+                className={`${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
-                pt={inputTextPT(!!error)}
             />
             {error?.message && (
-                <small id={`${name}-error`} className="text-xs text-red-500">
+                <small id={`${name}-error`} className="text-[12px] text-red">
                     {error.message.toString()}
                 </small>
             )}
         </div>
     );
 };
+

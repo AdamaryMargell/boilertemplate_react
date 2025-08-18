@@ -1,0 +1,38 @@
+.p-tag {
+    @apply inline-flex items-center justify-center
+        bg-gray-100 dark:bg-gray-100
+        text-gray-700 dark:text-gray-700
+        text-sm py-2 px-4 rounded-md gap-1;
+}
+
+.p-tag-icon {
+    @apply text-xs w-6 h-6 align-middle inline-block;
+}
+
+.p-tag-rounded {
+    @apply rounded-2xl
+}
+
+.p-tag-success {
+    @apply bg-green-50 dark:bg-green-50 text-green-600 dark:text-green-600
+}
+
+.p-tag-info {
+    @apply bg-sky-50 dark:bg-sky-50 text-sky-500 dark:text-sky-500
+}
+
+.p-tag-warn {
+    @apply bg-yellow-50 dark:bg-yellow-50 text-yellow-600 dark:text-yellow-600
+}
+
+.p-tag-danger {
+    @apply bg-red-50 dark:bg-red-50 text-red-500 dark:text-red-500
+}
+
+.p-tag-secondary {
+    @apply bg-gray-100 dark:bg-gray-100 text-gray-700 dark:text-gray-700
+}
+
+.p-tag-contrast {
+    @apply bg-gray-700 dark:bg-gray-700 text-white dark:text-white
+}

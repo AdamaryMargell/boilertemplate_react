@@ -1,0 +1,92 @@
+.p-inputgroup,
+.p-inputgroup .p-floatlabel,
+.p-inputgroup .p-iftalabel {
+    @apply flex items-stretch w-full
+}
+
+.p-inputgroup .p-inputtext,
+.p-inputgroup .p-inputwrapper {
+    @apply flex-auto w-[1%]
+}
+
+.p-inputgroupaddon {
+    @apply flex items-center justify-center 
+    border-y border-gray-400 dark:border-gray-400
+    px-5 py-3 w-21 h-21
+    bg-white dark:bg-white text-gray-400
+}
+
+.p-inputgroupaddon .iconify {
+    @apply w-10 h-10;
+}
+
+.p-inputgroup:has(.p-inputtext-sm) .p-inputgroupaddon,
+.p-inputgroup:has(input[size="small"]) .p-inputgroupaddon {
+    @apply px-4 py-2 min-w-16 h-16 text-[0.857rem]
+}
+
+.p-inputgroup:has(.p-inputtext-sm) .p-inputgroupaddon .iconify,
+.p-inputgroup:has(input[size="small"]) .p-inputgroupaddon .iconify {
+    @apply w-8 h-8
+}
+
+.p-inputgroup:has(.p-inputtext-lg) .p-inputgroupaddon,
+.p-inputgroup:has(input[size="large"]) .p-inputgroupaddon {
+    @apply px-6 py-5 min-w-26 h-26 text-[1.143rem]
+}
+
+.p-inputgroup:has(.p-inputtext-lg) .p-inputgroupaddon .iconify,
+.p-inputgroup:has(input[size="large"]) .p-inputgroupaddon .iconify{
+    @apply w-12 h-12
+}
+
+.p-inputgroupaddon:first-child,
+.p-inputgroupaddon+.p-inputgroupaddon {
+    @apply border-s
+}
+
+.p-inputgroupaddon:last-child {
+    @apply border-e
+}
+
+.p-inputgroup>.p-component,
+.p-inputgroup>.p-inputwrapper>.p-component,
+.p-inputgroup>.p-floatlabel>.p-component,
+.p-inputgroup>.p-floatlabel>.p-inputwrapper>.p-component,
+.p-inputgroup>.p-iftalabel>.p-component,
+.p-inputgroup>.p-iftalabel>.p-inputwrapper>.p-component {
+    @apply rounded-none m-0
+}
+
+.p-inputgroupaddon:first-child,
+.p-inputgroup>.p-component:first-child,
+.p-inputgroup>.p-inputwrapper:first-child>.p-component,
+.p-inputgroup>.p-floatlabel:first-child>.p-component,
+.p-inputgroup>.p-floatlabel:first-child>.p-inputwrapper>.p-component,
+.p-inputgroup>.p-iftalabel:first-child>.p-component,
+.p-inputgroup>.p-iftalabel:first-child>.p-inputwrapper>.p-component {
+    @apply rounded-s-md
+}
+
+.p-inputgroupaddon:last-child,
+.p-inputgroup>.p-component:last-child,
+.p-inputgroup>.p-inputwrapper:last-child>.p-component,
+.p-inputgroup>.p-floatlabel:last-child>.p-component,
+.p-inputgroup>.p-floatlabel:last-child>.p-inputwrapper>.p-component,
+.p-inputgroup>.p-iftalabel:last-child>.p-component,
+.p-inputgroup>.p-iftalabel:last-child>.p-inputwrapper>.p-component {
+    @apply rounded-e-md
+}
+
+.p-inputgroup .p-component:focus,
+.p-inputgroup .p-component.p-focus,
+.p-inputgroup .p-inputwrapper-focus,
+.p-inputgroup .p-component:focus~label,
+.p-inputgroup .p-component.p-focus~label,
+.p-inputgroup .p-inputwrapper-focus~label {
+    @apply z-10
+}
+
+.p-inputgroup>.p-button:not(.p-button-icon-only) {
+    @apply w-auto
+}

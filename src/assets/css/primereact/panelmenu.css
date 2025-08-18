@@ -1,0 +1,149 @@
+.p-panelmenu {
+    @apply flex flex-col gap-2
+}
+
+.p-panelmenu-panel {
+    @apply bg-white dark:bg-white rounded-md p-2
+        border border-gray-400 dark:border-gray-400
+        text-gray-700 dark:text-gray-700
+}
+
+.p-panelmenu-header {
+    @apply outline-none 
+}
+
+.p-panelmenu-header-content {
+    @apply rounded-md transition-colors duration-200 text-gray-700 dark:text-gray-700
+}
+
+.p-panelmenu-header-link {
+    @apply flex items-center gap-3 px-4 py-3 select-none cursor-pointer 
+    relative no-underline text-inherit
+}
+
+.p-panelmenu-header-icon,
+.p-panelmenu-item-icon {
+    @apply text-surface-400 dark:text-surface-400
+}
+
+.p-panelmenu-submenu-icon.p-icon {
+    @apply w-6 h-6 text-gray-700 dark:text-gray-700 text-lg;
+}
+
+.p-panelmenu-header:not(.p-disabled):focus-visible .p-panelmenu-header-content {
+    @apply bg-surface-100 dark:bg-surface-100 text-surface-800 dark:text-surface-0
+}
+
+.p-panelmenu-header:not(.p-disabled):focus-visible .p-panelmenu-header-content .p-panelmenu-header-icon {
+    @apply text-surface-500 dark:text-surface-500
+}
+
+.p-panelmenu-header:not(.p-disabled):focus-visible .p-panelmenu-header-content .p-panelmenu-submenu-icon {
+    @apply text-surface-500 dark:text-surface-400
+}
+
+.p-panelmenu-header:not(.p-panelmenu-header-active) .p-panelmenu-submenu-icon:dir(rtl) {
+    @apply rotate-180;
+}
+
+.p-panelmenu-header:not(.p-disabled) .p-panelmenu-header-content:hover {
+    @apply bg-secondary-50 dark:bg-secondary-50 text-gray-1000 dark:text-gray-1000
+}
+
+.p-panelmenu-header:not(.p-disabled) .p-panelmenu-header-content:hover .p-panelmenu-header-icon {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-panelmenu-header:not(.p-disabled) .p-panelmenu-header-content:hover .p-panelmenu-submenu-icon {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-panelmenu-submenu {
+    @apply m-0 py-0 ps-10 outline-none list-none
+}
+
+.p-panelmenu-item-link {
+    @apply flex items-center gap-3 px-4 py-3 select-none cursor-pointer no-underline 
+    text-inherit relative overflow-hidden
+}
+
+.p-panelmenu-item-link .iconify{
+    @apply w-9 h-9;
+}
+
+.p-panelmenu-item-content {
+    @apply rounded-md transition-colors duration-200 text-gray-700 dark:text-gray-700
+}
+
+.p-panelmenu-item.p-focus > .p-panelmenu-item-content {
+    @apply bg-surface-100 dark:bg-surface-800 text-surface-800 dark:text-surface-0
+}
+
+.p-panelmenu-item.p-focus > .p-panelmenu-item-content .p-panelmenu-item-icon {
+    @apply text-surface-500 dark:text-surface-400
+}
+
+.p-panelmenu-item.p-focus > .p-panelmenu-item-content .p-panelmenu-submenu-icon {
+    @apply text-surface-500 dark:text-surface-400
+}
+
+.p-panelmenu-item:not(.p-disabled) > .p-panelmenu-item-content:hover {
+    @apply bg-secondary-50 dark:bg-secondary-50 text-gray-1000 dark:text-gray-1000
+}
+
+.p-panelmenu-item:not(.p-disabled) > .p-panelmenu-item-content:hover .p-panelmenu-item-icon {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-panelmenu-item:not(.p-disabled) > .p-panelmenu-item-content:hover .p-panelmenu-submenu-icon {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-panelmenu-header.p-disabled .p-panelmenu-header-content {
+    @apply cursor-not-allowed pointer-events-none
+        bg-gray-100 dark:bg-gray-100 text-gray-400 dark:text-gray-400
+}
+.p-panelmenu-header.p-disabled .p-panelmenu-header-icon,
+.p-panelmenu-header.p-disabled .p-panelmenu-submenu-icon {
+    @apply text-gray-400 dark:text-gray-400
+}
+
+.p-panelmenu-header.p-disabled .p-panelmenu-header-link {
+    @apply cursor-not-allowed pointer-events-none
+}
+
+.p-panelmenu-item.p-disabled > .p-panelmenu-item-content {
+    @apply cursor-not-allowed pointer-events-none
+        bg-gray-100 dark:bg-gray-100 text-gray-400 dark:text-gray-400
+}
+
+.p-panelmenu-item.p-disabled .p-panelmenu-item-icon {
+    @apply text-gray-400 dark:text-gray-400
+}
+
+.p-panelmenu-item.p-disabled .p-panelmenu-item-link {
+    @apply cursor-not-allowed pointer-events-none
+}
+
+.p-panelmenu-item.p-disabled .iconify {
+    @apply text-gray-400 dark:text-gray-400
+}
+
+
+.p-panelmenu-header.p-disabled .p-panelmenu-header-content,
+.p-panelmenu-item.p-disabled > .p-panelmenu-item-content {
+    @apply transition-none
+}
+
+.p-panelmenu-header.p-disabled + .p-panelmenu-submenu {
+    @apply  pointer-events-none
+}
+
+.p-panelmenu-header.p-disabled + .p-panelmenu-submenu .p-panelmenu-item {
+    @apply  pointer-events-none cursor-not-allowed
+}
+
+.p-panelmenu-header.p-disabled .iconify,
+.p-panelmenu-item.p-disabled .iconify {
+    @apply grayscale
+}

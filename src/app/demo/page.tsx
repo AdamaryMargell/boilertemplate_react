@@ -9,10 +9,10 @@ import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 import { useRef, useState } from 'react';
 
-type IconComponent = React.FC<{ size?: number; className?: string }>;
+type IconCustomerType = React.FC<{ size?: number; className?: string }>;
 type IconItem = {
     name: string;
-    component: IconComponent;
+    component: IconCustomerType;
 };
 
 type IconCategory = {
@@ -405,7 +405,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <XIcon name={icon} size={24} />
+                                                        <XIcon name={icon} className='w-12 h-12' />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -442,7 +442,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <XIcon name={icon} size={24} />
+                                                        <XIcon name={icon} className='w-12 h-12' />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>
@@ -1703,7 +1703,7 @@ export default function DemoPage() {
                                                     onClick={() => copyIconName(icon)}
                                                 >
                                                     <div className="flex flex-col gap-3 items-center justify-center">
-                                                        <XIcon name={icon} size={24} />
+                                                        <XIcon name={icon} className='w-12 h-12' />
                                                         <span className="text-xs text-center text-gray-600">{icon}</span>
                                                     </div>
                                                 </div>

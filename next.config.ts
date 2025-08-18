@@ -1,21 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // webpack(config) {
-  //   config.module.rules.push({
-  //     test: /\.svg$/,
-  //     use: [
-  //       {
-  //         loader: '@svgr/webpack',
-  //         options: {
-  //           svgo: false,
-  //           ref: true,
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   return config;
-  // }
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -35,6 +20,10 @@ const nextConfig: NextConfig = {
   images: {
     disableStaticImages: true,
   },
+  experimental: {
+    optimizeCss: false,
+  },
+  transpilePackages: ['primereact'],
 };
 
 export default nextConfig;

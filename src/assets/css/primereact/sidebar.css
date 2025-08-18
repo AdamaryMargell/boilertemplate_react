@@ -1,0 +1,100 @@
+@import './button';
+
+.p-sidebar {
+    @apply flex flex-col pointer-events-auto relative transition-transform duration-300     
+        !bg-gray-50 dark:!bg-gray-50
+        text-gray-700 dark:text-gray-700
+        p-16 min-w-[300px]
+}
+
+.p-sidebar {
+    @apply [transform:translate3d(0,0,0)]
+}
+
+.p-sidebar-content {
+    @apply overflow-y-auto flex-grow pt-4
+} 
+
+.p-sidebar-header{
+    @apply flex flex-col-reverse items-end flex-shrink-0 gap-8 
+    text-gray-1000 font-semibold text-lg text-left  w-full !p-0
+    
+}
+
+.p-sidebar-title {
+    @apply font-semibold text-lg text-gray-800 w-full text-left !p-0; 
+}
+
+
+.p-sidebar-icons{
+    @apply !p-0 !w-7 !h-7 flex !items-end;
+}
+
+.p-sidebar-header .p-sidebar-icons svg{
+    @apply text-gray-700 w-7 h-7 items-end
+}
+
+.p-sidebar-full .p-sidebar {
+    @apply transition-none transform-none w-screen h-screen max-h-full top-0 left-0
+}
+
+.p-sidebar-left .p-sidebar-enter-from,
+.p-sidebar-left .p-sidebar-leave-to {
+    @apply -translate-x-full
+}
+
+.p-sidebar-right .p-sidebar-enter-from,
+.p-sidebar-right .p-sidebar-leave-to {
+    @apply translate-x-full
+}
+
+.p-sidebar-top .p-sidebar-enter-from,
+.p-sidebar-top .p-sidebar-leave-to {
+    @apply -translate-y-full
+}
+
+.p-sidebar-bottom .p-sidebar-enter-from,
+.p-sidebar-bottom .p-sidebar-leave-to {
+    @apply translate-y-full
+}
+
+.p-sidebar-full .p-sidebar-enter-from,
+.p-sidebar-full .p-sidebar-leave-to {
+    @apply opacity-0
+}
+
+.p-sidebar-full .p-sidebar-enter-active,
+.p-sidebar-full .p-sidebar-leave-active {
+    @apply transition-opacity animate-duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)]
+}
+
+.p-sidebar-left .p-sidebar {
+    @apply w-80 h-full
+}
+
+.p-sidebar-right .p-sidebar {
+    @apply w-80 h-full
+}
+
+.p-sidebar-top .p-sidebar {
+    @apply h-40 w-full
+}
+
+.p-sidebar-bottom .p-sidebar {
+    @apply h-40 w-full
+}
+
+.p-sidebar-left .p-sidebar-content,
+.p-sidebar-right .p-sidebar-content,
+.p-sidebar-top .p-sidebar-content,
+.p-sidebar-bottom .p-sidebar-content {
+    @apply w-full h-full
+}
+
+.p-sidebar-open {
+    @apply flex
+}
+
+.p-overlay-mask:dir(rtl) {
+    @apply flex-row-reverse;
+}
