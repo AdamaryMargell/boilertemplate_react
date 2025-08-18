@@ -42,43 +42,43 @@
     @apply flex flex-col absolute top-px end-px h-[calc(100%-2px)] z-10
 }
 
-.p-inputnumber-stacked .p-inputnumber-increment-button {
+.p-inputnumber-stacked .p-inputnumber-button-up {
     @apply p-0 rounded-tr-[4px] flex-1 flex items-center justify-center border-b-0
 }
 
-.p-inputnumber-stacked .p-inputnumber-decrement-button {
+.p-inputnumber-stacked .p-inputnumber-button-down {
     @apply p-0 rounded-br-[4px] flex-1 flex items-center justify-center border-t-0
 }
 
-.p-inputnumber-horizontal {
+.p-inputnumber-buttons-horizontal {
     @apply flex items-stretch w-full;
 }
 
-.p-inputnumber-horizontal .p-inputnumber-button {
+.p-inputnumber-buttons-horizontal .p-inputnumber-button {
     @apply flex-shrink-0 w-21 h-full px-[13px] py-6;
 }
 
-.p-inputnumber-horizontal .p-inputnumber-increment-button {
+.p-inputnumber-buttons-horizontal .p-inputnumber-button-up {
     @apply order-3 rounded-e-md border-s-0
 }
 
-.p-inputnumber-horizontal .p-inputnumber-input {
+.p-inputnumber-buttons-horizontal .p-inputnumber-input {
     @apply order-2 rounded-none flex-1;
 }
 
-.p-inputnumber-horizontal .p-inputnumber-decrement-button {
+.p-inputnumber-buttons-horizontal .p-inputnumber-button-down {
     @apply order-1 rounded-s-md border-e-0
 }
 
-.p-inputnumber-horizontal:has(.p-inputtext-sm) .p-inputnumber-button {
+.p-inputnumber-buttons-horizontal:has(.p-inputtext-sm) .p-inputnumber-button {
     @apply w-15 px-5 py-4;
 }
 
-.p-inputnumber-horizontal:has(.p-inputtext-lg) .p-inputnumber-button {
+.p-inputnumber-buttons-horizontal:has(.p-inputtext-lg) .p-inputnumber-button {
     @apply w-26 !px-8 !py-7;
 }
 
-.p-floatlabel:has(.p-inputnumber-horizontal) label {
+.p-floatlabel:has(.p-inputnumber-buttons-horizontal) label {
     @apply ms-10;
 }
 
@@ -91,7 +91,7 @@
     @apply py-6 px-7
 }
 
-.p-inputnumber-vertical .p-inputnumber-increment-button {
+.p-inputnumber-vertical .p-inputnumber-button-up {
     @apply order-1 rounded-ss-md rounded-se-md w-full border-b-0
 }
 
@@ -99,7 +99,7 @@
     @apply order-2 rounded-none text-center
 }
 
-.p-inputnumber-vertical .p-inputnumber-decrement-button {
+.p-inputnumber-vertical .p-inputnumber-button-down {
     @apply order-3 rounded-ee-md rounded-es-md w-full border-t-0
 }
 

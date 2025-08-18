@@ -1,8 +1,11 @@
 /* Form */
+
 @import './calendar.css';
+@import './checkbox.css';
 @import './dropdown.css';
 
 @import './textarea.css';
+@import './inputnumber.css';
 @import './inputotp.css';
 @import './inputtext.css';
 
