@@ -33,7 +33,7 @@ Asegúrate de tener instalado:
 | **PrimeReact** | ^10.8.2 | Librería de componentes UI rica y completa |
 | **Tailwindcss-primeui** | ^0.6.1 | Libreria de estilos |
 | **Tailwindcss** | ^3.4.17 | Libreria de estilos |
-| **TypeScript** | ^5| Tipado estático para JavaScript (opcional) |
+| **TypeScript** | ^5| Tipado estático para JavaScript |
 
 ## Instalación y Configuración
 
