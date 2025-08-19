@@ -57,6 +57,6 @@ pnpm dev
 bun dev
 ```
 ### 4. Explorar el proyecto
-Abre en [http://localhost:3000](http://localhost:3000) para ver el resultado y Abre el menú lateral haciendo clic en el ícono de hamburguesa (☰)
+Abre en [http://localhost:3002](http://localhost:3002) para ver el resultado y Abre el menú lateral haciendo clic en el ícono de hamburguesa (☰)
 Explora las categorías de componentes organizadas como en la documentación de PrimeReact
 
