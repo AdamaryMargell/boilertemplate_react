@@ -1,4 +1,4 @@
-
+/* 
 @import './togglebutton';
 
 .p-selectbutton {
@@ -22,5 +22,57 @@
 }
 
 .p-selectbutton.p-invalid {
+    @apply outline outline-offset-0 outline-red dark:outline-red
+} */
+
+@import './togglebutton';
+
+
+.p-selectbutton {
+    @apply inline-flex select-none rounded-lg bg-primary-50 py-6 px-8 gap-3
+}
+
+.p-selectbutton .p-button {
+@apply bg-primary-50 dark:bg-primary-50 border border-primary-50 
+    dark:border-primary-50 text-gray-700 dark:text-gray-700 text-base 
+    font-medium px-4 py-3 transition-colors duration-300 before:bg-transparent 
+    before:absolute before:start-1 before:top-1 before:rounded-lg before:w-[calc(100%-0.5rem)] 
+    before:h-[calc(100%-0.5rem)] before:transition-colors before:duration-200 rounded-md outline-transparent;
+}
+
+.p-selectbutton .p-button .p-button-icon-left,
+.p-selectbutton .p-button .p-button-icon-right {
+    @apply text-white dark:text-white;
+}
+
+.p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover {
+    @apply text-gray-1000 dark:text-gray-1000 border !border-primary bg-transparent
+}
+
+.p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover .p-button-icon-left,
+.p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover .p-button-icon-right {
+    @apply text-gray-1000 dark:text-gray-1000;
+}
+
+.p-selectbutton .p-button.p-highlight {
+    @apply bg-primary dark:bg-primary border-primary dark:border-primary 
+    text-white dark:text-white;
+}
+
+.p-selectbutton .p-button.p-highlight .p-button-icon-left,
+.p-selectbutton .p-button.p-highlight .p-button-icon-right {
+    @apply text-white dark:text-white;
+}
+
+.p-selectbutton .p-button.p-highlight:hover {
+    @apply bg-primary-600 dark:bg-primary-600 border-primary-600 dark:border-primary-600 text-white dark:text-white;
+}
+
+.p-selectbutton .p-button.p-highlight:hover .p-button-icon-left,
+.p-selectbutton .p-button.p-highlight:hover .p-button-icon-right {
+    @apply text-gray-1000 dark:text-gray-1000
+}
+
+.p-selectbutton.p-invalid>.p-button {
     @apply outline outline-offset-0 outline-red dark:outline-red
 }

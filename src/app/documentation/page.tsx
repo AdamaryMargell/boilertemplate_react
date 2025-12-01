@@ -137,6 +137,7 @@ import XInputPhoneCodeSelector from '@/components/XInputPhoneNumber';
 import XIcon from '@/components/XIcons/XIcon';
 import { Calendar } from 'primereact/calendar';
 import { Divider } from 'primereact/divider';
+import { InputNumber } from 'primereact/inputnumber';
 
 //CarrouselTyped
 interface Product {
@@ -269,6 +270,8 @@ export default function PageDocumentation() {
     const [visibleLeft, setVisibleLeft] = useState<boolean>(false);
     const [activePanel, setActivePanel] = useState<string | null>(null);
 
+
+    const [selection, setSelection] = useState([]);
 
     const customHeader = (
         <div className="p-sidebar-title">Right Sidebar</div>
@@ -724,6 +727,20 @@ export default function PageDocumentation() {
             </div>
         );
     };
+
+    //SelectButton
+    const optionsButton = ['Off', 'On'];
+    const [valueButton, setValueButton] = useState(optionsButton[0]);
+    const justifyOptions = [
+        {icon: 'align-left', value: 'left'},
+        {icon: 'align-right', value: 'Right'},
+        {icon: 'align-center', value: 'Center'},
+        {icon: 'align-just', value: 'Justify'}
+    ];
+
+    const justifyTemplate = (option) => {
+        return <XIcon name={option.icon} className='w-9 h-9'/>;
+    }
 
     //Dialog
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
@@ -1619,45 +1636,30 @@ export default function PageDocumentation() {
     //Organization Chart
     const [dataChart] = useState([
         {
+            label: 'Argentina',
             expanded: true,
-            type: 'person',
-            data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
-                name: 'Amy Elsner',
-                title: 'CEO'
-            },
             children: [
                 {
+                    label: 'Argentina',
                     expanded: true,
-                    type: 'person',
-                    data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
-                        name: 'Anna Fali',
-                        title: 'CMO'
-                    },
                     children: [
                         {
-                            label: 'Sales'
+                            label: 'Argentina'
                         },
                         {
-                            label: 'Marketing'
+                            label: 'Croatia'
                         }
                     ]
                 },
                 {
+                    label: 'France',
                     expanded: true,
-                    type: 'person',
-                    data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
-                        name: 'Stephen Shaw',
-                        title: 'CTO'
-                    },
                     children: [
                         {
-                            label: 'Development'
+                            label: 'France'
                         },
                         {
-                            label: 'UI/UX Design'
+                            label: 'Morocco'
                         }
                     ]
                 }
@@ -2204,13 +2206,17 @@ export default function PageDocumentation() {
                             >
                                 <div className="card flex justify-center p-4">
                                     <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
-                                        <div className="flex items-stretch w-full">
-                                            <XButton label="Search" className="rounded-r-none" />
-                                            <XInputText
-                                                name='keyword'
-                                                placeholder="Keyword"
-                                                className="rounded-l-none border-l-0"
-                                            />
+                                        <div className="p-inputgroup flex-1">
+                                            <span className="p-inputgroup-addon">
+                                                <XIcon name="user" />
+                                            </span>
+                                            <InputText placeholder="Username" />
+                                        </div>
+
+                                        <div className="p-inputgroup flex-1">
+                                            <span className="p-inputgroup-addon">$</span>
+                                            <InputNumber name="inputGroup" placeholder="Price" />
+                                            <span className="p-inputgroup-addon">.00</span>
                                         </div>
                                     </XForm>
                                 </div>
@@ -2250,17 +2256,8 @@ export default function PageDocumentation() {
                             >
                                 <div className="card flex justify-center">
                                     <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
-                                        <XInputSwitch
-                                            name="emailNotifications"
-                                            label="Recibir notificaciones por correo"
-                                            description="Recibirás alertas importantes en tu email"
-                                            rules={{ required: 'Debes seleccionar una opción' }}
-                                        />
-                                        <XInputSwitch
-                                            name="darkMode"
-                                            label="Modo oscuro"
-                                        />
-                                        <XButton type="submit" className="px-3 py-2 bg-slate-100 border border-slate-400 rounded mt-7">Enviar</XButton>
+                                        <div>Error</div>
+                                        <XInputSwitch checked={checked} onChange={(e) => setChecked(e.value)} />
                                     </XForm>
                                 </div>
                             </XPanel>
@@ -2286,1939 +2283,1919 @@ export default function PageDocumentation() {
                                             min={0}
                                         />
 
+                                        <XInputNumber name="inpuNumberStacked" inputId="stacked-buttons" showButtons mode="currency" currency="USD" />
+
                                         <XInputNumber name="inpuNumberHorizontalSm" label="Input-Number-Horizontal"
-        inputId="horizontal-buttons" showButtons buttonLayout="horizontal" step={0.25} mode="currency" currency="EUR" decrementButtonIcon="think-minus" incrementButtonIcon="think-plus"/>
+                                            inputId="horizontal-buttons" showButtons
+                                            buttonLayout="horizontal" step={0.25} mode="currency" currency="EUR"
+                                            decrementButtonIcon={<XIcon name="think-minus" className="w-8 h-8" />} incrementButtonIcon={<XIcon name="thik-plus" className="w-8 h-8" />} />
 
-      {/* <XInputNumber name="inpuNumberHorizontal" v-model="value1" label="Input-Number-Horizontal" 
-      inputId="horizontal-buttons" showButtons buttonLayout="horizontal" :step="0.25" mode="currency" currency="EUR" fluid icon-decrement="think-minus" icon-increment="think-plus" >
-      </XInputNumber>
-
-      <XInputNumber name="inpuNumberHorizontalLg" v-model="value1" label="Input-Number-Horizontal" size="large"
-      inputId="horizontal-buttons" showButtons buttonLayout="horizontal" mode="currency" currency="EUR" fluid icon-decrement="think-minus" icon-increment="think-plus">
-      </XInputNumber>
-
-
-      <XInputNumber name="inputNumberVertical" 
-      v-model="value1" showButtons buttonLayout="vertical" 
-      style="width: 3.285rem" :min="0" :max="99" icon-decrement="think-minus" icon-increment="think-plus">
-        
-      </XInputNumber> */}
+                                        <XInputNumber
+                                            name="inputNumberVertical" showButtons buttonLayout="vertical"
+                                            decrementButtonIcon={<XIcon name="think-minus" className=" w-8 h-8" />}
+                                            incrementButtonIcon={<XIcon name="thik-plus" className="w-8 h-8" />}
+                                            style={{ width: '14px !important' }}
+                                        />
                                         <XButton type="submit" label="Enviar" />
                                     </XForm >
-                </div>
-            </XPanel>
+                                </div>
+                            </XPanel>
                         )}
 
-            {/* Panel de InputOtp */}
-            {activePanel === 'inputOtp' && (
-                <XPanel
-                    header="InputOtp"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
-                            <XInputOtp
-                                name="otpCode"
-                                label="Código de verificación"
-                                labelRequired
-                                length={6}
-                                rules={{
-                                    required: 'El código OTP es requerido',
-                                    pattern: {
-                                        value: /^\d{6}$/,
-                                        message: 'Debe contener exactamente 6 dígitos numéricos'
-                                    },
-                                    minLength: { value: 6, message: 'El código debe tener 6 dígitos numéricos' }
-                                }}
-                                validation={(val) => {
-                                    if (typeof val === 'string') {
-                                        return val.replace(/[^0-9]/g, '');
-                                    }
-                                    return val;
-                                }}
-                                placeholder="0"
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm >
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de InputText */}
-            {activePanel === 'inputText' && (
-                <XPanel
-                    header="InputText"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XInputText
-                                name="nombre"
-                                label="Nombre"
-                                labelRequired
-                                rules={{
-                                    required: 'El nombre de usuario es requerido',
-                                    minLength: {
-                                        value: 3,
-                                        message: 'Mínimo 3 caracteres'
-                                    },
-                                    maxLength: {
-                                        value: 20,
-                                        message: 'Máximo 20 caracteres'
-                                    }
-                                }}
-                            />
-                            <XInputText
-                                name="apellido"
-                                label="Apellido"
-                                labelRequired
-                                rules={{ required: 'El apellido es requerido' }}
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm >
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de InputTextArea */}
-            {activePanel === 'inputTextarea' && (
-                <XPanel
-                    header="InputTextarea"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XInputTextarea
-                                name='textarea'
-                                label='Dirección'
-                                labelRequired
-                                rows={5} cols={30}
-                                rules={{
-                                    required: 'El campo es requerido',
-                                    maxLength: {
-                                        value: 500,
-                                        message: 'Máximo 20 caracteres'
-                                    }
-                                }}
-                                validation={(val: string) => {
-                                    if (typeof val === 'string') {
-                                        const lowerVal = val.toLowerCase();
-                                        if (lowerVal.includes('spam') || lowerVal.includes('comment')) {
-                                            return '';
-                                        }
-                                    }
-                                    return val;
-                                }}
-                                placeholder="Escribe tu comentario aquí"
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm >
-                    </div>
-                </XPanel>
-            )}
-            {/* Panel de Knob */}
-            {activePanel === 'knob' && (
-                <XPanel
-                    header="Knob"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XKnob
-                                name="volume"
-                                label="Control de volumen"
-                                labelRequired
-                                step={5}
-                                size={150}
-                                defaultValue={50}
-                                rules={{
-                                    renquired: 'El volumen es requerido',
-                                    min: { value: 10, message: 'Debe ser mayor a 10' },
-                                    max: { value: 95, message: 'Debe ser menor de 95' }
-                                }}
-                                strokeWidth={10}
-                                rangeColor={"var(--primary-500)"}
-                                valueColor="var(--surface-900)"
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de ListBox */}
-            {activePanel === 'listBox' && (
-                <XPanel
-                    header="ListtBox"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XListBox
-                                name="country"
-                                label="Select your country"
-                                labelRequired
-                                options={countriesListBox}
-                                optionLabel="name"
-                                rules={{ required: 'Campo requerido' }}
-                                filter
-                                className="border-2"
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Mention */}
-            {activePanel === 'mention' && (
-                <XPanel
-                    header="Mention"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XMention
-                                name="comment"
-                                label="Menciona a alguien"
-                                labelRequired
-                                rules={{ required: 'Campo requerido' }}
-                                suggestions={suggestions}
-                                onSearch={onSearch}
-                                field="nickname"
-                                placeholder="Escribe @ para mencionar"
-                                rows={5}
-                                cols={40}
-                                itemTemplate={itemTemplateMention}
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de multiselect */}
-            {activePanel === 'multiselect' && (
-                <XPanel
-                    header="MultiSelect"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XMultiSelect
-                                name='ejemplo'
-                                label="Seleccione una cidad"
-                                labelRequired
-                                options={cities}
-                                optionLabel="name"
-                                optionValue="code"
-                                placeholder="Select Cities"
-                                maxSelectedLabels={3}
-                                rules={{
-                                    required: 'Debes seleccionar al menos un rol',
-                                }}
-                                validation={(selected) => {
-                                    console.log(selected);
-                                    if (selected.includes('NY') || selected.includes('RM')) {
-                                        console.log(selected);
-                                        return 'Las ciudaes NY o RM no son compatibles';
-                                    }
-                                    return true;
-                                }}
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de MultiStateCheckbox */}
-            {activePanel === 'multiStateCheckbox' && (
-                <XPanel
-                    header="MultiStateCheckbox"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XMultiStateCheckbox
-                                name="notificationPref"
-                                label="Preferencia de notificaciones"
-                                labelRequired
-                                options={notificationOptions}
-                                rules={{ required: 'Debes seleccionar una opción' }}
-                                unselectable='on'
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Password */}
-            {activePanel === 'password' && (
-                <XPanel
-                    header="Password"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XPassword
-                                name="password"
-                                label="Contraseña"
-                                labelRequired
-                                rules={{
-                                    required: 'El campo es requerido',
-                                    minLength: {
-                                        value: 8,
-                                        message: 'La contraseña debe tener al menos 8 caracteres'
-                                    },
-                                }}
-                                validation={validatePassword}
-                                placeholder="Ingresa tu contraseña"
-                                toggleMask
-                                feedback={false}
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de RadioButton */}
-            {activePanel === 'radioButton' && (
-                <XPanel
-                    header="RadioButton"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XRadioButton
-                                name="paymentMethod"
-                                label="Método de pago"
-                                labelRequired={true}
-                                options={paymentOptions}
-                                rules={{ required: 'Selecciona un método de pago' }}
-                                className="mb-6"
-                            />
-                            <XRadioButton
-                                name="priority"
-                                label="Prioridad"
-                                options={[
-                                    { label: 'Alta', value: 'high' },
-                                    { label: 'Media', value: 'medium' },
-                                    { label: 'Baja', value: 'low' }
-                                ]}
-                                layout="horizontal"
-                                rules={{ required: 'Selecciona una prioridad' }}
-                                className="mb-6"
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Rating */}
-            {activePanel === 'rating' && (
-                <XPanel
-                    header="Rating"
-                >
-                    <div className="card flex justify-center gap-4 flex-col items-center">
-                        <XRating value={valueRating} onChange={(e) => setValueRating(e.value)} cancel={false} />
-
-                        <h5 className="font-semibold">Icons Core (Recomendado)</h5>
-                        <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
-                            cancel={false}
-                            onIcon={<XIcon name="star-fill" className="p-icon p-rating-icon" />}
-                            offIcon={<XIcon name="star" className="p-icon p-rating-icon" />}
-                        ></XRating>
-                        <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
-                            cancel={false}
-                            onIcon={<XIcon name="emoji-happy-fill" className="p-icon p-rating-icon" />}
-                            offIcon={<XIcon name="emoji-sad" className="p-icon p-rating-icon" />}
-                        ></XRating>
-                        <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
-                            cancel={false}
-                            onIcon={<XIcon name="emoji-satisfied-fill" className="p-icon p-rating-icon" />}
-                            offIcon={<XIcon name="emoji-ball-fill" className="p-icon p-rating-icon" />}
-                        ></XRating>
-                        <h5 className="font-semibold">Disabled</h5>
-                        <XRating value={valueRatingDisabled} onChange={(e) => setValueRatingDisabled(e.value)} cancel={false} disabled />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de SelectButton */}
-            {activePanel === 'selectButton' && (
-                <XPanel
-                    header="SelectButton"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XSelectButton
-                                name="multipleOptions"
-                                label="Selecciona múltiples opciones"
-                                labelRequired
-                                options={paymentOptions}
-                                optionLabel="label"
-                                multiple
-                                rules={{
-                                    validate: (val: any) => val.length >= 2 || 'Selecciona al menos 2 opciones'
-                                }}
-                            />
-
-                            <XSelectButton
-                                name="priority"
-                                label="Prioridad"
-                                options={['Baja', 'Media', 'Alta']}
-                                validation={(value) => {
-                                    console.log('Prioridad seleccionada:', value);
-                                    return value;
-                                }}
-                                rules={{ required: 'Selecciona una prioridad' }}
-                                className="mb-6"
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Slider */}
-            {activePanel === 'slider' && (
-                <XPanel
-                    header="Slider"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XSlider
-                                name="discount"
-                                label="Descuento aplicado"
-                                labelRequired
-                                min={0}
-                                max={50}
-                                step={5}
-                                showValue
-                                validation={(value: number | number[]) =>
-                                    Number(value) <= 30 || 'Los descuentos mayores a 30% requieren aprobación'
-                                }
-                                rules={{
-                                    required: 'Se requiere un descuento',
-                                    min: { value: 10, message: 'El descuento mínimo es 10%' }
-                                }}
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de TreeSelect */}
-            {activePanel === 'treeSelect' && (
-                <XPanel
-                    header="TreeSelect"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XTreeSelect
-                                name="etiquetas"
-                                label="Etiquetas"
-                                multiple
-                                options={categoryTree}
-                                rules={{
-                                    required: "Debe seleccionar al menos una etiqueta"
-                                }}
-                                validation={(val) => {
-                                    const seleccionados = val && typeof val === 'object' ? Object.keys(val) : [];
-
-                                    if (seleccionados.length < 2) {
-                                        return "Debe seleccionar al menos 2 etiquetas";
-                                    }
-
-                                    if (seleccionados.length > 5) {
-                                        return "No puede seleccionar más de 5 etiquetas";
-                                    }
-
-                                    return true;
-                                }}
-                                placeholder="Selecciona etiquetas"
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de TriStateCheckbox */}
-            {activePanel === 'triStateCheckbox' && (
-                <XPanel
-                    header="TriStateCheckbox"
-                >
-                    <div className="card flex justify-center">
-                        <XTriStateCheckbox
-                            value={value}
-                            onChange={(e) => setValue(e.value)}
-                        />
-                        <label>{String(value)}</label>
-                    </div>
-                </XPanel>
-            )}
-
-
-            {/* Panel de ToggleButton */}
-            {activePanel === 'toggleButton' && (
-                <XPanel
-                    header="ToggleButton"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
-                            <XToggleButton
-                                name="emailNotifications"
-                                label="Recibir notificaciones por email"
-                                description="Recibirás alertas importantes por correo electrónico"
-                                rules={{ required: 'Este campo es requerido' }}
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de BUTTON */}
-            {/* Panel de Button */}
-            {activePanel === 'button' && (
-                <XPanel
-                    header="Button"
-                >
-                    <div className="flex justify-center pb-4">
-                        <XButtonGroup>
-                            <XButton label="Save" onClick={() => console.log('save')} />
-                            <XButton label="Delete" onClick={() => console.log('delete')} />
-                            <XButton label="Cancel" onClick={() => console.log('Cancel')} />
-                        </XButtonGroup>
-
-                        <XButton label="Primary" outlined />
-                        <XButton label="Secondary" severity="secondary" outlined />
-                        <XButton label="Success" severity="success" outlined />
-                        <XButton label="Info" severity="info" outlined />
-                        <XButton label="Warning" severity="warning" outlined />
-                        <XButton label="Help" severity="help" outlined />
-                        <XButton label="Danger" severity="danger" outlined />
-                    </div>
-                </XPanel>
-            )}
-            {/* Panel de SplitButton */}
-            {activePanel === 'splitbutton' && (
-                <XPanel
-                    header="SplitButton"
-                >
-                    <div className="card flex justify-center">
-                        <XSplitButton
-                            label="Split Action"
-                            model={items}
-                            icon="pi pi-save"
-                        />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de SpeedDial */}
-            {activePanel === 'speeddial' && (
-                <XPanel
-                    header="SpeedDial"
-                >
-                    <div className="card justify-center">
-                        <div className="relative h-[100px]">
-                            <XSpeedDial model={itemsSpeedDial} direction="right" style={{ top: 'calc(50% - 2rem)', left: 0 }} />
-                        </div>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de DATA */}
-            {/* Panel de DataTable */}
-            {activePanel === 'dataTable' && (
-                <XPanel
-                    header="DataTable"
-                >
-                    <div className="flex justify-center pb-4">
-                        <XDataTable<Product> value={products} stripedRows paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} >
-                            <Column field="code" header="Code"></Column>
-                            <Column field="name" header="Name"></Column>
-                            <Column field="category" header="Category"></Column>
-                            <Column field="quantity" header="Quantity"></Column>
-                        </XDataTable>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de DataView */}
-            {activePanel === 'dataView' && (
-                <XPanel
-                    header="dataView"
-                >
-                    <div className="flex justify-center pb-4">
-                        <XDataView value={products} listTemplate={listTemplateDataView} header={headerDataView()} sortField={sortField} sortOrder={sortOrder} />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de DataScroller */}
-            {activePanel === 'dataScroller' && (
-                <XPanel
-                    header="DataScroller"
-                >
-                    <div className="flex justify-center pb-4">
-                        <XDataScroller ref={ds} value={products} itemTemplate={itemTemplateDataScroller} rows={2} loader footer={footerScroller} header="Click Load Button at Footer to Load More" />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de OrderList */}
-            {activePanel === 'orderList' && (
-                <XPanel
-                    header="OrderList"
-                >
-                    <div className="flex justify-center pb-4">
-                        <XOrderList
-                            dataKey="id"
-                            value={productsOrder}
-                            onChange={(e: OrderListChangeEvent) => setProductsOrder(e.value as Product[])}
-                            itemTemplate={itemTemplateOrderList}
-                            header="Products"
-                        />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Organization Chart */}
-            {activePanel === 'organizationChart' && (
-                <XPanel
-                    header="OrganizationChart"
-                >
-                    <div className="flex justify-center">
-                        <XOrganizationChart value={dataChart} selectionMode="multiple" nodeTemplate={nodeTemplateOrg} />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Paginator */}
-            {activePanel === 'paginator' && (
-                <XPanel
-                    header="Paginator"
-                >
-                    <div className="card flex justify-center">
-                        <XPaginator
-                            first={first}
-                            rows={rows}
-                            totalRecords={120}
-                            rowsPerPageOptions={[10, 20, 30]}
-                            onPageChange={onPageChange}
-                        />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Picklist*/}
-            {activePanel === 'pickList' && (
-                <XPanel
-                    header="PickList"
-                >
-                    <div className="card flex justify-center">
-                        <XPickList
-                            dataKey="id"
-                            source={source}
-                            target={target}
-                            onChange={onChangePickList}
-                            itemTemplate={itemTemplateOrderList}
-                            breakpoint="1280px"
-                            sourceHeader="Available"
-                            targetHeader="Selected"
-                            sourceStyle={{ height: '24rem' }}
-                            targetStyle={{ height: '24rem' }}
-
-                        />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Tree*/}
-            {activePanel === 'tree' && (
-                <XPanel
-                    header="Tree"
-                >
-                    <div className="card justify-content-center">
-                        <div className="flex flex-wrap gap-2 mb-4">
-                            <XButton type="button" icon="pi pi-plus" label="Expand All" onClick={expandAll} />
-                            <XButton type="button" icon="pi pi-minus" label="Collapse All" onClick={collapseAll} />
-                        </div>
-                        <XTree
-                            value={nodes}
-                            expandedKeys={expandedKeys}
-                            onToggle={(e) => setExpandedKeys(e.value)}
-                        />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de TreeTable*/}
-            {activePanel === 'treeTable' && (
-                <XPanel
-                    header="TreeTable"
-                >
-                    <div className="card justify-content-center">
-                        <XTreeTable value={dataNode} tableStyle={{ minWidth: '50rem' }} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}>
-                            <Column field="name" header="Name" expander></Column>
-                            <Column field="size" header="Size"></Column>
-                            <Column field="type" header="Type"></Column>
-                        </XTreeTable>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de timeline*/}
-            {activePanel === 'timeline' && (
-                <XPanel
-                    header="Timeline"
-                >
-                    <div className="card flex justify-center">
-                        <XTimeline value={events} align="alternate" className="customized-timeline" marker={customizedMarker} content={customizedContent} />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de VirtualScroller*/}
-            {activePanel === 'virtualScroller' && (
-                <XPanel
-                    header="virtualScroller"
-                >
-                    <div className="card flex justify-center">
-                        <XViirtualScroller items={itemsVirtual} itemSize={50} itemTemplate={itemTemplateVirtual} orientation="horizontal" className="border-1 surface-border border-round" style={{ width: '200px', height: '200px' }} />                                </div>
-                </XPanel>
-            )}
-
-            {/* Panel de MESSAGES */}
-            {/* Panel de Message */}
-            {activePanel === 'message' && (
-                <XPanel
-                    header="Message"
-                >
-                    <div className="flex justify-center gap-3">
-                        <XMessage severity="success" text="Success Message" />
-                        <XMessage severity="info" text="Info Message" />
-                        <XMessage severity="warn" text="Warning Message" />
-                        <XMessage severity="error" text="Error Message" />
-                        <XMessage severity="secondary" text="Secondary Message" />
-                        <XMessage severity="contrast" text="Contrast Message" />
-
-                        <XMessage variant="simple" severity="error" text="Success Message" />
-
-                        <XMessage variant="simple" severity="secondary" text="Success Message" />
-                    </div>
-                </XPanel>
-            )}
-            {/* Panel de Messages */}
-            {activePanel === 'messages' && (
-                <XPanel
-                    header="Messages"
-                >
-                    <div className="card justify-content-center gap-4">
-                        <XButton type="button" onClick={addMessages} label="Show" className="mr-2" />
-                        <XButton type="button" onClick={clearMessages} label="Clear" className="p-button-secondary" />
-
-                        <XMessages ref={msgs} className="flex flex-col gap-4" />
-                    </div>
-                </XPanel>
-            )}
-            {/* Panel de Toast */}
-            {activePanel === 'toast' && (
-                <XPanel
-                    header="Toast"
-                >
-                    <div className="flex justify-center pb-4">
-                        <XToast ref={toast} />
-                        <div className="flex flex-wrap gap-2">
-                            <XButton label="Success" severity="success" onClick={showSuccess} />
-                            <XButton label="Info" severity="info" onClick={showInfo} />
-                            <XButton label="Warn" severity="warning" onClick={showWarn} />
-                            <XButton label="Error" severity="danger" onClick={showError} />
-                            <XButton label="Secondary" severity="secondary" onClick={showSecondary} />
-                            <XButton label="Contrast" severity="contrast" onClick={showContrast} />
-                        </div>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de MEDIA */}
-            {/* Panel de Carrousel */}
-            {activePanel === 'carrousel' && (
-                <XPanel
-                    header="Carrousel"
-                >
-                    <div className="card justify-center">
-                        <XCarousel
-                            value={products}
-                            numVisible={3}
-                            numScroll={3}
-                            responsiveOptions={responsiveOptions}
-                            itemTemplate={productTemplate}
-                        />
-                    </div>
-                </XPanel>
-            )}
-            {activePanel === 'galleria' && (
-                <XPanel
-                    header="Galleria"
-                >
-                    <div className="card justify-center flex">
-                        <XGalleria
-                            value={photos}
-                            responsiveOptions={responsiveOptionsGalleria}
-                            numVisible={5}
-                            style={{ maxWidth: '640px' }}
-                            item={itemTemplate}
-                            thumbnail={thumbnailTemplate} />
-                    </div>
-                </XPanel>
-            )}
-            {activePanel === 'image' && (
-                <XPanel
-                    header="Image"
-                >
-                    <div className="card justify-center flex">
-                        <XImage src="https://primefaces.org/cdn/primereact/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de OVERLAY */}
-            {/* Panel de ConfirmDialog */}
-            {activePanel === 'confirmDialog' && (
-                <XPanel
-                    header="ConfirmDialog"
-                >
-                    <div className="card relative">
-                        <XToast ref={toast} />
-                        <XConfirmDialog />
-                        <div className="card flex flex-wrap gap-2 justify-content-center">
-                            <XButton onClick={confirm1} icon="pi pi-check" label="Confirm" className="mr-2"></XButton>
-                            <XButton onClick={confirm2} icon="pi pi-times" label="Delete"></XButton>
-                        </div>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de ConfirmPopup */}
-            {activePanel === 'confirmPopup' && (
-                <XPanel
-                    header="ConfirmPopup"
-                >
-                    <div className="card justify-center flex">
-                        <XToast ref={toast} />
-                        <XConfirmPopup />
-                        <div className="card flex flex-wrap gap-2 justify-content-center">
-                            <XButton onClick={confirmPop} icon="pi pi-check" label="Confirm"></XButton>
-                            <XButton onClick={confirmPop2} icon="pi pi-times" label="Delete" className="p-button-danger"></XButton>
-                        </div>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Dialog */}
-            {activePanel === 'dialog' && (
-                <XPanel
-                    header="Dialog"
-                >
-                    <div className="card justify-center flex">
-                        <XButton label="Show" icon="pi pi-external-link" onClick={() => setVisibleDialog(true)} />
-                        <XDialog visible={visibleDialog} modal header={headerElement} footer={footerContent} style={{ width: '50rem' }} onHide={() => { if (!visibleDialog) return; setVisibleDialog(false); }}>
-                            <p className="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </XDialog>
-                    </div>
-                </XPanel>
-            )}
-            {/* Panel de OverlayPanel */}
-            {activePanel === 'overlayPanel' && (
-                <XPanel
-                    header="OverlayPanel"
-                >
-                    <div className="card justify-center flex">
-                        <XButton type="button" label="Image" onClick={(e) => op.current?.toggle(e)} />
-                        <XOverlayPanel ref={op}>
-                            <img src={'https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
-                        </XOverlayPanel>
-                    </div>
-                </XPanel>
-            )}
-            {/* Panel de Sidebar */}
-            {activePanel === 'sidebar' && (
-                <XPanel
-                    header="Sidebar"
-                >
-                    <div className="card justify-center flex">
-                        <XSidebar header={customHeader} visible={visibleSidebar} position="right" onHide={() => setVisibleSidebar(false)}>
-                            {/* <h5 className='font-semibold pb-4'>Right Sidebar</h5> */}
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                        </XSidebar>
-                        <XButton label="Sidebar" onClick={() => setVisibleSidebar(true)} />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Tooltip */}
-            {activePanel === 'tooltip' && (
-                <XPanel
-                    header="Tooltip"
-                >
-                    <div className="card justify-center flex">
-                        <XButton
-                            type="button"
-                            label="Save"
-                            icon="pi pi-check"
-                            className="tooltip-save"
-                        />
-                        <XTooltip target=".tooltip-save" content="Save" position="bottom" mouseTrack mouseTrackTop={15} />
-
-                        <XTooltip target=".logo" mouseTrack mouseTrackLeft={10} />
-                        <img className="logo" alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" data-pr-tooltip="PrimeReact-Logo" height="80px" />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de FILE */}
-            {/* Panel de FileUpload */}
-            {activePanel === 'upload' && (
-                <XPanel
-                    header="FileUpload"
-                >
-                    <div className="card">
-                        <XFileUpload
-                            name="demo[]"
-                            chooseLabel="Elegir archivo"
-                            url={'/api/upload'}
-                            multiple
-                            accept="image/*" maxFileSize={1000000}
-                            emptyTemplate={<div className="mb-6 mt-4 px-[1.714rem]">
-                                <span className="text-normal font-normal text-gray-700">Arrastra y suelta archivos aquí para subirlos.</span>
-                            </div>} />
-                    </div>
-                </XPanel>
-            )}
-
-
-            {/* Panel de MISC */}
-            {/* Panel de Avatar */}
-            {activePanel === 'avatar' && (
-                <XPanel
-                    header="Avatar"
-                >
-                    <div className="grid grid-cols-3 gap-4 p-2 bg-gray-100">
-                        <XAvatar className="mr-2 mt-4 bg-primary-100 text-primary" label="AB" shape="circle" />
-                        <XAvatar icon="user" className="mr-2 mt-4 bg-primary-100 text-primary" shape="circle" />
-                        <XAvatar
-                            image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-                            shape="circle"
-                            className="mr-2 mt-4"
-                        />
-                        <XAvatar className="mr-2 mt-4 bg-white text-primary" label="AB" shape="circle" />
-                        <XAvatar icon="user" className="mr-2 mt-4 bg-white text-primary" shape="circle" />
-                        <div></div>
-                        <XAvatar className="mr-2 mt-4 bg-primary-100 text-primary" label="AB" />
-                        <XAvatar icon="user" className="mr-2 mt-4 bg-primary-100 text-primary" />
-                        <XAvatar
-                            image="https://primefaces.org/cdn/primevue/images/organization/walter.jpg"
-                            className="mr-2 mt-4"
-                        />
-                        <XAvatar className="mr-2 mt-4 bg-white text-primary" label="AB" />
-                        <XAvatar icon="user" className="mr-2 mt-4 bg-white text-primary" />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Badge */}
-            {activePanel === 'badge' && (
-                <XPanel
-                    header="Badge"
-                >
-                    <div className="card flex flex-wrap justify-center gap-2 bg-gray-100">
-
-                        <XBadge value="1" severity="success"></XBadge>
-                        <XBadge value="123" severity="success"></XBadge>
-
-                        <XBadge value="1" severity="danger"></XBadge>
-                        <XBadge value="123" severity="danger"></XBadge>
-
-                        <XBadge value="1" severity="contrast"></XBadge>
-                        <XBadge value="3445" severity="contrast"></XBadge>
-
-                        <XBadge value="1" severity="info"></XBadge>
-                        <XBadge value="123" severity="info"></XBadge>
-
-                        <XBadge value="1" severity="warning"></XBadge>
-                        <XBadge value="123" severity="warning"></XBadge>
-
-                        <XBadge value="1" severity="secondary"></XBadge>
-                        <XBadge value="123" severity="secondary"></XBadge>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de BlockUI */}
-            {activePanel === 'blockUI' && (
-                <XPanel
-                    header="blockUI"
-                >
-                    <div className="card justify-center flex flex-wrap">
-                        <XBlockUI blocked={blocked} template={<i className="pi pi-lock" style={{ fontSize: '3rem' }}></i>}>
-                            <XPanel header="Prime React News">
-                                <p className="m-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                                    laborum.
-                                </p>
+                        {/* Panel de InputOtp */}
+                        {activePanel === 'inputOtp' && (
+                            <XPanel
+                                header="InputOtp"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
+                                        <XInputOtp
+                                            name="otpCode"
+                                            label="Código de verificación"
+                                            labelRequired
+                                            length={6}
+                                            rules={{
+                                                required: 'El código OTP es requerido',
+                                                pattern: {
+                                                    value: /^\d{6}$/,
+                                                    message: 'Debe contener exactamente 6 dígitos numéricos'
+                                                },
+                                                minLength: { value: 6, message: 'El código debe tener 6 dígitos numéricos' }
+                                            }}
+                                            validation={(val) => {
+                                                if (typeof val === 'string') {
+                                                    return val.replace(/[^0-9]/g, '');
+                                                }
+                                                return val;
+                                            }}
+                                            placeholder="0"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm >
+                                </div>
                             </XPanel>
-                        </XBlockUI>
-                        <div className="mt-3 flex flex-column align-items-center">
-                            <h3>Continue reading?</h3>
-                            <XButton label={buttonText} onClick={() => setBlocked((oldState) => !oldState)}></XButton>
-                        </div>
-                    </div>
-                </XPanel>
-            )}
+                        )}
 
-            {/* Panel de Chip */}
-            {activePanel === 'chip' && (
-                <XPanel
-                    header="Chip"
-                >
-                    <div className="card justify-center flex flex-wrap  gap-2">
-                        <XChip label="Action" icon='bnb-casa' />
-                        <XChip label="Comedy" />
-                        <XChip label="Mystery" />
-                        <XChip label="Thriller" removable />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Inplace */}
-            {activePanel === 'inplace' && (
-                <XPanel
-                    header="Inplace"
-                >
-                    <div className="card justify-center flex flex-wrap  gap-2">
-                        <XInplace  >
-                            <InplaceDisplay>View Content2</InplaceDisplay>
-                            <InplaceContent>
-                                <p className="m-0">
-                                    Lorem ipsum dolor sit ametwwwwwwww, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                </p>
-                            </InplaceContent>
-                        </XInplace>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de MeterGroup */}
-            {activePanel === 'meterGroup' && (
-                <XPanel
-                    header="MeterGroup"
-                >
-                    <div className="card justify-center flex">
-                        <XMeterGroup
-                            value={data}
-                            orientation="vertical"
-                            labelPosition="end"
-                            labelOrientation="horizontal"
-                            height="h-3"
-                        />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de ScrollTop */}
-            {activePanel === 'scrollTop' && (
-                <XPanel
-                    header="ScrollTop"
-                >
-                    <div className="card justify-center flex">
-                        <div style={{ width: '250px', height: '200px', 'overflow': 'auto' }}>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
-                                adipiscing elit ut. Nam libero justo laoreet sit amet. Pharetra massa massa ultricies mi quis hendrerit dolor magna. Est ultricies integer quis auctor elit sed vulputate. Consequat ac felis donec et. Tellus orci ac auctor
-                                augue mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tincidunt arcu non sodales neque sodales. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Sodales ut etiam sit amet
-                                nisl purus. Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus
-                                viverra accumsan in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
-                            </p>
-                            <XScrollTop target="parent" threshold={100} className="relative m-4 w-2rem h-2rem border-round bg-primary" icon="pi pi-arrow-up text-base" />
-                        </div>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Skeleton */}
-            {activePanel === 'skeleton' && (
-                <XPanel
-                    header="Skeleton"
-                >
-                    <div className="card justify-center">
-                        <div className="border-round border-1 surface-border p-4 surface-card">
-                            <div className="flex mb-3">
-                                <XSkeleton shape="circle" size="4rem" className="mr-2"></XSkeleton>
-                                <div>
-                                    <XSkeleton width="10rem" className="mb-2"></XSkeleton>
-                                    <XSkeleton width="5rem" className="mb-2"></XSkeleton>
-                                    <XSkeleton height=".5rem"></XSkeleton>
+                        {/* Panel de InputText */}
+                        {activePanel === 'inputText' && (
+                            <XPanel
+                                header="InputText"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XInputText
+                                            name="nombre"
+                                            label="Nombre"
+                                            labelRequired
+                                            rules={{
+                                                required: 'El nombre de usuario es requerido',
+                                                minLength: {
+                                                    value: 3,
+                                                    message: 'Mínimo 3 caracteres'
+                                                },
+                                                maxLength: {
+                                                    value: 20,
+                                                    message: 'Máximo 20 caracteres'
+                                                }
+                                            }}
+                                        />
+                                        <XInputText
+                                            name="apellido"
+                                            label="Apellido"
+                                            labelRequired
+                                            rules={{ required: 'El apellido es requerido' }}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm >
                                 </div>
-                            </div>
-                            <XSkeleton width="100%" height="150px"></XSkeleton>
-                            <div className="flex justify-content-between mt-3">
-                                <XSkeleton width="4rem" height="2rem"></XSkeleton>
-                                <XSkeleton width="4rem" height="2rem"></XSkeleton>
-                            </div>
-                        </div>
-                    </div>
-                </XPanel>
-            )}
+                            </XPanel>
+                        )}
 
-            {/* Panel de ProgressBar */}
-            {activePanel === 'progressbar' && (
-                <XPanel
-                    header="ProgressBar"
-                >
-                    <div className="card flex justify-center">
-                        <XProgressBar value={50} />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de ProgressSpinner */}
-            {activePanel === 'progressSpinner' && (
-                <XPanel
-                    header="ProgressSpinner"
-                >
-                    <div className="card flex justify-content-center">
-                        <XProgressSpinner />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Ripple */}
-            {activePanel === 'ripple' && (
-                <XPanel
-                    header="Ripple"
-                >
-                    <div className="card flex justify-center gap-2">
-                        <div className="p-ripple ripple-card ripple-green">
-                            Green
-                            <XRipple />
-                        </div>
-                        <div className="p-ripple ripple-card ripple-orange">
-                            Orange
-                            <XRipple />
-                        </div>
-                        <div className="p-ripple ripple-card ripple-purple">
-                            Purple
-                            <XRipple />
-                        </div>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de StyleClass */}
-            {activePanel === 'styleclass' && (
-                <XPanel
-                    header="StyleClass"
-                >
-                    <div className="card flex flex-col items-center space-y-4">
-                        <div className="flex space-x-2">
-                            <XStyleClass
-                                nodeRef={openBtnRef}
-                                selector=".box"
-                                toggleClassName="hidden"
+                        {/* Panel de InputTextArea */}
+                        {activePanel === 'inputTextarea' && (
+                            <XPanel
+                                header="InputTextarea"
                             >
-                                <XButton ref={openBtnRef} label="Show" />
-                            </XStyleClass>
-                            <XStyleClass
-                                nodeRef={closeBtnRef}
-                                selector=".box"
-                                toggleClassName="hidden"
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XInputTextarea
+                                            name='textarea'
+                                            label='Dirección'
+                                            labelRequired
+                                            rows={5} cols={30}
+                                            rules={{
+                                                required: 'El campo es requerido',
+                                                maxLength: {
+                                                    value: 500,
+                                                    message: 'Máximo 20 caracteres'
+                                                }
+                                            }}
+                                            validation={(val: string) => {
+                                                if (typeof val === 'string') {
+                                                    const lowerVal = val.toLowerCase();
+                                                    if (lowerVal.includes('spam') || lowerVal.includes('comment')) {
+                                                        return '';
+                                                    }
+                                                }
+                                                return val;
+                                            }}
+                                            placeholder="Escribe tu comentario aquí"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm >
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de Knob */}
+                        {activePanel === 'knob' && (
+                            <XPanel
+                                header="Knob"
                             >
-                                <XButton ref={closeBtnRef} severity="secondary" label="Hide" />
-                            </XStyleClass>
-                        </div>
-                        <div className="box hidden transition-opacity duration-500 ease-in-out opacity-0 [&:not(.hidden)]:opacity-100">
-                            <div className="bg-green-500 text-white flex items-center justify-center py-3 rounded-md font-bold shadow-md w-32 h-32">
-                                Content
-                            </div>
-                        </div>
-                    </div>
-                </XPanel>
-            )}
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XKnob
+                                            name="volume"
+                                            label="Control de volumen"
+                                            labelRequired
+                                            step={5}
+                                            size={150}
+                                            defaultValue={50}
+                                            rules={{
+                                                renquired: 'El volumen es requerido',
+                                                min: { value: 10, message: 'Debe ser mayor a 10' },
+                                                max: { value: 95, message: 'Debe ser menor de 95' }
+                                            }}
+                                            strokeWidth={10}
+                                            rangeColor={"var(--primary-500)"}
+                                            valueColor="var(--surface-900)"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
 
-            {/* Panel de Tag */}
-            {activePanel === 'tag' && (
-                <XPanel
-                    header="Tag"
-                >
-                    <div className="flex flex-wrap justify-center gap-2">
-                        <XTag value="Primary"></XTag>
-                        <XTag icon="apple" severity="secondary" value="Secondary"></XTag>
-                        <XTag icon="archive" severity="success" value="Success"></XTag>
-                        <XTag icon="atm-dollar" severity="info" value="Info"></XTag>
-                        <XTag icon="atom" severity="warn" value="Warn"></XTag>
-                        <XTag icon="camera" severity="danger" value="Danger"></XTag>
-                        <XTag icon="menu" severity="contrast" value="Contrast"></XTag>
-                        <XTag icon="arrow-bl" severity="aqua" value="Aqua"></XTag>
-                        <XTag severity="mint" value="Mint"></XTag>
-                        <XTag severity="sand" value="Sand"></XTag>
-                        <XTag severity="orange" value="Orange"></XTag>
-                        <XTag icon="alarm" severity="magenta" value="Magenta"></XTag>
-                    </div>
-                </XPanel>
-            )}
+                        {/* Panel de ListBox */}
+                        {activePanel === 'listBox' && (
+                            <XPanel
+                                header="ListtBox"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XListBox
+                                            name="country"
+                                            label="Select your country"
+                                            labelRequired
+                                            options={countriesListBox}
+                                            optionLabel="name"
+                                            rules={{ required: 'Campo requerido' }}
+                                            filter
+                                            className="border-2"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
 
-            {/* Panel de Terminal */}
-            {activePanel === 'terminal' && (
-                <XPanel
-                    header="Terminal"
-                >
-                    <p>
-                        Enter "<strong>date</strong>" to display the current date, "<strong>greet {'{0}'}</strong>" for a message, "<strong>random</strong>" to get a random number and "<strong>clear</strong>" to clear all commands.
-                    </p>
-                    <XTerminal
-                        welcomeMessage="Welcome to PrimeReact"
-                        prompt="primereact $"
-                    />
-                </XPanel>
-            )}
+                        {/* Panel de Mention */}
+                        {activePanel === 'mention' && (
+                            <XPanel
+                                header="Mention"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XMention
+                                            name="comment"
+                                            label="Menciona a alguien"
+                                            labelRequired
+                                            rules={{ required: 'Campo requerido' }}
+                                            suggestions={suggestions}
+                                            onSearch={onSearch}
+                                            field="nickname"
+                                            placeholder="Escribe @ para mencionar"
+                                            rows={5}
+                                            cols={40}
+                                            itemTemplate={itemTemplateMention}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
 
-            {/* Panel de Menu */}
-            {/* Panel de breadcrumb */}
-            {activePanel === 'breadcrumb' && (
-                <XPanel
-                    header="Breadcrumb"
-                >
-                    <div className="card flex justify-center">
-                        <XBreadCrumb model={itemsBreadCrumb} home={home} />
-                    </div>
-                </XPanel>
-            )}
+                        {/* Panel de multiselect */}
+                        {activePanel === 'multiselect' && (
+                            <XPanel
+                                header="MultiSelect"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XMultiSelect
+                                            name='ejemplo'
+                                            label="Seleccione una cidad"
+                                            labelRequired
+                                            options={cities}
+                                            optionLabel="name"
+                                            optionValue="code"
+                                            placeholder="Select Cities"
+                                            maxSelectedLabels={3}
+                                            rules={{
+                                                required: 'Debes seleccionar al menos un rol',
+                                            }}
+                                            validation={(selected) => {
+                                                console.log(selected);
+                                                if (selected.includes('NY') || selected.includes('RM')) {
+                                                    console.log(selected);
+                                                    return 'Las ciudaes NY o RM no son compatibles';
+                                                }
+                                                return true;
+                                            }}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
 
-            {/* Panel de contextMenu */}
-            {activePanel === 'contextmenu' && (
-                <XPanel
-                    header="ContextMenu"
-                >
-                    <div className="card flex justify-center">
-                        <XContextMenu global model={itemsContextMenu} breakpoint="767px" />
-                        <p className="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>
-                    </div>
-                </XPanel>
-            )}
+                        {/* Panel de MultiStateCheckbox */}
+                        {activePanel === 'multiStateCheckbox' && (
+                            <XPanel
+                                header="MultiStateCheckbox"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XMultiStateCheckbox
+                                            name="notificationPref"
+                                            label="Preferencia de notificaciones"
+                                            labelRequired
+                                            options={notificationOptions}
+                                            rules={{ required: 'Debes seleccionar una opción' }}
+                                            unselectable='on'
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
 
-            {/* Panel de Dock */}
-            {activePanel === 'dock' && (
-                <XPanel
-                    header="Dock"
-                >
-                    <div className="card dock-demo">
-                        <div className="flex flex-wrap gap-3 mb-5 justify-center">
-                            <div className="flex-wrap gap-3 mb-5">
-                                {positions.map((option) => {
-                                    const { value, label } = option;
+                        {/* Panel de Password */}
+                        {activePanel === 'password' && (
+                            <XPanel
+                                header="Password"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XPassword
+                                            name="password"
+                                            label="Contraseña"
+                                            labelRequired
+                                            rules={{
+                                                required: 'El campo es requerido',
+                                                minLength: {
+                                                    value: 8,
+                                                    message: 'La contraseña debe tener al menos 8 caracteres'
+                                                },
+                                            }}
+                                            validation={validatePassword}
+                                            placeholder="Ingresa tu contraseña"
+                                            toggleMask
+                                            feedback={false}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
 
-                                    return (
-                                        <div className="flex align-items-center" key={label}>
-                                            <RadioButton value={label} onChange={() => setPosition(option.value)} checked={position === value} />
-                                            <label htmlFor={label} className="ml-2">
-                                                {label}
-                                            </label>
+                        {/* Panel de RadioButton */}
+                        {activePanel === 'radioButton' && (
+                            <XPanel
+                                header="RadioButton"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XRadioButton
+                                            name="paymentMethod"
+                                            label="Método de pago"
+                                            labelRequired={true}
+                                            options={paymentOptions}
+                                            rules={{ required: 'Selecciona un método de pago' }}
+                                            className="mb-6"
+                                        />
+                                        <XRadioButton
+                                            name="priority"
+                                            label="Prioridad"
+                                            options={[
+                                                { label: 'Alta', value: 'high' },
+                                                { label: 'Media', value: 'medium' },
+                                                { label: 'Baja', value: 'low' }
+                                            ]}
+                                            layout="horizontal"
+                                            rules={{ required: 'Selecciona una prioridad' }}
+                                            className="mb-6"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Rating */}
+                        {activePanel === 'rating' && (
+                            <XPanel
+                                header="Rating"
+                            >
+                                <div className="card flex justify-center gap-4 flex-col items-center">
+                                    <XRating value={valueRating} onChange={(e) => setValueRating(e.value)} cancel={false} />
+
+                                    <h5 className="font-semibold">Icons Core (Recomendado)</h5>
+                                    <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
+                                        cancel={false}
+                                        onIcon={<XIcon name="star-fill" className="p-icon p-rating-icon" />}
+                                        offIcon={<XIcon name="star" className="p-icon p-rating-icon" />}
+                                    ></XRating>
+                                    <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
+                                        cancel={false}
+                                        onIcon={<XIcon name="emoji-happy-fill" className="p-icon p-rating-icon" />}
+                                        offIcon={<XIcon name="emoji-sad" className="p-icon p-rating-icon" />}
+                                    ></XRating>
+                                    <XRating value={valueRating} onChange={(e) => setValueRating(e.value)}
+                                        cancel={false}
+                                        onIcon={<XIcon name="emoji-satisfied-fill" className="p-icon p-rating-icon" />}
+                                        offIcon={<XIcon name="emoji-ball-fill" className="p-icon p-rating-icon" />}
+                                    ></XRating>
+                                    <h5 className="font-semibold">Disabled</h5>
+                                    <XRating value={valueRatingDisabled} onChange={(e) => setValueRatingDisabled(e.value)} cancel={false} disabled />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de SelectButton */}
+                        {activePanel === 'selectButton' && (
+                            <XPanel
+                                header="SelectButton"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XSelectButton
+                                            options={paymentOptions}
+                                            optionLabel="label"
+                                            multiple
+                                        />
+
+                                        <div className="card flex justify-content-center">
+            <XSelectButton value={value} onChange={(e) => setValue(e.value)} itemTemplate={justifyTemplate} optionLabel="value" options={justifyOptions} />
+        </div>
+
+                                        <XSelectButton value={valueButton} onChange={(e) => setValueButton(e.value)} options={optionsButton} />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Slider */}
+                        {activePanel === 'slider' && (
+                            <XPanel
+                                header="Slider"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XSlider
+                                            name="discount"
+                                            label="Descuento aplicado"
+                                            labelRequired
+                                            min={0}
+                                            max={50}
+                                            step={5}
+                                            showValue
+                                            validation={(value: number | number[]) =>
+                                                Number(value) <= 30 || 'Los descuentos mayores a 30% requieren aprobación'
+                                            }
+                                            rules={{
+                                                required: 'Se requiere un descuento',
+                                                min: { value: 10, message: 'El descuento mínimo es 10%' }
+                                            }}
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TreeSelect */}
+                        {activePanel === 'treeSelect' && (
+                            <XPanel
+                                header="TreeSelect"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => console.log('OK')} onInvalid={() => console.log('ERROR')}>
+                                        <XTreeSelect
+                                            name="etiquetas"
+                                            label="Etiquetas"
+                                            multiple
+                                            options={categoryTree}
+                                            rules={{
+                                                required: "Debe seleccionar al menos una etiqueta"
+                                            }}
+                                            validation={(val) => {
+                                                const seleccionados = val && typeof val === 'object' ? Object.keys(val) : [];
+
+                                                if (seleccionados.length < 2) {
+                                                    return "Debe seleccionar al menos 2 etiquetas";
+                                                }
+
+                                                if (seleccionados.length > 5) {
+                                                    return "No puede seleccionar más de 5 etiquetas";
+                                                }
+
+                                                return true;
+                                            }}
+                                            placeholder="Selecciona etiquetas"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TriStateCheckbox */}
+                        {activePanel === 'triStateCheckbox' && (
+                            <XPanel
+                                header="TriStateCheckbox"
+                            >
+                                <div className="card flex justify-center">
+                                    <XTriStateCheckbox
+                                        value={value}
+                                        onChange={(e) => setValue(e.value)}
+                                    />
+                                    <label>{String(value)}</label>
+                                </div>
+                            </XPanel>
+                        )}
+
+
+                        {/* Panel de ToggleButton */}
+                        {activePanel === 'toggleButton' && (
+                            <XPanel
+                                header="ToggleButton"
+                            >
+                                <div className="card flex justify-center">
+                                    <XToggleButton onLabel="I confirm" offLabel="I reject" onIcon={<XIcon name="cancel" className="w-8 h-8" />} offIcon={<XIcon name="check" />}
+                                        checked={checked} onChange={(e) => setChecked(e.value)} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de BUTTON */}
+                        {/* Panel de Button */}
+                        {activePanel === 'button' && (
+                            <XPanel
+                                header="Button"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XButtonGroup>
+                                        <XButton label="Save" onClick={() => console.log('save')} />
+                                        <XButton label="Delete" onClick={() => console.log('delete')} />
+                                        <XButton label="Cancel" onClick={() => console.log('Cancel')} />
+                                    </XButtonGroup>
+
+                                    <XButton label="Primary" outlined />
+                                    <XButton label="Secondary" severity="secondary" outlined />
+                                    <XButton label="Success" severity="success" outlined />
+                                    <XButton label="Info" severity="info" outlined />
+                                    <XButton label="Warning" severity="warning" outlined />
+                                    <XButton label="Help" severity="help" outlined />
+                                    <XButton label="Danger" severity="danger" outlined />
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de SplitButton */}
+                        {activePanel === 'splitbutton' && (
+                            <XPanel
+                                header="SplitButton"
+                            >
+                                <div className="card flex justify-center">
+                                    <XSplitButton
+                                        label="Split Action"
+                                        model={items}
+                                        icon="pi pi-save"
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de SpeedDial */}
+                        {activePanel === 'speeddial' && (
+                            <XPanel
+                                header="SpeedDial"
+                            >
+                                <div className="card justify-center">
+                                    <div className="relative h-[100px]">
+                                        <XSpeedDial model={itemsSpeedDial} direction="right" style={{ top: 'calc(50% - 2rem)', left: 0 }} />
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de DATA */}
+                        {/* Panel de DataTable */}
+                        {activePanel === 'dataTable' && (
+                            <XPanel
+                                header="DataTable"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XDataTable<Product> value={products} stripedRows paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }} >
+                                        <Column field="code" header="Code"></Column>
+                                        <Column field="name" header="Name"></Column>
+                                        <Column field="category" header="Category"></Column>
+                                        <Column field="quantity" header="Quantity"></Column>
+                                    </XDataTable>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de DataView */}
+                        {activePanel === 'dataView' && (
+                            <XPanel
+                                header="dataView"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XDataView value={products} listTemplate={listTemplateDataView} header={headerDataView()} sortField={sortField} sortOrder={sortOrder} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de DataScroller */}
+                        {activePanel === 'dataScroller' && (
+                            <XPanel
+                                header="DataScroller"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XDataScroller ref={ds} value={products} itemTemplate={itemTemplateDataScroller} rows={2} loader footer={footerScroller} header="Click Load Button at Footer to Load More" />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de OrderList */}
+                        {activePanel === 'orderList' && (
+                            <XPanel
+                                header="OrderList"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XOrderList
+                                        dataKey="id"
+                                        value={productsOrder}
+                                        onChange={(e: OrderListChangeEvent) => setProductsOrder(e.value as Product[])}
+                                        itemTemplate={itemTemplateOrderList}
+                                        header="Products"
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Organization Chart */}
+                        {activePanel === 'organizationChart' && (
+                            <XPanel
+                                header="OrganizationChart"
+                            >
+                                <div className="flex justify-center">
+                                    <XOrganizationChart value={dataChart}/>
+
+                                    <XOrganizationChart value={dataChart} selectionMode="multiple" selection={selection} onSelectionChange={(e) => setSelection(e.data)}/>
+
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Paginator */}
+                        {activePanel === 'paginator' && (
+                            <XPanel
+                                header="Paginator"
+                            >
+                                <div className="card flex justify-center">
+                                    <XPaginator
+                                        first={first}
+                                        rows={rows}
+                                        totalRecords={120}
+                                        rowsPerPageOptions={[10, 20, 30]}
+                                        onPageChange={onPageChange}
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Picklist*/}
+                        {activePanel === 'pickList' && (
+                            <XPanel
+                                header="PickList"
+                            >
+                                <div className="card flex justify-center">
+                                    <XPickList
+                                        dataKey="id"
+                                        source={source}
+                                        target={target}
+                                        onChange={onChangePickList}
+                                        itemTemplate={itemTemplateOrderList}
+                                        breakpoint="1280px"
+                                        sourceHeader="Available"
+                                        targetHeader="Selected"
+                                        sourceStyle={{ height: '24rem' }}
+                                        targetStyle={{ height: '24rem' }}
+
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Tree*/}
+                        {activePanel === 'tree' && (
+                            <XPanel
+                                header="Tree"
+                            >
+                                <div className="card justify-content-center">
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        <XButton type="button" icon="pi pi-plus" label="Expand All" onClick={expandAll} />
+                                        <XButton type="button" icon="pi pi-minus" label="Collapse All" onClick={collapseAll} />
+                                    </div>
+                                    <XTree
+                                        value={nodes}
+                                        expandedKeys={expandedKeys}
+                                        onToggle={(e) => setExpandedKeys(e.value)}
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TreeTable*/}
+                        {activePanel === 'treeTable' && (
+                            <XPanel
+                                header="TreeTable"
+                            >
+                                <div className="card justify-content-center">
+                                    <XTreeTable value={dataNode} tableStyle={{ minWidth: '50rem' }} paginator rows={5} rowsPerPageOptions={[5, 10, 25]}>
+                                        <Column field="name" header="Name" expander></Column>
+                                        <Column field="size" header="Size"></Column>
+                                        <Column field="type" header="Type"></Column>
+                                    </XTreeTable>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de timeline*/}
+                        {activePanel === 'timeline' && (
+                            <XPanel
+                                header="Timeline"
+                            >
+                                <div className="card flex justify-center">
+                                    <XTimeline value={events} align="alternate" className="customized-timeline" marker={customizedMarker} content={customizedContent} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de VirtualScroller*/}
+                        {activePanel === 'virtualScroller' && (
+                            <XPanel
+                                header="virtualScroller"
+                            >
+                                <div className="card flex justify-center">
+                                    <XViirtualScroller items={itemsVirtual} itemSize={50} itemTemplate={itemTemplateVirtual} orientation="horizontal" className="border-1 surface-border border-round" style={{ width: '200px', height: '200px' }} />                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de MESSAGES */}
+                        {/* Panel de Message */}
+                        {activePanel === 'message' && (
+                            <XPanel
+                                header="Message"
+                            >
+                                <div className="flex justify-center gap-3">
+                                    <XMessage severity="success" text="Success Message" />
+                                    <XMessage severity="info" text="Info Message" />
+                                    <XMessage severity="warn" text="Warning Message" />
+                                    <XMessage severity="error" text="Error Message" />
+                                    <XMessage severity="secondary" text="Secondary Message" />
+                                    <XMessage severity="contrast" text="Contrast Message" />
+
+                                    <XMessage variant="simple" severity="error" text="Success Message" />
+
+                                    <XMessage variant="simple" severity="secondary" text="Success Message" />
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de Messages */}
+                        {activePanel === 'messages' && (
+                            <XPanel
+                                header="Messages"
+                            >
+                                <div className="card justify-content-center gap-4">
+                                    <XButton type="button" onClick={addMessages} label="Show" className="mr-2" />
+                                    <XButton type="button" onClick={clearMessages} label="Clear" className="p-button-secondary" />
+
+                                    <XMessages ref={msgs} className="flex flex-col gap-4" />
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de Toast */}
+                        {activePanel === 'toast' && (
+                            <XPanel
+                                header="Toast"
+                            >
+                                <div className="flex justify-center pb-4">
+                                    <XToast ref={toast} />
+                                    <div className="flex flex-wrap gap-2">
+                                        <XButton label="Success" severity="success" onClick={showSuccess} />
+                                        <XButton label="Info" severity="info" onClick={showInfo} />
+                                        <XButton label="Warn" severity="warning" onClick={showWarn} />
+                                        <XButton label="Error" severity="danger" onClick={showError} />
+                                        <XButton label="Secondary" severity="secondary" onClick={showSecondary} />
+                                        <XButton label="Contrast" severity="contrast" onClick={showContrast} />
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de MEDIA */}
+                        {/* Panel de Carrousel */}
+                        {activePanel === 'carrousel' && (
+                            <XPanel
+                                header="Carrousel"
+                            >
+                                <div className="card justify-center">
+                                    <XCarousel
+                                        value={products}
+                                        numVisible={3}
+                                        numScroll={3}
+                                        responsiveOptions={responsiveOptions}
+                                        itemTemplate={productTemplate}
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+                        {activePanel === 'galleria' && (
+                            <XPanel
+                                header="Galleria"
+                            >
+                                <div className="card justify-center flex">
+                                    <XGalleria
+                                        value={photos}
+                                        responsiveOptions={responsiveOptionsGalleria}
+                                        numVisible={5}
+                                        style={{ maxWidth: '640px' }}
+                                        item={itemTemplate}
+                                        thumbnail={thumbnailTemplate} />
+                                </div>
+                            </XPanel>
+                        )}
+                        {activePanel === 'image' && (
+                            <XPanel
+                                header="Image"
+                            >
+                                <div className="card justify-center flex">
+                                    <XImage src="https://primefaces.org/cdn/primereact/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de OVERLAY */}
+                        {/* Panel de ConfirmDialog */}
+                        {activePanel === 'confirmDialog' && (
+                            <XPanel
+                                header="ConfirmDialog"
+                            >
+                                <div className="card relative">
+                                    <XToast ref={toast} />
+                                    <XConfirmDialog />
+                                    <div className="card flex flex-wrap gap-2 justify-content-center">
+                                        <XButton onClick={confirm1} icon="pi pi-check" label="Confirm" className="mr-2"></XButton>
+                                        <XButton onClick={confirm2} icon="pi pi-times" label="Delete"></XButton>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de ConfirmPopup */}
+                        {activePanel === 'confirmPopup' && (
+                            <XPanel
+                                header="ConfirmPopup"
+                            >
+                                <div className="card justify-center flex">
+                                    <XToast ref={toast} />
+                                    <XConfirmPopup />
+                                    <div className="card flex flex-wrap gap-2 justify-content-center">
+                                        <XButton onClick={confirmPop} icon="pi pi-check" label="Confirm"></XButton>
+                                        <XButton onClick={confirmPop2} icon="pi pi-times" label="Delete" className="p-button-danger"></XButton>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Dialog */}
+                        {activePanel === 'dialog' && (
+                            <XPanel
+                                header="Dialog"
+                            >
+                                <div className="card justify-center flex">
+                                    <XButton label="Show" icon="pi pi-external-link" onClick={() => setVisibleDialog(true)} />
+                                    <XDialog visible={visibleDialog} modal header={headerElement} footer={footerContent} style={{ width: '50rem' }} onHide={() => { if (!visibleDialog) return; setVisibleDialog(false); }}>
+                                        <p className="m-0">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </p>
+                                    </XDialog>
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de OverlayPanel */}
+                        {activePanel === 'overlayPanel' && (
+                            <XPanel
+                                header="OverlayPanel"
+                            >
+                                <div className="card justify-center flex">
+                                    <XButton type="button" label="Image" onClick={(e) => op.current?.toggle(e)} />
+                                    <XOverlayPanel ref={op}>
+                                        <img src={'https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
+                                    </XOverlayPanel>
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de Sidebar */}
+                        {activePanel === 'sidebar' && (
+                            <XPanel
+                                header="Sidebar"
+                            >
+                                <div className="card justify-center flex">
+                                    <XSidebar header={customHeader} visible={visibleSidebar} position="right" onHide={() => setVisibleSidebar(false)}>
+                                        {/* <h5 className='font-semibold pb-4'>Right Sidebar</h5> */}
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                        </p>
+                                    </XSidebar>
+                                    <XButton label="Sidebar" onClick={() => setVisibleSidebar(true)} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Tooltip */}
+                        {activePanel === 'tooltip' && (
+                            <XPanel
+                                header="Tooltip"
+                            >
+                                <div className="card justify-center flex">
+                                    <XButton
+                                        type="button"
+                                        label="Save"
+                                        icon="pi pi-check"
+                                        className="tooltip-save"
+                                    />
+                                    <XTooltip target=".tooltip-save" content="Save" position="bottom" mouseTrack mouseTrackTop={15} />
+
+                                    <XTooltip target=".logo" mouseTrack mouseTrackLeft={10} />
+                                    <img className="logo" alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" data-pr-tooltip="PrimeReact-Logo" height="80px" />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de FILE */}
+                        {/* Panel de FileUpload */}
+                        {activePanel === 'upload' && (
+                            <XPanel
+                                header="FileUpload"
+                            >
+                                <div className="card">
+                                    <XFileUpload
+                                        name="demo[]"
+                                        chooseLabel="Elegir archivo"
+                                        url={'/api/upload'}
+                                        multiple
+                                        accept="image/*" maxFileSize={1000000}
+                                        emptyTemplate={<div className="mb-6 mt-4 px-[1.714rem]">
+                                            <span className="text-normal font-normal text-gray-700">Arrastra y suelta archivos aquí para subirlos.</span>
+                                        </div>} />
+                                </div>
+                            </XPanel>
+                        )}
+
+
+                        {/* Panel de MISC */}
+                        {/* Panel de Avatar */}
+                        {activePanel === 'avatar' && (
+                            <XPanel
+                                header="Avatar"
+                            >
+                                <div className="grid grid-cols-3 gap-4 p-2 bg-gray-100">
+                                    <XAvatar className="mr-2 mt-4 bg-primary-100 text-primary" label="AB" shape="circle" />
+                                    <XAvatar icon="user" className="mr-2 mt-4 bg-primary-100 text-primary" shape="circle" />
+                                    <XAvatar
+                                        image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+                                        shape="circle"
+                                        className="mr-2 mt-4"
+                                    />
+                                    <XAvatar className="mr-2 mt-4 bg-white text-primary" label="AB" shape="circle" />
+                                    <XAvatar icon="user" className="mr-2 mt-4 bg-white text-primary" shape="circle" />
+                                    <div></div>
+                                    <XAvatar className="mr-2 mt-4 bg-primary-100 text-primary" label="AB" />
+                                    <XAvatar icon="user" className="mr-2 mt-4 bg-primary-100 text-primary" />
+                                    <XAvatar
+                                        image="https://primefaces.org/cdn/primevue/images/organization/walter.jpg"
+                                        className="mr-2 mt-4"
+                                    />
+                                    <XAvatar className="mr-2 mt-4 bg-white text-primary" label="AB" />
+                                    <XAvatar icon="user" className="mr-2 mt-4 bg-white text-primary" />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Badge */}
+                        {activePanel === 'badge' && (
+                            <XPanel
+                                header="Badge"
+                            >
+                                <div className="card flex flex-wrap justify-center gap-2 bg-gray-100">
+
+                                    <XBadge value="1" severity="success"></XBadge>
+                                    <XBadge value="123" severity="success"></XBadge>
+
+                                    <XBadge value="1" severity="danger"></XBadge>
+                                    <XBadge value="123" severity="danger"></XBadge>
+
+                                    <XBadge value="1" severity="contrast"></XBadge>
+                                    <XBadge value="3445" severity="contrast"></XBadge>
+
+                                    <XBadge value="1" severity="info"></XBadge>
+                                    <XBadge value="123" severity="info"></XBadge>
+
+                                    <XBadge value="1" severity="warning"></XBadge>
+                                    <XBadge value="123" severity="warning"></XBadge>
+
+                                    <XBadge value="1" severity="secondary"></XBadge>
+                                    <XBadge value="123" severity="secondary"></XBadge>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de BlockUI */}
+                        {activePanel === 'blockUI' && (
+                            <XPanel
+                                header="blockUI"
+                            >
+                                <div className="card justify-center flex flex-wrap">
+                                    <XBlockUI blocked={blocked} template={<i className="pi pi-lock" style={{ fontSize: '3rem' }}></i>}>
+                                        <XPanel header="Prime React News">
+                                            <p className="m-0">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                                                laborum.
+                                            </p>
+                                        </XPanel>
+                                    </XBlockUI>
+                                    <div className="mt-3 flex flex-column align-items-center">
+                                        <h3>Continue reading?</h3>
+                                        <XButton label={buttonText} onClick={() => setBlocked((oldState) => !oldState)}></XButton>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Chip */}
+                        {activePanel === 'chip' && (
+                            <XPanel
+                                header="Chip"
+                            >
+                                <div className="card justify-center flex flex-wrap  gap-2">
+                                    <XChip label="Action" icon='bnb-casa' />
+                                    <XChip label="Comedy" />
+                                    <XChip label="Mystery" />
+                                    <XChip label="Thriller" removable />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Inplace */}
+                        {activePanel === 'inplace' && (
+                            <XPanel
+                                header="Inplace"
+                            >
+                                <div className="card justify-center flex flex-wrap  gap-2">
+                                    <XInplace  >
+                                        <InplaceDisplay>View Content2</InplaceDisplay>
+                                        <InplaceContent>
+                                            <p className="m-0">
+                                                Lorem ipsum dolor sit ametwwwwwwww, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </InplaceContent>
+                                    </XInplace>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de MeterGroup */}
+                        {activePanel === 'meterGroup' && (
+                            <XPanel
+                                header="MeterGroup"
+                            >
+                                <div className="card justify-center flex">
+                                    <XMeterGroup
+                                        value={data}
+                                        orientation="vertical"
+                                        labelPosition="end"
+                                        labelOrientation="horizontal"
+                                        height="h-3"
+                                    />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de ScrollTop */}
+                        {activePanel === 'scrollTop' && (
+                            <XPanel
+                                header="ScrollTop"
+                            >
+                                <div className="card justify-center flex">
+                                    <div style={{ width: '250px', height: '200px', 'overflow': 'auto' }}>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
+                                            adipiscing elit ut. Nam libero justo laoreet sit amet. Pharetra massa massa ultricies mi quis hendrerit dolor magna. Est ultricies integer quis auctor elit sed vulputate. Consequat ac felis donec et. Tellus orci ac auctor
+                                            augue mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tincidunt arcu non sodales neque sodales. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Sodales ut etiam sit amet
+                                            nisl purus. Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus
+                                            viverra accumsan in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
+                                        </p>
+                                        <XScrollTop target="parent" threshold={100} className="relative m-4 w-2rem h-2rem border-round bg-primary" icon="pi pi-arrow-up text-base" />
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Skeleton */}
+                        {activePanel === 'skeleton' && (
+                            <XPanel
+                                header="Skeleton"
+                            >
+                                <div className="card justify-center">
+                                    <div className="border-round border-1 surface-border p-4 surface-card">
+                                        <div className="flex mb-3">
+                                            <XSkeleton shape="circle" size="4rem" className="mr-2"></XSkeleton>
+                                            <div>
+                                                <XSkeleton width="10rem" className="mb-2"></XSkeleton>
+                                                <XSkeleton width="5rem" className="mb-2"></XSkeleton>
+                                                <XSkeleton height=".5rem"></XSkeleton>
+                                            </div>
                                         </div>
-                                    );
-                                })}
-                            </div>
-                            <div
-                                className="dock-window"
-                                style={{
-                                    backgroundImage: 'url(https://primefaces.org/cdn/primereact/images/dock/window.jpg)',
-                                    width: '1000px',
-                                    height: '500px',
-                                    position: 'relative',
-                                    overflow: 'hidden'
-                                }}
+                                        <XSkeleton width="100%" height="150px"></XSkeleton>
+                                        <div className="flex justify-content-between mt-3">
+                                            <XSkeleton width="4rem" height="2rem"></XSkeleton>
+                                            <XSkeleton width="4rem" height="2rem"></XSkeleton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de ProgressBar */}
+                        {activePanel === 'progressbar' && (
+                            <XPanel
+                                header="ProgressBar"
                             >
-                                <XDock model={itemsDock} position={position} />
-                            </div>
-                        </div>
-                    </div>
-                </XPanel>
-            )}
+                                <div className="card flex justify-center">
+                                    <XProgressBar value={50} />
+                                </div>
+                            </XPanel>
+                        )}
 
-            {/* Panel de MegaMenu */}
-            {activePanel === 'megaMenu' && (
-                <XPanel
-                    header="MegaMenu"
-                >
-                    <div className="card flex justify-center">
-                        <XMegaMenu model={itemsMenuBar} breakpoint="960px" />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de panelMenu */}
-            {activePanel === 'menu' && (
-                <XPanel
-                    header="Menu"
-                >
-                    <div className="card flex justify-center">
-                        <Toast ref={toast}></Toast>
-                        <XMenu model={itemsMenu} popup ref={menuLeft} id="popup_menu_left" />
-                        <XButton label="Show Left" icon="pi pi-align-left" className="mr-2" onClick={(event) => menuLeft.current?.toggle(event)} aria-controls="popup_menu_left" aria-haspopup />
-                        <XMenu model={itemsMenu} popup ref={menuRight} id="popup_menu_right" popupAlignment="right" />
-                        <XButton label="Show Right" icon="pi pi-align-right" className="mr-2" onClick={(event) => menuRight.current?.toggle(event)} aria-controls="popup_menu_right" aria-haspopup />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de menubar */}
-            {activePanel === 'menuBar' && (
-                <XPanel
-                    header="MenuBar"
-                >
-                    <div className="card flex justify-center">
-                        <XMenuBar model={itemsMenuBar} />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de PanelMenu */}
-            {activePanel === 'panelMenu' && (
-                <XPanel
-                    header="PanelMenu"
-                >
-                    <div className="card flex justify-center">
-                        <XPanelMenu model={itemsPanelMenu} className="w-full md:w-20rem" />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de TabMenu */}
-            {activePanel === 'tabMenu' && (
-                <XPanel
-                    header="TabMenu"
-                >
-                    <div className="card flex justify-center">
-                        <XToast ref={toast} />
-                        <XTabMenu model={itemsTabMenu} />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Steps */}
-            {activePanel === 'steps' && (
-                <XPanel
-                    header="steps"
-                >
-                    <div className="card">
-                        <XToast ref={toast} />
-                        <XSteps model={itemsTabMenu} activeIndex={activeIndexSteps} onSelect={(e) => setActiveIndexSteps(e.index)} readOnly={false} />
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de TieredMenu */}
-            {activePanel === 'tieredMenu' && (
-                <XPanel
-                    header="TieredMenu"
-                >
-                    <div className="card flex justify-center">
-                        <XTiredMenu model={itemsTieredMenu} breakpoint="767px" />
-                    </div>
-                </XPanel>
-            )}
-
-
-            {/* Panel de PANEL */}
-            {/* Panel de Accordion */}
-            {activePanel === 'accordion' && (
-                <XPanel
-                    header="Accordion"
-                >
-                    <div className="card justify-center">
-                        <XAccordion activeIndex={0}>
-                            <AccordionTab
-                                header={
-                                    <span className="flex align-items-center gap-2 w-full">
-                                        <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
-                                        <span className="font-bold white-space-nowrap">Amy Elsner</span>
-                                        <Badge value="3" className="ml-auto" />
-                                    </span>
-                                }
+                        {/* Panel de ProgressSpinner */}
+                        {activePanel === 'progressSpinner' && (
+                            <XPanel
+                                header="ProgressSpinner"
                             >
-                                <p className="m-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                <div className="card flex justify-content-center">
+                                    <XProgressSpinner />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Ripple */}
+                        {activePanel === 'ripple' && (
+                            <XPanel
+                                header="Ripple"
+                            >
+                                <div className="card flex justify-center gap-2">
+                                    <div className="p-ripple ripple-card ripple-green">
+                                        Green
+                                        <XRipple />
+                                    </div>
+                                    <div className="p-ripple ripple-card ripple-orange">
+                                        Orange
+                                        <XRipple />
+                                    </div>
+                                    <div className="p-ripple ripple-card ripple-purple">
+                                        Purple
+                                        <XRipple />
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de StyleClass */}
+                        {activePanel === 'styleclass' && (
+                            <XPanel
+                                header="StyleClass"
+                            >
+                                <div className="card flex flex-col items-center space-y-4">
+                                    <div className="flex space-x-2">
+                                        <XStyleClass
+                                            nodeRef={openBtnRef}
+                                            selector=".box"
+                                            toggleClassName="hidden"
+                                        >
+                                            <XButton ref={openBtnRef} label="Show" />
+                                        </XStyleClass>
+                                        <XStyleClass
+                                            nodeRef={closeBtnRef}
+                                            selector=".box"
+                                            toggleClassName="hidden"
+                                        >
+                                            <XButton ref={closeBtnRef} severity="secondary" label="Hide" />
+                                        </XStyleClass>
+                                    </div>
+                                    <div className="box hidden transition-opacity duration-500 ease-in-out opacity-0 [&:not(.hidden)]:opacity-100">
+                                        <div className="bg-green-500 text-white flex items-center justify-center py-3 rounded-md font-bold shadow-md w-32 h-32">
+                                            Content
+                                        </div>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Tag */}
+                        {activePanel === 'tag' && (
+                            <XPanel
+                                header="Tag"
+                            >
+                                <div className="flex flex-wrap justify-center gap-2">
+                                    <XTag value="Primary"></XTag>
+                                    <XTag icon="apple" severity="secondary" value="Secondary"></XTag>
+                                    <XTag icon="archive" severity="success" value="Success"></XTag>
+                                    <XTag icon="atm-dollar" severity="info" value="Info"></XTag>
+                                    <XTag icon="atom" severity="warn" value="Warn"></XTag>
+                                    <XTag icon="camera" severity="danger" value="Danger"></XTag>
+                                    <XTag icon="menu" severity="contrast" value="Contrast"></XTag>
+                                    <XTag icon="arrow-bl" severity="aqua" value="Aqua"></XTag>
+                                    <XTag severity="mint" value="Mint"></XTag>
+                                    <XTag severity="sand" value="Sand"></XTag>
+                                    <XTag severity="orange" value="Orange"></XTag>
+                                    <XTag icon="alarm" severity="magenta" value="Magenta"></XTag>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Terminal */}
+                        {activePanel === 'terminal' && (
+                            <XPanel
+                                header="Terminal"
+                            >
+                                <p>
+                                    Enter "<strong>date</strong>" to display the current date, "<strong>greet {'{0}'}</strong>" for a message, "<strong>random</strong>" to get a random number and "<strong>clear</strong>" to clear all commands.
                                 </p>
-                            </AccordionTab>
-                            <AccordionTab
-                                header={
-                                    <span className="flex align-items-center gap-2 w-full">
-                                        <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" shape="circle" />
-                                        <span className="font-bold white-space-nowrap">Onyama Limba</span>
-                                        <Badge value="4" className="ml-auto" />
-                                    </span>
-                                }
-                            >
-                                <p className="m-0">
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                                    quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                                    sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                                    Consectetur, adipisci velit, sed quia non numquam eius modi.
-                                </p>
-                            </AccordionTab>
-                            <AccordionTab
-                                header={
-                                    <span className="flex align-items-center gap-2 w-full">
-                                        <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" />
-                                        <span className="font-bold white-space-nowrap">Onyama Limba</span>
-                                        <Badge value="4" className="ml-auto" />
-                                    </span>
-                                }
-                            >
-                                <p className="m-0">
-                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                                    quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-                                    mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-                                </p>
-                            </AccordionTab>
-                        </XAccordion>
-                    </div>
-                </XPanel>
-            )}
+                                <XTerminal
+                                    welcomeMessage="Welcome to PrimeReact"
+                                    prompt="primereact $"
+                                />
+                            </XPanel>
+                        )}
 
-            {/* Panel de Card */}
-            {activePanel === 'card' && (
-                <XPanel
-                    header="Card"
-                >
-                    <div className="card flex justify-center gap-4">
-                        <XCard
-                            title="Advanced Card"
-                            subTitle="Card subtitle"
-                            footer={footer}
-                            header={header}
-                            className="md:w-25rem"
-                        >
-                            <p className="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-                                numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-                            </p>
-                        </XCard>
-                        <XCard
-                            title="Advanced Card"
-                            subTitle="Card subtitle"
-                            footer={footer}
-                            header={header}
-                            className="md:w-25rem"
-                        >
-                            <p className="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-                                numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-                            </p>
-                        </XCard>
-                        <XCard>
-                            <div className=''>
-                                <XAvatar label="AB" size="large" className="mr-2 bg-[#F1F0FA] w-[4.5rem] h-[4.313rem] text-[#7866CB]" shape="circle" />
-                            </div>
-                            <div>
-                                <h2 className="font-bold">1. Card Information </h2>
-                                <p className="font-bold pl-[19px]"> Text: <XTag severity="success" value="Success"></XTag></p>
-                                <div className="pl-[19px]">
-                                    <div className="flex flex-row gap-1">
-                                        <p className="font-bold">Text: </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                            Ullam qui earum eius nesciunt nam, tempore voluptatibus dolores reiciendis
-                                            reprehenderit commodi voluptatem nemo iure vitae sit exercitationem laborum,
-                                            laboriosam repudiandae! Dolore culpa harum voluptatibus corporis illum et amet
-                                            quasi doloremque sunt quo, reiciendis iure commodi est? Debitis maiores hic
-                                            quisquam quasi.
+                        {/* Panel de Menu */}
+                        {/* Panel de breadcrumb */}
+                        {activePanel === 'breadcrumb' && (
+                            <XPanel
+                                header="Breadcrumb"
+                            >
+                                <div className="card flex justify-center">
+                                    <XBreadCrumb model={itemsBreadCrumb} home={home} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de contextMenu */}
+                        {activePanel === 'contextmenu' && (
+                            <XPanel
+                                header="ContextMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XContextMenu global model={itemsContextMenu} breakpoint="767px" />
+                                    <p className="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Dock */}
+                        {activePanel === 'dock' && (
+                            <XPanel
+                                header="Dock"
+                            >
+                                <div className="card dock-demo">
+                                    <div className="flex flex-wrap gap-3 mb-5 justify-center">
+                                        <div className="flex-wrap gap-3 mb-5">
+                                            {positions.map((option) => {
+                                                const { value, label } = option;
+
+                                                return (
+                                                    <div className="flex align-items-center" key={label}>
+                                                        <RadioButton value={label} onChange={() => setPosition(option.value)} checked={position === value} />
+                                                        <label htmlFor={label} className="ml-2">
+                                                            {label}
+                                                        </label>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        <div
+                                            className="dock-window"
+                                            style={{
+                                                backgroundImage: 'url(https://primefaces.org/cdn/primereact/images/dock/window.jpg)',
+                                                width: '1000px',
+                                                height: '500px',
+                                                position: 'relative',
+                                                overflow: 'hidden'
+                                            }}
+                                        >
+                                            <XDock model={itemsDock} position={position} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de MegaMenu */}
+                        {activePanel === 'megaMenu' && (
+                            <XPanel
+                                header="MegaMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XMegaMenu model={itemsMenuBar} breakpoint="960px" />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de panelMenu */}
+                        {activePanel === 'menu' && (
+                            <XPanel
+                                header="Menu"
+                            >
+                                <div className="card flex justify-center">
+                                    <Toast ref={toast}></Toast>
+                                    <XMenu model={itemsMenu} popup ref={menuLeft} id="popup_menu_left" />
+                                    <XButton label="Show Left" icon="pi pi-align-left" className="mr-2" onClick={(event) => menuLeft.current?.toggle(event)} aria-controls="popup_menu_left" aria-haspopup />
+                                    <XMenu model={itemsMenu} popup ref={menuRight} id="popup_menu_right" popupAlignment="right" />
+                                    <XButton label="Show Right" icon="pi pi-align-right" className="mr-2" onClick={(event) => menuRight.current?.toggle(event)} aria-controls="popup_menu_right" aria-haspopup />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de menubar */}
+                        {activePanel === 'menuBar' && (
+                            <XPanel
+                                header="MenuBar"
+                            >
+                                <div className="card flex justify-center">
+                                    <XMenuBar model={itemsMenuBar} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de PanelMenu */}
+                        {activePanel === 'panelMenu' && (
+                            <XPanel
+                                header="PanelMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XPanelMenu model={itemsPanelMenu} className="w-full md:w-20rem" />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TabMenu */}
+                        {activePanel === 'tabMenu' && (
+                            <XPanel
+                                header="TabMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XToast ref={toast} />
+                                    <XTabMenu model={itemsTabMenu} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Steps */}
+                        {activePanel === 'steps' && (
+                            <XPanel
+                                header="steps"
+                            >
+                                <div className="card">
+                                    <XToast ref={toast} />
+                                    <XSteps model={itemsTabMenu} activeIndex={activeIndexSteps} onSelect={(e) => setActiveIndexSteps(e.index)} readOnly={false} />
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de TieredMenu */}
+                        {activePanel === 'tieredMenu' && (
+                            <XPanel
+                                header="TieredMenu"
+                            >
+                                <div className="card flex justify-center">
+                                    <XTiredMenu model={itemsTieredMenu} breakpoint="767px" />
+                                </div>
+                            </XPanel>
+                        )}
+
+
+                        {/* Panel de PANEL */}
+                        {/* Panel de Accordion */}
+                        {activePanel === 'accordion' && (
+                            <XPanel
+                                header="Accordion"
+                            >
+                                <div className="card justify-center">
+                                    <XAccordion activeIndex={0}>
+                                        <AccordionTab
+                                            header={
+                                                <span className="flex align-items-center gap-2 w-full">
+                                                    <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+                                                    <span className="font-bold white-space-nowrap">Amy Elsner</span>
+                                                    <Badge value="3" className="ml-auto" />
+                                                </span>
+                                            }
+                                        >
+                                            <p className="m-0">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </AccordionTab>
+                                        <AccordionTab
+                                            header={
+                                                <span className="flex align-items-center gap-2 w-full">
+                                                    <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" shape="circle" />
+                                                    <span className="font-bold white-space-nowrap">Onyama Limba</span>
+                                                    <Badge value="4" className="ml-auto" />
+                                                </span>
+                                            }
+                                        >
+                                            <p className="m-0">
+                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+                                                quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                                                sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                                                Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                            </p>
+                                        </AccordionTab>
+                                        <AccordionTab
+                                            header={
+                                                <span className="flex align-items-center gap-2 w-full">
+                                                    <XAvatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" />
+                                                    <span className="font-bold white-space-nowrap">Onyama Limba</span>
+                                                    <Badge value="4" className="ml-auto" />
+                                                </span>
+                                            }
+                                        >
+                                            <p className="m-0">
+                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                                                quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
+                                                mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                                                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                            </p>
+                                        </AccordionTab>
+                                    </XAccordion>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Card */}
+                        {activePanel === 'card' && (
+                            <XPanel
+                                header="Card"
+                            >
+                                <div className="card flex justify-center gap-4">
+                                    <XCard
+                                        title="Advanced Card"
+                                        subTitle="Card subtitle"
+                                        footer={footer}
+                                        header={header}
+                                        className="md:w-25rem"
+                                    >
+                                        <p className="m-0">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+                                            numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
                                         </p>
-                                    </div>
-                                    <div className="flex flex-row gap-1">
-                                        <p className="font-bold">Text: </p>
-                                        <p>Lorem ipsum dolor</p>
-                                    </div>
-                                    <div className="flex flex-row gap-1">
-                                        <p className="font-bold">Text: </p>
-                                        <p>Lorem ipsum dolor</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </XCard>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Defered */}
-            {activePanel === 'deferred' && (
-                <XPanel
-                    header="Deferred"
-                >
-                    <div className="card flex justify-center">
-                        <p style={{ marginBottom: '70rem', textAlign: 'center' }}>Scroll down to lazy load an image.</p>
-                        <XToast ref={ref} />
-                        <XDeferredContent onLoad={onImageLoad}>
-                            <img className="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primereact/images/galleria/galleria3.jpg" alt="Prime" />
-                        </XDeferredContent>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Divider */}
-            {activePanel === 'divider' && (
-                <XPanel
-                    header="Divider"
-                >
-                    <div className="card flex justify-content-center">
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <XDivider layout="vertical" ><b className='bg-white'>OR</b></XDivider>
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-                            ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                        </p>
-                        <XDivider layout="vertical"><b className='bg-white'>OR</b></XDivider>
-                        <p>
-                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-                            officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-                        </p>
-                    </div>
-
-                    <XDivider align="center">
-                        <b className='bg-white'>Datos</b>
-                    </XDivider>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <XDivider align="left">
-                        <b className='bg-white'>Text</b>
-                    </XDivider>
-                    <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-                        ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                    </p>
-
-                </XPanel>
-            )}
-
-            {/* Panel de Fieldset */}
-            {activePanel === 'fieldset' && (
-                <XPanel
-                    header="Fieldset"
-                >
-                    <div className="card flex justify-content-center">
-                        <XFieldset legend={legendTemplate}>
-                            <p className="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </XFieldset>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Panel */}
-            {activePanel === 'panel' && (
-                <XPanel
-                    header="Panel"
-                >
-                    <div className="card justify-center">
-
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de ScrollPanel */}
-            {activePanel === 'scrollPanel' && (
-                <XPanel
-                    header="ScrollPanel"
-                >
-                    <div className="card scrollpanel-demo">
-                        <div className="flex flex-column md:flex-row gap-5">
-                            <div className="flex-auto">
-                                <XScrollPanel style={{ width: '100%', height: '200px' }} className="custombar1">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p>
-                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                                        eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                                        enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-                                        ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                                    </p>
-                                    <p>
-                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                                        quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
-                                        culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-                                    </p>
-                                </XScrollPanel>
-                            </div>
-                            <div className="flex-auto">
-                                <XScrollPanel style={{ width: '100%', height: '200px' }} className="custombar2">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p>
-                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                                        eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                                        enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-                                        ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                                    </p>
-                                    <p>
-                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                                        quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
-                                        culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-                                    </p>
-                                </XScrollPanel>
-                            </div>
-                        </div>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Splitter */}
-            {activePanel === 'splitter' && (
-                <XPanel
-                    header="Splitter"
-                >
-                    <div className="mb-8">
-                        <h3 className="text-xl font-bold mb-4">Splitter Horizontal</h3>
-                        <div className="h-[300px] border rounded-lg">
-                            <XSplitter
-                                layout="horizontal"
-                                style={{ height: '100%' }}
-                            >
-                                <XSplitterPanel size={30} minSize={20} className="overflow-auto">
-                                    Panel Izquierdo - Contenido del panel izquierdo
-                                </XSplitterPanel>
-                                <XSplitterPanel size={70} minSize={30} className="overflow-auto">
-                                    Panel Derecho - Contenido del panel derecho
-                                </XSplitterPanel>
-                            </XSplitter>
-                        </div>
-
-                        <h3 className="text-xl font-bold mb-4">Splitter Vertical</h3>
-                        <div className="h-[300px] border rounded-lg">
-                            <XSplitter
-                                layout="vertical"
-                                style={{ height: '100%' }}
-                            >
-                                <XSplitterPanel size={30} minSize={20} className="overflow-auto">
-                                    Panel Izquierdo - Contenido del panel izquierdo
-                                </XSplitterPanel>
-                                <XSplitterPanel size={70} minSize={30} className="overflow-auto">
-                                    Panel Derecho - Contenido del panel derecho
-                                </XSplitterPanel>
-                            </XSplitter>
-                        </div>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Stepper */}
-            {activePanel === 'stepper' && (
-                <XPanel
-                    header="Stepper"
-                >
-                    <div className="card flex justify-center">
-                        <XStepper ref={stepperRef} style={{ flexBasis: '50rem' }}>
-                            <StepperPanel header="Header I">
-                                <div className="flex flex-column h-48">
-                                    <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
-                                </div>
-                                <div className="flex pt-4 justify-content-end">
-                                    <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current?.nextCallback()} />
-                                </div>
-                            </StepperPanel>
-                            <StepperPanel header="Header II">
-                                <div className="flex flex-column h-48">
-                                    <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
-                                </div>
-                                <div className="flex pt-4 justify-content-between">
-                                    <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
-                                    <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current?.nextCallback()} />
-                                </div>
-                            </StepperPanel>
-                            <StepperPanel header="Header III">
-                                <div className="flex flex-column h-48">
-                                    <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
-                                </div>
-                                <div className="flex pt-4 justify-content-start">
-                                    <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
-                                </div>
-                            </StepperPanel>
-                        </XStepper>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de TabView */}
-            {activePanel === 'tabview' && (
-                <XPanel
-                    header="TabView"
-                >
-                    <div className="card flex justify-center">
-                        <XTabView>
-                            <TabPanel pt={tabPanelPT} header="Header I">
-                                <p className="m-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                </p>
-                            </TabPanel>
-                            <TabPanel pt={tabPanelPT} header="Header II">
-                                <p className="m-0">
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                                    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-                                    ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                                </p>
-                            </TabPanel>
-                            <TabPanel pt={tabPanelPT} header="Header III">
-                                <p className="m-0">
-                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                                    quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
-                                    culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-                                </p>
-                            </TabPanel>
-                        </XTabView>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de Toolbar */}
-            {activePanel === 'toolbar' && (
-                <XPanel
-                    header="Toolbar"
-                >
-                    <div className="card  justify-center">
-                        <XToolbar start={startContent} center={centerContent} end={endContent} />
-                    </div>
-                </XPanel>
-            )}
-            {/* Panel de NUEVO */}
-            {/* Panel de Snackbar */}
-            {activePanel === 'snackbar' && (
-                <XPanel
-                    header="Snackbar"
-                >
-                    <div className="card">
-                        <XSnackbar
-                            icon="check-circle"
-                            severity="success"
-                            bgCircle="bg-[#E2F7F3]"
-                            classIcon="text-[#15BB9C]"
-                        >
-                            <h3 className="font-bold gap-6">Título del mensaje</h3>
-                            <p>Contenido del mensaje aquí</p>
-                        </XSnackbar>
-                        <br />
-                        <XSnackbar
-                            icon="cancel-circle"
-                            severity="error"
-                            bgCircle="bg-[#FDEDEC]"
-                            classIcon="text-[#E84C3D]"
-                        >
-                            <h3 className="font-bold">Título del mensaje</h3>
-                            <p>Contenido del mensaje aquí</p>
-                        </XSnackbar>
-                        <br />
-                        <XSnackbar
-                            icon="warning-circle"
-                            severity="warn"
-                            bgCircle="bg-[#FEF5E7]"
-                            classIcon="text-[#F39C0F]"
-                        >
-                            <h3 className="font-bold">Título del mensaje</h3>
-                            <p>Contenido del mensaje aquí</p>
-                        </XSnackbar>
-                        <br />
-                        <XSnackbar
-                            icon="info-empty"
-                            severity="info"
-                            bgCircle="bg-[#EBF5FB]"
-                            classIcon="text-[#3698DB]"
-                        >
-                            <h3 className="font-bold">Título del mensaje</h3>
-                            <p>Contenido del mensaje aquí</p>
-                        </XSnackbar>
-                        <br />
-                        <XSnackbar
-                            icon="help-circle"
-                            severity="secondary"
-                            bgCircle="bg-[#F3F3F3]"
-                            classIcon="text-[#686868]"
-                        >
-                            <h3 className="font-bold">Título del mensaje</h3>
-                            <p>Contenido del mensaje aquí</p>
-                        </XSnackbar>
-                        <br />
-                        <XSnackbar
-                            icon="help-circle"
-                            severity="contrast"
-                            bgCircle="bg-[#686868]"
-                            classIcon="text-[#FFFFFF]"
-                            closable={false}
-                        >
-                            <p>Contenido del mensaje aquí</p>
-                        </XSnackbar>
-                    </div>
-                </XPanel>
-            )}
-
-            {/* Panel de InputPhoneNumber */}
-            {activePanel === 'cardInformation' && (
-                <XPanel
-                    header="Card Information"
-                >
-                    <div className="card flex justify-center gap-4">
-                        <XCard>
-                            <div>
-                                <XAvatar label="AB" size="large" className="mr-2 bg-purple-50 w-[4.5rem] h-[4.313rem] text-purple-600" shape="circle" />
-                            </div>                                        <div>
-                                <h2 className="font-bold">1. Card Information </h2>
-                                <p className="font-bold pl-[1.188rem]"> Text: <XTag severity="success" value="Success"></XTag></p>
-                                <div className="pl-[1.188rem]">
-                                    <div className="flex flex-row gap-1">
-                                        <p className="font-bold">Text: </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                            Ullam qui earum eius nesciunt nam, tempore voluptatibus dolores reiciendis
-                                            reprehenderit commodi voluptatem nemo iure vitae sit exercitationem laborum,
-                                            laboriosam repudiandae! Dolore culpa harum voluptatibus corporis illum et amet
-                                            quasi doloremque sunt quo, reiciendis iure commodi est? Debitis maiores hic
-                                            quisquam quasi.
+                                    </XCard>
+                                    <XCard
+                                        title="Advanced Card"
+                                        subTitle="Card subtitle"
+                                        footer={footer}
+                                        header={header}
+                                        className="md:w-25rem"
+                                    >
+                                        <p className="m-0">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+                                            numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
                                         </p>
-                                    </div>
-                                    <div className="flex flex-row gap-1">
-                                        <p className="font-bold">Text: </p>
-                                        <p>Lorem ipsum dolor</p>
-                                    </div>
-                                    <div className="flex flex-row gap-1">
-                                        <p className="font-bold">Text: </p>
-                                        <p>Lorem ipsum dolor</p>
+                                    </XCard>
+                                    <XCard>
+                                        <div className=''>
+                                            <XAvatar label="AB" size="large" className="mr-2 bg-[#F1F0FA] w-[4.5rem] h-[4.313rem] text-[#7866CB]" shape="circle" />
+                                        </div>
+                                        <div>
+                                            <h2 className="font-bold">1. Card Information </h2>
+                                            <p className="font-bold pl-[19px]"> Text: <XTag severity="success" value="Success"></XTag></p>
+                                            <div className="pl-[19px]">
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                        Ullam qui earum eius nesciunt nam, tempore voluptatibus dolores reiciendis
+                                                        reprehenderit commodi voluptatem nemo iure vitae sit exercitationem laborum,
+                                                        laboriosam repudiandae! Dolore culpa harum voluptatibus corporis illum et amet
+                                                        quasi doloremque sunt quo, reiciendis iure commodi est? Debitis maiores hic
+                                                        quisquam quasi.
+                                                    </p>
+                                                </div>
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>Lorem ipsum dolor</p>
+                                                </div>
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>Lorem ipsum dolor</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </XCard>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Defered */}
+                        {activePanel === 'deferred' && (
+                            <XPanel
+                                header="Deferred"
+                            >
+                                <div className="card flex justify-center">
+                                    <p style={{ marginBottom: '70rem', textAlign: 'center' }}>Scroll down to lazy load an image.</p>
+                                    <XToast ref={ref} />
+                                    <XDeferredContent onLoad={onImageLoad}>
+                                        <img className="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primereact/images/galleria/galleria3.jpg" alt="Prime" />
+                                    </XDeferredContent>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Divider */}
+                        {activePanel === 'divider' && (
+                            <XPanel
+                                header="Divider"
+                            >
+                                <div className="card flex justify-content-center">
+
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    </p>
+                                    <XDivider layout="vertical" ><b className='bg-white'>OR</b></XDivider>
+                                    <p>
+                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                                        ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                    </p>
+                                    <XDivider layout="vertical"><b className='bg-white'>OR</b></XDivider>
+                                    <p>
+                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
+                                        officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                    </p>
+                                </div>
+
+                                <XDivider align="center">
+                                    <b className='bg-white'>Datos</b>
+                                </XDivider>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </p>
+                                <XDivider align="left">
+                                    <b className='bg-white'>Text</b>
+                                </XDivider>
+                                <p>
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                </p>
+
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Fieldset */}
+                        {activePanel === 'fieldset' && (
+                            <XPanel
+                                header="Fieldset"
+                            >
+                                <div className="card flex justify-content-center">
+                                    <XFieldset legend={legendTemplate}>
+                                        <p className="m-0">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </p>
+                                    </XFieldset>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Panel */}
+                        {activePanel === 'panel' && (
+                            <XPanel
+                                header="Panel"
+                            >
+                                <div className="card justify-center">
+
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de ScrollPanel */}
+                        {activePanel === 'scrollPanel' && (
+                            <XPanel
+                                header="ScrollPanel"
+                            >
+                                <div className="card scrollpanel-demo">
+                                    <div className="flex flex-column md:flex-row gap-5">
+                                        <div className="flex-auto">
+                                            <XScrollPanel style={{ width: '100%', height: '200px' }} className="custombar1">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                </p>
+                                                <p>
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                                                    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                                                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+                                                    ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                                </p>
+                                                <p>
+                                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                                                    quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
+                                                    culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                                                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                                </p>
+                                            </XScrollPanel>
+                                        </div>
+                                        <div className="flex-auto">
+                                            <XScrollPanel style={{ width: '100%', height: '200px' }} className="custombar2">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                </p>
+                                                <p>
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                                                    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                                                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+                                                    ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                                </p>
+                                                <p>
+                                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                                                    quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
+                                                    culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                                                    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                                </p>
+                                            </XScrollPanel>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </XCard>
-                    </div>
-                </XPanel>
-            )}
+                            </XPanel>
+                        )}
 
-            {/* Panel de CardMenu */}
-            {activePanel === 'cardMenu' && (
-                <XPanel
-                    header="Card Menu"
-                >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-                        {[0, 1, 2].map((id) => (
-                            <div
-                                key={id}
-                                onClick={() => setSelectedCard(id)}
-                                className="cursor-pointer w-full"
+                        {/* Panel de Splitter */}
+                        {activePanel === 'splitter' && (
+                            <XPanel
+                                header="Splitter"
                             >
-                                <XCardPrueba
-                                    orientation="vertical"
-                                    title="Card especial"
-                                    body="Este es un contenido completamente diferente"
-                                    showArrow={false}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                                <div className="mb-8">
+                                    <h3 className="text-xl font-bold mb-4">Splitter Horizontal</h3>
+                                    <div className="h-[300px] border rounded-lg">
+                                        <XSplitter
+                                            layout="horizontal"
+                                            style={{ height: '100%' }}
+                                        >
+                                            <XSplitterPanel size={30} minSize={20} className="overflow-auto">
+                                                Panel Izquierdo - Contenido del panel izquierdo
+                                            </XSplitterPanel>
+                                            <XSplitterPanel size={70} minSize={30} className="overflow-auto">
+                                                Panel Derecho - Contenido del panel derecho
+                                            </XSplitterPanel>
+                                        </XSplitter>
+                                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-                        {[0, 1, 2].map((id) => (
-                            <div
-                                key={id}
-                                onClick={() => setSelectedCard(id)}
-                                className="cursor-pointer w-full"
+                                    <h3 className="text-xl font-bold mb-4">Splitter Vertical</h3>
+                                    <div className="h-[300px] border rounded-lg">
+                                        <XSplitter
+                                            layout="vertical"
+                                            style={{ height: '100%' }}
+                                        >
+                                            <XSplitterPanel size={30} minSize={20} className="overflow-auto">
+                                                Panel Izquierdo - Contenido del panel izquierdo
+                                            </XSplitterPanel>
+                                            <XSplitterPanel size={70} minSize={30} className="overflow-auto">
+                                                Panel Derecho - Contenido del panel derecho
+                                            </XSplitterPanel>
+                                        </XSplitter>
+                                    </div>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Stepper */}
+                        {activePanel === 'stepper' && (
+                            <XPanel
+                                header="Stepper"
                             >
-                                <XCardPrueba
-                                    orientation="horizontal"
-                                    title="Title text"
-                                    body="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"
-                                    showArrow={true}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                                <div className="card flex justify-center">
+                                    <XStepper ref={stepperRef} style={{ flexBasis: '50rem' }}>
+                                        <StepperPanel header="Header I">
+                                            <div className="flex flex-column h-48">
+                                                <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
+                                            </div>
+                                            <div className="flex pt-4 justify-content-end">
+                                                <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current?.nextCallback()} />
+                                            </div>
+                                        </StepperPanel>
+                                        <StepperPanel header="Header II">
+                                            <div className="flex flex-column h-48">
+                                                <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
+                                            </div>
+                                            <div className="flex pt-4 justify-content-between">
+                                                <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
+                                                <XButton label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current?.nextCallback()} />
+                                            </div>
+                                        </StepperPanel>
+                                        <StepperPanel header="Header III">
+                                            <div className="flex flex-column h-48">
+                                                <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
+                                            </div>
+                                            <div className="flex pt-4 justify-content-start">
+                                                <XButton label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
+                                            </div>
+                                        </StepperPanel>
+                                    </XStepper>
+                                </div>
+                            </XPanel>
+                        )}
 
-                    <div className="flex flex-wrap gap-6 p-6">
-                        {[0, 1, 2].map((id) => (
-                            <div key={id} onClick={() => setSelectedCard(id)} className="cursor-pointer">
-                                <XCardPrueba
-                                    orientation={id % 2 === 0 ? 'vertical' : 'horizontal'}
-                                    disabled={id % 2 === 0 ? true : false}
-                                    title={id % 2 === 0 ? 'Title text' : 'Title text disabled'}
-                                    body={id % 2 === 0 ? 'Lorem Ipsum is simply dummy text typesetting industry.' : 'Lorem Ipsum is simply dummy text  text ever since the 1500s, when an unknown printer took a galley'}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </XPanel>
-            )}
+                        {/* Panel de TabView */}
+                        {activePanel === 'tabview' && (
+                            <XPanel
+                                header="TabView"
+                            >
+                                <div className="card flex justify-center">
+                                    <XTabView>
+                                        <TabPanel pt={tabPanelPT} header="Header I">
+                                            <p className="m-0">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </TabPanel>
+                                        <TabPanel pt={tabPanelPT} header="Header II">
+                                            <p className="m-0">
+                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                                                eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                                                enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+                                                ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                            </p>
+                                        </TabPanel>
+                                        <TabPanel pt={tabPanelPT} header="Header III">
+                                            <p className="m-0">
+                                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
+                                                quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in
+                                                culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                                                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                                            </p>
+                                        </TabPanel>
+                                    </XTabView>
+                                </div>
+                            </XPanel>
+                        )}
 
-            {/* Panel de Snackbar */}
-            {activePanel === 'inputPhoneCodeSelector' && (
-                <XPanel
-                    header="Input Phone Code Selector"
-                >
-                    <div className="card flex justify-center">
-                        <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
-                            <XInputPhoneCodeSelector
-                                name="phoneNumber"
-                                label="Teléfono"
-                                labelRequired
-                                rules={{ required: 'El teléfono es requerido' }}
-                                defaultCountry="BO"
-                            />
-                            <XButton type="submit" label="Enviar" />
-                        </XForm>
-                    </div>
-                </XPanel>
-            )}
+                        {/* Panel de Toolbar */}
+                        {activePanel === 'toolbar' && (
+                            <XPanel
+                                header="Toolbar"
+                            >
+                                <div className="card  justify-center">
+                                    <XToolbar start={startContent} center={centerContent} end={endContent} />
+                                </div>
+                            </XPanel>
+                        )}
+                        {/* Panel de NUEVO */}
+                        {/* Panel de Snackbar */}
+                        {activePanel === 'snackbar' && (
+                            <XPanel
+                                header="Snackbar"
+                            >
+                                <div className="card">
+                                    <XSnackbar
+                                        icon="check-circle"
+                                        severity="success"
+                                        bgCircle="bg-[#E2F7F3]"
+                                        classIcon="text-[#15BB9C]"
+                                    >
+                                        <h3 className="font-bold gap-6">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="cancel-circle"
+                                        severity="error"
+                                        bgCircle="bg-[#FDEDEC]"
+                                        classIcon="text-[#E84C3D]"
+                                    >
+                                        <h3 className="font-bold">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="warning-circle"
+                                        severity="warn"
+                                        bgCircle="bg-[#FEF5E7]"
+                                        classIcon="text-[#F39C0F]"
+                                    >
+                                        <h3 className="font-bold">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="info-empty"
+                                        severity="info"
+                                        bgCircle="bg-[#EBF5FB]"
+                                        classIcon="text-[#3698DB]"
+                                    >
+                                        <h3 className="font-bold">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="help-circle"
+                                        severity="secondary"
+                                        bgCircle="bg-[#F3F3F3]"
+                                        classIcon="text-[#686868]"
+                                    >
+                                        <h3 className="font-bold">Título del mensaje</h3>
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                    <br />
+                                    <XSnackbar
+                                        icon="help-circle"
+                                        severity="contrast"
+                                        bgCircle="bg-[#686868]"
+                                        classIcon="text-[#FFFFFF]"
+                                        closable={false}
+                                    >
+                                        <p>Contenido del mensaje aquí</p>
+                                    </XSnackbar>
+                                </div>
+                            </XPanel>
+                        )}
 
-            {/* Panel por defecto cuando no hay selección */}
-            {!activePanel && (
-                <XPanel
-                    header="Seleccione un componente"
-                >
-                    <div className="card flex justify-center">
-                        Por favor seleccione un componente del menú lateral
-                    </div>
-                </XPanel>
-            )}
-        </div >
+                        {/* Panel de InputPhoneNumber */}
+                        {activePanel === 'cardInformation' && (
+                            <XPanel
+                                header="Card Information"
+                            >
+                                <div className="card flex justify-center gap-4">
+                                    <XCard>
+                                        <div>
+                                            <XAvatar label="AB" size="large" className="mr-2 bg-purple-50 w-[4.5rem] h-[4.313rem] text-purple-600" shape="circle" />
+                                        </div>                                        <div>
+                                            <h2 className="font-bold">1. Card Information </h2>
+                                            <p className="font-bold pl-[1.188rem]"> Text: <XTag severity="success" value="Success"></XTag></p>
+                                            <div className="pl-[1.188rem]">
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                        Ullam qui earum eius nesciunt nam, tempore voluptatibus dolores reiciendis
+                                                        reprehenderit commodi voluptatem nemo iure vitae sit exercitationem laborum,
+                                                        laboriosam repudiandae! Dolore culpa harum voluptatibus corporis illum et amet
+                                                        quasi doloremque sunt quo, reiciendis iure commodi est? Debitis maiores hic
+                                                        quisquam quasi.
+                                                    </p>
+                                                </div>
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>Lorem ipsum dolor</p>
+                                                </div>
+                                                <div className="flex flex-row gap-1">
+                                                    <p className="font-bold">Text: </p>
+                                                    <p>Lorem ipsum dolor</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </XCard>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de CardMenu */}
+                        {activePanel === 'cardMenu' && (
+                            <XPanel
+                                header="Card Menu"
+                            >
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+                                    {[0, 1, 2].map((id) => (
+                                        <div
+                                            key={id}
+                                            onClick={() => setSelectedCard(id)}
+                                            className="cursor-pointer w-full"
+                                        >
+                                            <XCardPrueba
+                                                orientation="vertical"
+                                                title="Card especial"
+                                                body="Este es un contenido completamente diferente"
+                                                showArrow={false}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+                                    {[0, 1, 2].map((id) => (
+                                        <div
+                                            key={id}
+                                            onClick={() => setSelectedCard(id)}
+                                            className="cursor-pointer w-full"
+                                        >
+                                            <XCardPrueba
+                                                orientation="horizontal"
+                                                title="Title text"
+                                                body="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"
+                                                showArrow={true}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="flex flex-wrap gap-6 p-6">
+                                    {[0, 1, 2].map((id) => (
+                                        <div key={id} onClick={() => setSelectedCard(id)} className="cursor-pointer">
+                                            <XCardPrueba
+                                                orientation={id % 2 === 0 ? 'vertical' : 'horizontal'}
+                                                disabled={id % 2 === 0 ? true : false}
+                                                title={id % 2 === 0 ? 'Title text' : 'Title text disabled'}
+                                                body={id % 2 === 0 ? 'Lorem Ipsum is simply dummy text typesetting industry.' : 'Lorem Ipsum is simply dummy text  text ever since the 1500s, when an unknown printer took a galley'}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel de Snackbar */}
+                        {activePanel === 'inputPhoneCodeSelector' && (
+                            <XPanel
+                                header="Input Phone Code Selector"
+                            >
+                                <div className="card flex justify-center">
+                                    <XForm onSubmit={() => { console.log('OK') }} onInvalid={() => console.log('ERROR')} className="p-4 space-y-4">
+                                        <XInputPhoneCodeSelector
+                                            name="phoneNumber"
+                                            label="Teléfono"
+                                            labelRequired
+                                            rules={{ required: 'El teléfono es requerido' }}
+                                            defaultCountry="BO"
+                                        />
+                                        <XButton type="submit" label="Enviar" />
+                                    </XForm>
+                                </div>
+                            </XPanel>
+                        )}
+
+                        {/* Panel por defecto cuando no hay selección */}
+                        {!activePanel && (
+                            <XPanel
+                                header="Seleccione un componente"
+                            >
+                                <div className="card flex justify-center">
+                                    Por favor seleccione un componente del menú lateral
+                                </div>
+                            </XPanel>
+                        )}
+                    </div >
                 </div >
             </div >
         </>

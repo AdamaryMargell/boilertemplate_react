@@ -78,7 +78,7 @@ const XInputPhoneCodeSelector = ({
                 )}
                 <div className="w-[260px] h-[50px] px-[16px] py-[10px] border rounded-md border-gray-300 bg-gray-50">
                     <div className="flex items-center h-full">
-                        <div className="w-8 h-4 bg-gray-200 rounded mr-2 animate-pulse"></div>
+                        <div className="w-8 h-6 bg-gray-200 rounded mr-2 animate-pulse"></div>
                         <div className="flex-1 h-4 bg-gray-200 rounded animate-pulse"></div>
                     </div>
                 </div>

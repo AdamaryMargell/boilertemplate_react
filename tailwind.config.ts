@@ -14,8 +14,6 @@ const config: Config = {
     "./src/primereact-tailwindcss/**/*.js",
   ],
   theme: {
-
-
     extend: {
       spacing: Object.fromEntries(
         Array.from({ length: 100 }, (_, index) => [index, `calc(${index}*(2/14)*1rem)`])

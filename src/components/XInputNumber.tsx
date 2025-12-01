@@ -1,5 +1,4 @@
 'use client';
-import { inputNumberPT } from '@/primereact-tailwindcss/inputNumber.pt';
 import { InputNumber, InputNumberProps } from 'primereact/inputnumber';
 import { useController, useFormContext } from 'react-hook-form';
 
@@ -54,7 +53,6 @@ export const XInputNumber = ({
                 onChange={handleChange}
                 className={`${error ? 'p-invalid' : ''} ${props.className || ''}`}
                 aria-describedby={error ? `${name}-error` : undefined}
-                pt={inputNumberPT(!!error)}
             />
             {error?.message && (
                 <small id={`${name}-error`} className="text-xs text-red-500">

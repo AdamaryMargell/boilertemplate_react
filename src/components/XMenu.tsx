@@ -18,6 +18,6 @@ const XMenu = forwardRef<Menu, XMenuProps>(({ children, ...props }, ref) => {
     );
 });
 
-XMenu.displayName = 'XMenu'; // Esto ayuda en debugging
+XMenu.displayName = 'XMenu';
 
 export default XMenu;

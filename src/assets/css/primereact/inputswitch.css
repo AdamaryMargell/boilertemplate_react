@@ -1,0 +1,58 @@
+.p-inputswitch {
+    @apply relative inline-block w-21 h-[1.75rem];
+}
+.p-inputswitch-input {
+    @apply appearance-none absolute top-0 left-0 w-full h-full p-0 m-0 
+    opacity-0 z-[1] outline-none cursor-pointer rounded-[2.143rem];
+}
+.p-inputswitch-slider {
+    @apply absolute cursor-pointer inset-0 border border-transparent 
+    rounded-[9.286rem] transition-colors duration-200
+    bg-gray-300 dark:bg-gray-300
+}
+
+.p-inputswitch .p-inputswitch-slider:before {
+    @apply  absolute content-[""] top-2/4 bg-white 
+    w-[1.25rem] h-[1.25rem] left-[0.25rem] mt-[-0.625rem]
+    rounded-[9.286rem];
+}
+
+.p-inputswitch.p-highlight .p-inputswitch-slider {
+    @apply bg-primary
+}
+
+.p-inputswitch.p-highlight .p-inputswitch-slider:before {
+    @apply bg-white dark:bg-white text-primary font-normal left-9;
+}
+
+.p-inputswitch:not(.p-disabled):has(.p-inputswitch-input:hover) .p-inputswitch-slider {
+    @apply bg-gray-500 dark:bg-gray-500
+}
+
+.p-inputswitch:not(.p-disabled):has(.p-inputswitch-input:hover) .p-inputswitch-slider:before {
+    @apply bg-white dark:bg-white text-primary dark:text-primary text-[0.594rem] font-normal start-2
+}
+
+.p-inputswitch:not(.p-disabled):has(.p-inputswitch-input:hover).p-highlight .p-inputswitch-slider {
+    @apply bg-primary-700
+}
+
+.p-inputswitch:not(.p-disabled):has(.p-inputswitch-input:focus-visible) .p-inputswitch-slider {
+@apply outline outline-1 outline-offset-2 outline-primary
+}
+
+.p-inputswitch.p-invalid>.p-inputswitch-slider {
+    @apply border-red-500 dark:border-red-500
+}
+
+.p-inputswitch.p-disabled {
+    @apply opacity-100
+}
+
+.p-inputswitch.p-disabled .p-inputswitch-slider {
+    @apply bg-gray-100 dark:bg-gray-100
+}
+
+.p-inputswitch.p-disabled .p-inputswitch-slider:before {
+    @apply bg-gray-100 dark:bg-gray-100 shadow-[0_2px_8px_0_rgba(0,0,0,0.15)]
+}
